@@ -7,8 +7,8 @@
 [System.Serializable]
 public struct PickUpBoost {
     //TODO: Add PickUpBoost information - Used to give boosts to player.
-	[Tooltip("Duration (in seconds) to apply temporary bonuses")]
-	public float durationInSeconds;	
+	[Tooltip("Energy boost given.")]
+	public float energyFromBoost;	
 }
 
 /// <summary>
@@ -19,9 +19,21 @@ public class PickUpManager : MonoBehaviour {
 	public PickUpBoost pickUpBoost;
 
     /// <summary>
+    /// If player triggers this pick-up, execute the pick-up and get rid of this object.
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            ExecutePickUp();
+
+    }
+
+    /// <summary>
     /// Applies (pickUpBoost) bonuses to player.
     /// </summary>
 	public void ExecutePickUp() {
-		PlayerManager.Singleton.ApplyPickUpBoost (pickUpBoost);
+		PlayerManager.Singleton.ApplyEnergyBoost (pickUpBoost);
+        Destroy(gameObject);
 	}
 }

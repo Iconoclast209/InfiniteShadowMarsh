@@ -10,6 +10,8 @@ public class Rotator : MonoBehaviour {
     public float rotationSpeed;
     [Tooltip("Direction of spin. Unselected will turn counter-clockwise.")]
     public bool clockwiseRotation;
+    [Tooltip("Is rotation enabled?")]
+    public bool rotationEnabled = true;
 
     /// <summary>
     /// Reference to object's Rigidbody2D component.
@@ -27,15 +29,26 @@ public class Rotator : MonoBehaviour {
     /// Determines rotation direction based off of (clockwiseRotation) boolean, then rotates at (rotationSpeed).
     /// </summary>
 	void Update () {
-        if (clockwiseRotation)
+        if (rotationEnabled)
         {
-            rotationSpeed = -Mathf.Abs(rotationSpeed);
-        } else
-        {
-            rotationSpeed = -Mathf.Abs(rotationSpeed) * -1;
-        }
+            if (clockwiseRotation)
+            {
+                rotationSpeed = -Mathf.Abs(rotationSpeed);
+            }
+            else
+            {
+                rotationSpeed = -Mathf.Abs(rotationSpeed) * -1;
+            }
 
-        rb.angularVelocity = rotationSpeed;
-		
+            rb.angularVelocity = rotationSpeed;
+        }
 	}
+
+    /// <summary>
+    /// Public function that allows rotation to be enabled.
+    /// </summary>
+    public void EnableRotation()
+    {
+        rotationEnabled = true;
+    }
 }

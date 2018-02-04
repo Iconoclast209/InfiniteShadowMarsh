@@ -5,15 +5,19 @@
 /// </summary>
 public class PlayerManager : MonoBehaviour {
 
-	[Tooltip("Maximum Player Health")]
+	[Tooltip("Maximum Health")]
 	public int maximumHealth;
-    [Tooltip("Player Speed")]
+    [Tooltip("Maximum Energy")]
+    public int maximumEnergy;
+    [Tooltip("How fast player runs.")]
 	public float movementSpeed;
+    [Tooltip("How fast player climbs.")]
+    public float climbSpeed;
+    [Tooltip("Power of player jump.")]
+    public float jumpStrength;
+    [Tooltip("Energy Bar reference")]
+    public EnergyBar energyBar;
 
-    /// <summary>
-    /// Pick Up Bonuses assigned to player.
-    /// </summary>
-	private PickUpBoost pickUpBonus;
     /// <summary>
     /// Reference to health bar HUD component.
     /// </summary>
@@ -23,9 +27,21 @@ public class PlayerManager : MonoBehaviour {
     /// </summary>
     private Rigidbody2D rb;
     /// <summary>
+    /// Reference to players animator.
+    /// </summary>
+    private Animator animator;
+    private SpriteRenderer sprite;
+    /// <summary>
+    /// Flag - Is Player In Front of object with Ladder Tag?
+    /// </summary>
+    private bool inFrontOfLadder = false;
+    /// <summary>
     /// Player's current health.
     /// </summary>
     private int currentHealth;
+    /// <summary>
+    /// Get player's current health.
+    /// </summary>
     public int CurrentHealth
     {
         get
@@ -36,6 +52,25 @@ public class PlayerManager : MonoBehaviour {
         private set
         {
             currentHealth = value;
+        }
+    }
+    /// <summary>
+    /// Player's current energy
+    /// </summary>
+    private float currentEnergy;
+    /// <summary>
+    /// Get player's current energy
+    /// </summary>
+    public float CurrentEnergy
+    {
+        get
+        {
+            return currentEnergy;
+        }
+
+        private set
+        {
+            currentEnergy = value;
         }
     }
 
@@ -57,6 +92,8 @@ public class PlayerManager : MonoBehaviour {
 
 
 
+
+
     /// <summary>
     /// Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.
     /// </summary>
@@ -72,12 +109,23 @@ public class PlayerManager : MonoBehaviour {
 		CurrentHealth = maximumHealth;
         if (CurrentHealth == 0)
             print("Player's maximum health has not been set!");
+        CurrentEnergy = 0;
 
         //Get Rigidbody2D w/ error check
-        rb = GetComponent<Rigidbody2D> ();
+        rb = GetComponent<Rigidbody2D>();
         if (rb == null)
             print("Can't find player's Rigidbody2D component!");
-	}
+
+        //Get Animator w/ error check
+        animator = GetComponent<Animator>();
+        if (animator == null)
+            print("Can't find player's Animator component!");
+
+        //Get SpriteRenderer w/ error check
+        sprite = GetComponent<SpriteRenderer>();
+        if (animator == null)
+            print("Can't find player's SpriteRenderer component!");
+    }
 
     /// <summary>
     /// Set-up involving third-parties.
@@ -88,31 +136,91 @@ public class PlayerManager : MonoBehaviour {
 	} 
 
     /// <summary>
-    /// Will hold any necessary physics related functionality.
+    /// Performs movements and animations.
     /// </summary>
-	void FixedUpdate () {
-		
-	} 
+	private void FixedUpdate () {
+        //TODO: Add falling functionality
+        //PRONTO: Get animations to test these features!
+
+        //Applies movement based on input, makes sprite face direction of movement, and sends animator data to use movement animation.
+        float playerMovement = Input.GetAxis("Horizontal");
+        if (playerMovement > 0.0f && sprite.flipX == false)
+            sprite.flipX = true;
+        if (playerMovement < 0.0f && sprite.flipX == true)
+            sprite.flipX = false;
+        animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
+        rb.velocity = new Vector2(playerMovement * movementSpeed, rb.velocity.y);
+
+        //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
+        if (inFrontOfLadder)
+        {
+            float playerClimbSpeed = Input.GetAxis("Vertical");
+            if (playerClimbSpeed > 0.0f)
+            {
+                animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
+            }
+            else
+            {
+                animator.SetFloat("playerClimbSpeed", 0.0f);
+            }
+            rb.velocity = new Vector2(rb.velocity.x, climbSpeed * playerClimbSpeed);  
+        } 
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            animator.SetTrigger("jumped");
+            animator.ResetTrigger("jumped");
+        }
+	}
 
     /// <summary>
     /// Per-frame update information. 
     /// </summary>
-	void Update()
+	private void Update()
     {
-        PickUpBoostMonitor();
+        DrainEnergy();
+        energyBar.ResizeEnergyBar();
     } 
+
+    /// <summary>
+    /// Detects if player entered "Ladder" trigger, and let them climb.
+    /// </summary>
+    /// <param name="collision">object collided with.</param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            inFrontOfLadder = true;
+        }
+    }
+
+    /// <summary>
+    /// Detects if player left "Ladder" trigger, and prevent climbing.
+    /// </summary>
+    /// <param name="collision">object collided with.</param>
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            inFrontOfLadder = false;
+            animator.SetFloat("playerClimbSpeed", 0.0f);
+        }
+    }
+
+
 
     /// <summary>
     /// If player is boosted, reduce counter, removing boost when appropriate.
     /// </summary>
-    private void PickUpBoostMonitor()
+    private void DrainEnergy()
     {
-        if (pickUpBonus.durationInSeconds > 0.0f)
+        if (currentEnergy > 0.0f)
         {
-            pickUpBonus.durationInSeconds -= Time.deltaTime;
-            if (pickUpBonus.durationInSeconds <= 0.0f)
+            currentEnergy -= Time.deltaTime;
+            if (currentEnergy <= 0.0f)
             {
-                RemovePickUpBoost();
+                RemoveEnergyBoost();
             }
         }
     }
@@ -121,21 +229,29 @@ public class PlayerManager : MonoBehaviour {
     /// Applies pickup boost to player, and sets duration.
     /// </summary>
     /// <param name="modsFromPickUp"></param>
-    public void ApplyPickUpBoost(PickUpBoost modsFromPickUp)
+    public void ApplyEnergyBoost(PickUpBoost energyFromPickUp)
 	{
-		if (pickUpBonus.durationInSeconds == 0.0f && modsFromPickUp.durationInSeconds > 0.0f) {
-			//TODO: Add ApplyPickUpBoost functionality based on what pickupBoost will contain
-		}
+        currentEnergy += energyFromPickUp.energyFromBoost;
+        if (currentEnergy > maximumEnergy)
+            currentEnergy = maximumEnergy;
+        rb.gravityScale /= 2;
+        movementSpeed *= 1.5f;
+        climbSpeed *= 1.5f;
+        jumpStrength *= 1.5f;
+        energyBar.ResizeEnergyBar();
 	}
 
     /// <summary>
     /// Removes pickup boost modifications to player.
     /// </summary>
-	public void RemovePickUpBoost()
+	public void RemoveEnergyBoost()
 	{
-        //TODO: Add RemovePickUpBoost functionality based on what pickupBoost will contain
-		print ("Powering Down...");
-	}
+        currentEnergy = 0;
+        rb.gravityScale *= 2;
+        movementSpeed /= 1.5f;
+        climbSpeed /= 1.5f;
+        jumpStrength /= 1.5f;
+    }
 
     /// <summary>
     /// Applies damage to player.  
@@ -150,4 +266,6 @@ public class PlayerManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+
 }
