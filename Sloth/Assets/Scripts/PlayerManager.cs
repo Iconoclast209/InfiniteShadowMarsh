@@ -30,7 +30,14 @@ public class PlayerManager : MonoBehaviour {
     /// Reference to players animator.
     /// </summary>
     private Animator animator;
+    /// <summary>
+    /// Reference to player's Sprite Renderer component.
+    /// </summary>
     private SpriteRenderer sprite;
+    /// <summary>
+    /// Any boosts from a pick-up will be stored here.
+    /// </summary>
+    private PickUpBoost boostFromPickUp;
     /// <summary>
     /// Flag - Is Player In Front of object with Ladder Tag?
     /// </summary>
@@ -151,6 +158,8 @@ public class PlayerManager : MonoBehaviour {
         animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
         rb.velocity = new Vector2(playerMovement * movementSpeed, rb.velocity.y);
 
+        //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
+        //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
         //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
         if (inFrontOfLadder)
         {
@@ -166,6 +175,8 @@ public class PlayerManager : MonoBehaviour {
             rb.velocity = new Vector2(rb.velocity.x, climbSpeed * playerClimbSpeed);  
         } 
 
+        //BUGGED: Can jump multiple times in a row, while in air.  Need to prevent this.
+        //TODO: Tie in jumping w/ falling, etc.
         if(Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
@@ -207,9 +218,7 @@ public class PlayerManager : MonoBehaviour {
             animator.SetFloat("playerClimbSpeed", 0.0f);
         }
     }
-
-
-
+    
     /// <summary>
     /// If player is boosted, reduce counter, removing boost when appropriate.
     /// </summary>
@@ -229,15 +238,25 @@ public class PlayerManager : MonoBehaviour {
     /// Applies pickup boost to player, and sets duration.
     /// </summary>
     /// <param name="modsFromPickUp"></param>
-    public void ApplyEnergyBoost(PickUpBoost energyFromPickUp)
+    public void ApplyEnergyBoost(PickUpBoost PickUp)
 	{
-        currentEnergy += energyFromPickUp.energyFromBoost;
+        //Save pick-up data to the player's boost info.
+        boostFromPickUp = PickUp;
+
+        //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
+        float compensatorForTimeScale = 1.0f / boostFromPickUp.timeScalar;
+        Time.timeScale = boostFromPickUp.timeScalar;
+
+        //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
+        rb.gravityScale /= boostFromPickUp.gravityReductionDivisor;
+        movementSpeed *= boostFromPickUp.movementSpeedMultiplier * compensatorForTimeScale;
+        climbSpeed *= boostFromPickUp.climbSpeedMultiplier * compensatorForTimeScale;
+        jumpStrength *= boostFromPickUp.jumpStrengthMultiplier;
+
+        //Add boost energy to player up to maximum energy levels, and resize the energy bar accordingly.
+        currentEnergy += boostFromPickUp.energyFromBoost;
         if (currentEnergy > maximumEnergy)
             currentEnergy = maximumEnergy;
-        rb.gravityScale /= 2;
-        movementSpeed *= 1.5f;
-        climbSpeed *= 1.5f;
-        jumpStrength *= 1.5f;
         energyBar.ResizeEnergyBar();
 	}
 
@@ -246,11 +265,18 @@ public class PlayerManager : MonoBehaviour {
     /// </summary>
 	public void RemoveEnergyBoost()
 	{
+        //Set energy to 0, in case less than.
         currentEnergy = 0;
-        rb.gravityScale *= 2;
-        movementSpeed /= 1.5f;
-        climbSpeed /= 1.5f;
-        jumpStrength /= 1.5f;
+
+        //Calculate the compensation needed based on modified time scalar..  Then set scalar to default.
+        float compensatorForTimeScale = boostFromPickUp.timeScalar / 1.0f;
+        Time.timeScale = 1.0f;
+
+        //Remove all boosts from the pick-up, based off the stored boost info and the compensator.
+        rb.gravityScale *= boostFromPickUp.gravityReductionDivisor;
+        movementSpeed /= boostFromPickUp.movementSpeedMultiplier / compensatorForTimeScale;
+        climbSpeed /= boostFromPickUp.climbSpeedMultiplier / compensatorForTimeScale;
+        jumpStrength /= boostFromPickUp.jumpStrengthMultiplier;
     }
 
     /// <summary>
@@ -266,6 +292,4 @@ public class PlayerManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
-
-
 }

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: b8300aa9af9c914498c4bbd451515eec
+timeCreated: 1518072830
+licenseType: Pro
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - livesRemainingImage: {fileID: 114912554601489748, guid: a72c2e93269bb1240bed0f9f6984ce28,
+      type: 2}
+  - livesLostImage: {fileID: 114522852383983620, guid: 2475c259a2d6c8d479a45e4d0c3ef532,
+      type: 2}
+  - energyBarImage: {fileID: 114578402344852132, guid: 10c00820dd9c00a44a996edd6429dba9,
+      type: 2}
+  - itemsCollectedImage: {fileID: 114261254788267892, guid: eac1cf4b41dc39b4f89857ceca9043a1,
+      type: 2}
+  - itemsCollectedText: {fileID: 114846731148470158, guid: f99b62fc07ec63f4ba04c0267b6684ed,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

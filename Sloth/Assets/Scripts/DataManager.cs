@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 /// <summary>
 /// Class designed to hold information for data persistence (between scenes and loading/saving)
 /// <para>Class instead of struct to facilitate possible need for multiple constructors</para>
-/// <para>Outside of GameController to facilitate instancing outside of GameController.</para>
+/// <para>Outside of DataManager to facilitate instancing outside of DataManager.</para>
 /// </summary>
 [System.Serializable]
 public class GameData
