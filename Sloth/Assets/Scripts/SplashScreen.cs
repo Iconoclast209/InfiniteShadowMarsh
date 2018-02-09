@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+///<summary>Class that handles Splash screen functionality.</summary>
 public class SplashScreen : MonoBehaviour {
 
-	// Use this for initialization
+    [Tooltip("Delay in seconds before loading next scene.")]
+    [SerializeField]
+    private float delayInSeconds = 2.5f;
+
+	///<summary>Early Set-up.  Internal.</summary>
 	void Start () {
-        Invoke("LoadNextLevel", 2.5f);
+        Invoke("LoadNextLevel", delayInSeconds);
 	}
 	
-	// Update is called once per frame
+	///<summary>Loads specified scene/level.</summary>
 	void LoadNextLevel ()
     {
         SceneManager.LoadScene(1);

@@ -1,33 +1,30 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Rotational functionality for 2d objects. Parent object must have a rigidbody.
-/// <para>Will affect other objects so long as everything has a rigidbody/2d collider not set to trigger.</para>
-/// </summary>
+/// <summary>Rotational functionality for 2d objects. Parent object must have a rigidbody.
+/// <para>Will affect other objects so long as everything has a rigidbody/2d collider not set to trigger.</para></summary>
 public class Rotator : MonoBehaviour {
 
     [Tooltip("Speed at which object should rotate.")]
-    public float rotationSpeed;
-    [Tooltip("Direction of spin. Unselected will turn counter-clockwise.")]
-    public bool clockwiseRotation;
-    [Tooltip("Is rotation enabled?")]
-    public bool rotationEnabled = true;
+    [SerializeField]
+    private float rotationSpeed;
 
-    /// <summary>
-    /// Reference to object's Rigidbody2D component.
-    /// </summary>
+    [Tooltip("Direction of spin. Unselected will turn counter-clockwise.")]
+    [SerializeField]
+    private bool clockwiseRotation;
+
+    [Tooltip("Is rotation enabled?")]
+    [SerializeField]
+    private bool rotationEnabled = true;
+
+    /// <summary>Reference to object's Rigidbody2D component.</summary>
     private Rigidbody2D rb;
     
-    /// <summary>
-    /// Set-up.  Gets reference to object's Rigidbody2D component.
-    /// </summary>
+    /// <summary>Set-up.  Gets reference to object's Rigidbody2D component.</summary>
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
 	}
 	
-	/// <summary>
-    /// Determines rotation direction based off of (clockwiseRotation) boolean, then rotates at (rotationSpeed).
-    /// </summary>
+	/// <summary>Determines rotation direction based off of (clockwiseRotation) boolean, then rotates at (rotationSpeed).</summary>
 	void Update () {
         if (rotationEnabled)
         {
@@ -44,9 +41,7 @@ public class Rotator : MonoBehaviour {
         }
 	}
 
-    /// <summary>
-    /// Public function that allows rotation to be enabled.
-    /// </summary>
+    /// <summary>Public function that allows rotation to be enabled.</summary>
     public void EnableRotation()
     {
         rotationEnabled = true;

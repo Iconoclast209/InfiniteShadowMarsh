@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+///<summary>Manager class for UI behavior.</summary>
 public class UIManager : MonoBehaviour
 {
-    /// <summary>
-    /// Singleton reference to UIManager object
-    /// </summary>
+    /// <summary>Singleton reference to UIManager object</summary>
     static private UIManager singleton;
-    /// <summary>
-    /// Access singleton reference to UIManager object;
-    /// </summary>
+    /// <summary>Access singleton reference to UIManager object;</summary>
     static public UIManager Singleton
     {
         get
@@ -22,9 +19,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Early set-up.  Internal.  Establish singleton.
-    /// </summary>
+    /// <summary>Early set-up.  Internal.  Establish singleton.</summary>
     private void Awake()
     {
         if (singleton == null)
@@ -38,12 +33,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>Start a new game.</summary>
     public void StartNewGame()
     {
-        //PRONTO: Add StartNewGame() functionality
+        //TODO: Add any necessary DataManager references.
         SceneManager.LoadScene("Test", LoadSceneMode.Single);
     }
 
+    /// <summary>Exit the game in player; quit test in Editor.</summary>
     public void ExitGame()
     {
 #if UNITY_EDITOR

@@ -9,21 +9,18 @@
 public class EnemyManager : MonoBehaviour
 {
     [Tooltip("Set enemy Health. Mobs: 5-50; Bosses: >50")]
-    public int startingHealth;
+    [SerializeField]
+    private int startingHealth;
     //UNDONE: Removed until we review enemy pick-ups.
     //[Tooltip("List of possible Game-Objects to spawn when this object is eliminated")]
     //public GameObject[] possiblePickUps;
     //[Tooltip("Likelihood to spawn a pick-up.  0.0 to 1.0")]
     //public float pickUpChance;
 
-    /// <summary>
-    /// Current health of enemy.
-    /// </summary>
+    /// <summary>Current health of enemy.</summary>
     private int currentHealth;
 
-    /// <summary>
-    /// Damage enemy.  Kills enemy when appropriate.
-    /// </summary>
+    /// <summary>Damage enemy.  Kills enemy when appropriate.</summary>
     /// <param name="amountOfDamage">Amount of damage</param>
     public void DamageEnemy(int amountOfDamage)
     {
@@ -36,17 +33,13 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Destroy this object.
-    /// </summary>
+    /// <summary>Destroy this object.</summary>
     public void KillEnemy()
     {
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Early set-up.  Internal.
-    /// </summary>
+    /// <summary>Early set-up.  Internal.</summary>
     private void Awake()
     {
         currentHealth = startingHealth;

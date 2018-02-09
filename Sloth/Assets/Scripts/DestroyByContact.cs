@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// <para>
-/// BUGGED: WILL NOT WORK UNTIL WE CHANGE FUNCTIONALITY.  NEED TO DETERMINE COLLISION HANDLING DESIGN FIRST!!!</para>
-/// <para>
-/// TODO: Correct contact collision handling functionality after design is prepared.
-/// </para>
-/// </summary>
+
+// BUGGED: WILL NOT WORK UNTIL WE CHANGE FUNCTIONALITY.  NEED TO DETERMINE COLLISION HANDLING DESIGN FIRST!!!
+// TODO: Correct contact collision handling functionality after design is prepared.
+// TODO: Fix commenting on DestroyByContact after addressing all the implementation requirements.
+
+/// <summary>Class responsible for "On Contact" destruction.</summary>
 public class DestroyByContact : MonoBehaviour {
 	[Tooltip("Amount of damage to give when collided with")]
-	public int damageOnCollision;
+	[SerializeField]
+    private int damageOnCollision;
 
 	private EnemyManager enemyController;
 	private PickUpManager pickUpController;

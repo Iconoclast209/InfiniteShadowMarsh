@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /*
- * 
+ * PRONTO:  Implement very very very basic Spider AI.
  * ATTN:  I haven't commented this because it's extremely basic, and nothing more than a temporary place holder script.
  *        As of right now, the only thing it does is allow the spider to die when touched by a player.
  * 
