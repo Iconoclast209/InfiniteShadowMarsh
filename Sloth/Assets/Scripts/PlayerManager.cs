@@ -23,12 +23,6 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField]
     private float jumpStrength;
 
-    [Tooltip("Energy Bar reference")]
-    [SerializeField]
-    private EnergyBar energyBar;
-
-    /// <summary>Reference to health bar HUD component.</summary>
-    private HealthBar healthBar;
     /// <summary>Reference to player's Rigidbody2D component.</summary>
     private Rigidbody2D rb;
     /// <summary>Reference to players animator.</summary>
@@ -140,12 +134,6 @@ public class PlayerManager : MonoBehaviour {
             print("Can't find player's SpriteRenderer component!");
     }
 
-    /// <summary>Set-up involving third-parties.
-    /// <para>Must go here to ensure other objects have been created in the scene as well.</para></summary>
-	private void Start() {
-        //TODO: Set up reference to health bar.
-	} 
-
     /// <summary>Performs movements and animations.</summary>
 	private void FixedUpdate () {
         //TODO: Add falling functionality
@@ -191,7 +179,7 @@ public class PlayerManager : MonoBehaviour {
 	private void Update()
     {
         DrainEnergy();
-        energyBar.ResizeEnergyBar();
+        HUDManager.Singleton.ResizeEnergyBar();
     } 
 
     /// <summary>Detects if player entered "Ladder" trigger, and let them climb.</summary>
@@ -249,7 +237,6 @@ public class PlayerManager : MonoBehaviour {
         currentEnergy += boostFromPickUp.energyFromBoost;
         if (currentEnergy > MaximumEnergy)
             currentEnergy = MaximumEnergy;
-        energyBar.ResizeEnergyBar();
 	}
 
     /// <summary>Removes pickup boost modifications to player.</summary>
@@ -269,13 +256,11 @@ public class PlayerManager : MonoBehaviour {
         jumpStrength /= boostFromPickUp.jumpStrengthMultiplier;
     }
 
-    // TODO: Determine if damage is an in-game concept, or if we're just using lives.
     /// <summary>Applies damage to player.  </summary>
     /// <param name="amountOfDamage">Amount of damage to give.</param>
 	public void DamagePlayer(int amountOfDamage){
 		CurrentHealth -= amountOfDamage;
-        //UNDONE: Don't replace until health bar reference is set up.
-        //healthBar.ResizeHealthBar();
+        HUDManager.Singleton.ResizeHealthBar();
 		if (CurrentHealth <= 0) {
             //TODO: Add player died functionality
 			Destroy (gameObject);

@@ -51,3 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb1b686ed63f2e4a9708301a56d9bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inGameMessageBox: {fileID: 114546018973977548, guid: 94515fc5c084bd74eb65517a1adf542c,
+    type: 2}

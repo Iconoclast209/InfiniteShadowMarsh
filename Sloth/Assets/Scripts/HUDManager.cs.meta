@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b8300aa9af9c914498c4bbd451515eec
-timeCreated: 1518072830
+timeCreated: 1518148651
 licenseType: Pro
 MonoImporter:
   externalObjects: {}
@@ -9,6 +9,8 @@ MonoImporter:
   - livesRemainingImage: {fileID: 114912554601489748, guid: a72c2e93269bb1240bed0f9f6984ce28,
       type: 2}
   - livesLostImage: {fileID: 114522852383983620, guid: 2475c259a2d6c8d479a45e4d0c3ef532,
+      type: 2}
+  - healthBarImage: {fileID: 114289012629988218, guid: 77ab75bfc0c17ab4eb6d80e25f64ef5b,
       type: 2}
   - energyBarImage: {fileID: 114578402344852132, guid: 10c00820dd9c00a44a996edd6429dba9,
       type: 2}

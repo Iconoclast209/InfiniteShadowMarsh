@@ -55,6 +55,8 @@ MonoBehaviour:
     type: 2}
   livesLostImage: {fileID: 114522852383983620, guid: 2475c259a2d6c8d479a45e4d0c3ef532,
     type: 2}
+  healthBarImage: {fileID: 114289012629988218, guid: 77ab75bfc0c17ab4eb6d80e25f64ef5b,
+    type: 2}
   energyBarImage: {fileID: 114578402344852132, guid: 10c00820dd9c00a44a996edd6429dba9,
     type: 2}
   itemsCollectedImage: {fileID: 114261254788267892, guid: eac1cf4b41dc39b4f89857ceca9043a1,
