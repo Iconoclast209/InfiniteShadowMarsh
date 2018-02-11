@@ -15,28 +15,22 @@ public class HUDManager : MonoBehaviour
     /// <summary>Constant defined as 100.</summary>
     private const int HUNDRED_PERCENT = 100;
 
-    [Tooltip("This is the image component used for displaying lives remaining.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")]
-    [SerializeField]
+    [Tooltip("This is the image component used for displaying lives remaining.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")][SerializeField]
     private Image livesRemainingImage;
 
-    [Tooltip("This is the image component used for displaying lives lost.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")]
-    [SerializeField]
+    [Tooltip("This is the image component used for displaying lives lost.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")][SerializeField]
     private Image livesLostImage;
 
-    [Tooltip("This is the image component used for displaying the life bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")]
-    [SerializeField]
+    [Tooltip("This is the image component used for displaying the life bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image healthBarImage;
 
-    [Tooltip("This is the image component used for displaying the energy bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")]
-    [SerializeField]
+    [Tooltip("This is the image component used for displaying the energy bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image energyBarImage;
 
-    [Tooltip("This is the image component used for displaying the 'Items Collected' icon.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")]
-    [SerializeField]
+    [Tooltip("This is the image component used for displaying the 'Items Collected' icon.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image itemsCollectedImage;
 
-    [Tooltip("This is the text component used for displaying items collected.\n\nIn designer, place the prefab Text in the desired spawn location.")]
-    [SerializeField]
+    [Tooltip("This is the text component used for displaying items collected.\n\nIn designer, place the prefab Text in the desired spawn location.")][SerializeField]
     private Text itemsCollectedText;
 
     /// <summary>Transform component for this object's parent -- should be set to the health bar UI object</summary>

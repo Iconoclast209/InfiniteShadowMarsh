@@ -5,13 +5,15 @@ using UnityEngine.UI;
 /// <summary>Class that gives a hint to the player when passing through object's trigger collider</summary>
 public class Hint : MonoBehaviour
 {
-    [Tooltip("Text message to display when player enters hint trigger.")]
-    [SerializeField]
+    [Tooltip("Text message to display when player enters hint trigger.")][SerializeField]
     private string textToDisplay;
 
-    [Tooltip("Number of times to present message. 0 = infinite!")]
-    [SerializeField]
+    [Tooltip("Number of times to present message. 0 = infinite!")][SerializeField]
     private int timesToDisplay;
+
+
+
+
 
     /// <summary>Early set-up.  Internal.</summary>
 	private void Awake()

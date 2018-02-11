@@ -6,8 +6,7 @@ using UnityEngine.UI;
 /// <summary>Displays messages when the player tries to exit out of the level entry door.</summary>
 public class EntryDoor : MonoBehaviour
 {
-    [Tooltip("Text message to display when player tries to leave.")]
-    [SerializeField]
+    [Tooltip("Text message to display when player tries to leave.")][SerializeField]
     private string textToDisplay;
 
     /// <summary>Early set-up.  Internal.</summary>

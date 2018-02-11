@@ -3,9 +3,9 @@ using UnityEngine;
 
 
 /// <summary>
-/// Controller class for basic enemy behavior such as movement, pick-up spawning.
+/// Manager class for enemy behavior.  Controls AI.
 /// <para>All enemies should have this attached!</para>
-/// <para>Only standard enemy behavior goes here!  All enemy-specific functionality should be placed in its own script!</para>
+/// <para>Do not code specific enemy behaviors (AI) here!  They belong in scriptable objects for modular design!</para>
 /// </summary>
 public class EnemyManager : MonoBehaviour
 {
@@ -18,13 +18,10 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 2.0f;
 
-
     [Tooltip("Enemy patrol radius")]
     [SerializeField]
     [Range(0.0f, 10.0f)]
     private float patrolRadius = 5.0f;
-
-
 
     [Tooltip("Should enemy start moving left?")]
     [SerializeField]
@@ -59,18 +56,24 @@ public class EnemyManager : MonoBehaviour
 
     /// <summary>Current health of enemy.</summary>
     private int currentHealth;
+
     /// <summary>Reference to enemy's Rigidbody2D component.</summary>
     private Rigidbody2D rb;
+    
     /// <summary>Reference to enemy's BoxCollider2D component.</summary>
     private BoxCollider2D bc;
+    
     /// <summary>Reference to enemy's starting position.</summary>
     private float startingPosition;  
+    
+    /// <summary>Reference to time (in seconds) of enemy's previous attack.</summary>
     private float lastAttackTime;
 
 
 
 
 
+    ///<summary>Is enemy moving left?</summary><return>Returns true if yes.</return>
     public bool IsMovingLeft
     {
         get

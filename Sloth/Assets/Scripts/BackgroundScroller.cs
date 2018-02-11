@@ -3,13 +3,12 @@
 // LATER:  Need to correct functionality after determining level background design. WILL NOT WORK YET.
 
 /// <summary>This class causes the parent object to spawn within a specified global Z-axis range, and "scroll" along the global Z-axis.</summary>
-public class BackgroundScroller : MonoBehaviour {
-    [Tooltip("Speed at which the object should scroll")]
-	[SerializeField]
+public class BackgroundScroller : MonoBehaviour
+{
+    [Tooltip("Speed at which the object should scroll")][SerializeField]
     private float scrollSpeed;
 
-    [Tooltip("Spawn location range along the Z-axis")]
-	[SerializeField]
+    [Tooltip("Spawn location range along the Z-axis")][SerializeField]
     private Vector2 startingPositionMinMax;
 
     /// <summary>Set-up.  Parent object will be placed at a random location along the global Z-axis.</summary>

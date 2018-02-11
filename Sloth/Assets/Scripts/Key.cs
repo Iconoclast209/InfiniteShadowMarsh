@@ -5,8 +5,7 @@ using UnityEngine;
 /// <summary>Script that allows an object to unlock a door.</summary>
 public class Key : MonoBehaviour {
 
-    [Tooltip("Door that this unlocks.")]
-    [SerializeField]
+    [Tooltip("Door that this unlocks.")][SerializeField]
     private ExitDoor doorToOpen;
 
 	/// <summary>Early set-up.</summary>

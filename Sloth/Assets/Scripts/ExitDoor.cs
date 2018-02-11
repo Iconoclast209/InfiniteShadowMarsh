@@ -9,17 +9,14 @@ using UnityEngine.UI;
 /// </summary>
 public class ExitDoor : MonoBehaviour
 {
-    [Tooltip("Text message to display when player tries to leave before the door is unlocked..")]
-    [SerializeField]
+    [Tooltip("Text message to display when player tries to leave before the door is unlocked..")][SerializeField]
     private string textToDisplayWhenLocked;
 
-    [Tooltip("Text message to display when player tries to leave after it's unlocked..")]
-    [SerializeField]
+    [Tooltip("Text message to display when player tries to leave after it's unlocked..")][SerializeField]
     private string textToDisplayWhenUnlocked;
 
     /// <summary>Is the door locked?</summary>
     private bool isLocked = true;
-
 
 
 

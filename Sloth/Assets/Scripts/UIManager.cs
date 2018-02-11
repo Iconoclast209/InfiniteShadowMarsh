@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 ///<summary>Manager class for UI behavior.</summary>
 public class UIManager : MonoBehaviour
 {
+    [Tooltip("Reference to the Text prefab to use to display in-game messages.")][SerializeField]
+    private Text inGameMessageBox;
+
     /// <summary>Singleton reference to UIManager object</summary>
     static private UIManager singleton;
 
-    [Tooltip("Reference to the Text prefab to use to display in-game messages.")]
-    [SerializeField]
-    private Text inGameMessageBox;
-
     /// <summary>Reference to scene canvas.  Checked every scene change!</summary>
     private Canvas sceneCanvas;
+
 
 
 
@@ -59,6 +59,9 @@ public class UIManager : MonoBehaviour
     {
         inGameMessageBox.text = "";
     }
+
+
+
 
 
     /// <summary>Early set-up.  Internal.  Establish singleton.</summary>

@@ -3,24 +3,19 @@
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
 public class PlayerManager : MonoBehaviour {
 
-	[Tooltip("Maximum Health")]
-	[SerializeField]
+	[Tooltip("Maximum Health")][SerializeField]
     private int maximumHealth;
 
-    [Tooltip("Maximum Energy")]
-    [SerializeField]
+    [Tooltip("Maximum Energy")][SerializeField]
     private int maximumEnergy;
 
-    [Tooltip("How fast player runs.")]
-	[SerializeField]
+    [Tooltip("How fast player runs.")][SerializeField]
     private float movementSpeed;
 
-    [Tooltip("How fast player climbs.")]
-    [SerializeField]
+    [Tooltip("How fast player climbs.")][SerializeField]
     private float climbSpeed;
 
-    [Tooltip("Power of player jump.")]
-    [SerializeField]
+    [Tooltip("Power of player jump.")][SerializeField]
     private float jumpStrength;
 
     /// <summary>Reference to player's Rigidbody2D component.</summary>
@@ -41,6 +36,9 @@ public class PlayerManager : MonoBehaviour {
 	private static PlayerManager singleton;
 
 
+
+
+
     /// <summary>Get PlayerManager singelton.</summary>
 	public static PlayerManager Singleton {
 		get {
@@ -50,6 +48,7 @@ public class PlayerManager : MonoBehaviour {
 			return singleton;
 		}
 	}
+    
     /// <summary>Get player's maximum health.</summary>
     public int MaximumHealth
     {
@@ -63,6 +62,7 @@ public class PlayerManager : MonoBehaviour {
             maximumHealth = value;
         }
     }
+    
     /// <summary>Get player's maximum energy.</summary>
     public int MaximumEnergy
     {
@@ -76,6 +76,7 @@ public class PlayerManager : MonoBehaviour {
             maximumEnergy = value;
         }
     }
+    
     /// <summary>Get player's current health.</summary>
     public int CurrentHealth
     {
@@ -89,6 +90,7 @@ public class PlayerManager : MonoBehaviour {
             currentHealth = value;
         }
     }
+    
     /// <summary>Get player's current energy</summary>
     public float CurrentEnergy
     {
@@ -102,6 +104,63 @@ public class PlayerManager : MonoBehaviour {
             currentEnergy = value;
         }
     }
+    
+    /// <summary>Applies pickup boost to player, and sets duration.</summary>
+    /// <param name="modsFromPickUp"></param>
+    public void ApplyEnergyBoost(PickUpBoost PickUp)
+    {
+        //Save pick-up data to the player's boost info.
+        boostFromPickUp = PickUp;
+
+        //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
+        float compensatorForTimeScale = 1.0f / boostFromPickUp.TimeScalar;
+        Time.timeScale = boostFromPickUp.TimeScalar;
+
+        //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
+        rb.gravityScale /= boostFromPickUp.GravityReductionDivisor;
+        movementSpeed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
+        climbSpeed *= boostFromPickUp.ClimbSpeedMultiplier * compensatorForTimeScale;
+        jumpStrength *= boostFromPickUp.JumpStrengthMultiplier;
+
+        //Add boost energy to player up to maximum energy levels, and resize the energy bar accordingly.
+        currentEnergy += boostFromPickUp.EnergyFromBoost;
+        if (currentEnergy > MaximumEnergy)
+            currentEnergy = MaximumEnergy;
+    }
+
+    /// <summary>Removes pickup boost modifications to player.</summary>
+	public void RemoveEnergyBoost()
+    {
+        //Set energy to 0, in case less than.
+        currentEnergy = 0;
+
+        //Calculate the compensation needed based on modified time scalar..  Then set scalar to default.
+        float compensatorForTimeScale = boostFromPickUp.TimeScalar / 1.0f;
+        Time.timeScale = 1.0f;
+
+        //Remove all boosts from the pick-up, based off the stored boost info and the compensator.
+        rb.gravityScale *= boostFromPickUp.GravityReductionDivisor;
+        movementSpeed /= boostFromPickUp.MovementSpeedMultiplier / compensatorForTimeScale;
+        climbSpeed /= boostFromPickUp.ClimbSpeedMultiplier / compensatorForTimeScale;
+        jumpStrength /= boostFromPickUp.JumpStrengthMultiplier;
+    }
+
+    /// <summary>Applies damage to player.  </summary>
+    /// <param name="amountOfDamage">Amount of damage to give.</param>
+	public void DamagePlayer(int amountOfDamage)
+    {
+        CurrentHealth -= amountOfDamage;
+        HUDManager.Singleton.ResizeHealthBar();
+        if (CurrentHealth <= 0)
+        {
+            //TODO: Add player died functionality
+            Destroy(gameObject);
+        }
+    }
+
+
+
+
 
     /// <summary>Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.</summary>
     private void Awake() {
@@ -215,55 +274,4 @@ public class PlayerManager : MonoBehaviour {
             }
         }
     }
-
-    /// <summary>Applies pickup boost to player, and sets duration.</summary>
-    /// <param name="modsFromPickUp"></param>
-    public void ApplyEnergyBoost(PickUpBoost PickUp)
-	{
-        //Save pick-up data to the player's boost info.
-        boostFromPickUp = PickUp;
-
-        //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
-        float compensatorForTimeScale = 1.0f / boostFromPickUp.timeScalar;
-        Time.timeScale = boostFromPickUp.timeScalar;
-
-        //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
-        rb.gravityScale /= boostFromPickUp.gravityReductionDivisor;
-        movementSpeed *= boostFromPickUp.movementSpeedMultiplier * compensatorForTimeScale;
-        climbSpeed *= boostFromPickUp.climbSpeedMultiplier * compensatorForTimeScale;
-        jumpStrength *= boostFromPickUp.jumpStrengthMultiplier;
-
-        //Add boost energy to player up to maximum energy levels, and resize the energy bar accordingly.
-        currentEnergy += boostFromPickUp.energyFromBoost;
-        if (currentEnergy > MaximumEnergy)
-            currentEnergy = MaximumEnergy;
-	}
-
-    /// <summary>Removes pickup boost modifications to player.</summary>
-	public void RemoveEnergyBoost()
-	{
-        //Set energy to 0, in case less than.
-        currentEnergy = 0;
-
-        //Calculate the compensation needed based on modified time scalar..  Then set scalar to default.
-        float compensatorForTimeScale = boostFromPickUp.timeScalar / 1.0f;
-        Time.timeScale = 1.0f;
-
-        //Remove all boosts from the pick-up, based off the stored boost info and the compensator.
-        rb.gravityScale *= boostFromPickUp.gravityReductionDivisor;
-        movementSpeed /= boostFromPickUp.movementSpeedMultiplier / compensatorForTimeScale;
-        climbSpeed /= boostFromPickUp.climbSpeedMultiplier / compensatorForTimeScale;
-        jumpStrength /= boostFromPickUp.jumpStrengthMultiplier;
-    }
-
-    /// <summary>Applies damage to player.  </summary>
-    /// <param name="amountOfDamage">Amount of damage to give.</param>
-	public void DamagePlayer(int amountOfDamage){
-		CurrentHealth -= amountOfDamage;
-        HUDManager.Singleton.ResizeHealthBar();
-		if (CurrentHealth <= 0) {
-            //TODO: Add player died functionality
-			Destroy (gameObject);
-		}
-	}
 }

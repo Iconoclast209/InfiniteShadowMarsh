@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 ///<summary>Allows object to activate a referenced Rotator script on other game objects.</summary>
-public class RotatorEnabler : MonoBehaviour {
-
-    [Tooltip("Rotator to enable.")]
-    [SerializeField]
+public class RotatorEnabler : MonoBehaviour
+{
+    [Tooltip("Rotator to enable.")][SerializeField]
     private Rotator rotatorToEnable;
+
+
+
+
 
 	/// <summary>Early set-up.  Internal.</summary>
 	private void Awake () {

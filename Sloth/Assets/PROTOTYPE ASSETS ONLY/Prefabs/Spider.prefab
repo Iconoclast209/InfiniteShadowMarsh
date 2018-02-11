@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 50040435815678834}
   - component: {fileID: 61504427180791406}
   - component: {fileID: 114720008988151568}
-  - component: {fileID: 114327665797650660}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -89,17 +88,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.29219, y: 2.9742193}
   m_EdgeRadius: 0
---- !u!114 &114327665797650660
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1386180670553558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114720008988151568
 MonoBehaviour:
   m_ObjectHideFlags: 1

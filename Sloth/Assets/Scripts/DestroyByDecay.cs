@@ -4,8 +4,7 @@ using UnityEngine;
 ///<summary>Destroy object over time.</summary>
 public class DestroyByDecay : MonoBehaviour {
 
-    [Tooltip("Amount of time before decaying.")]
-	[SerializeField]
+    [Tooltip("Amount of time before decaying.")][SerializeField]
     private float lifeTimeInSeconds;
 
 	/// <summary>Early set-up.  Internal.</summary>
