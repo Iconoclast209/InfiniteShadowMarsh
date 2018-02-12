@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
 public class PlayerManager : MonoBehaviour {
-
+    [Header("Player Stats")]
 	[Tooltip("Maximum Health")][SerializeField]
     private int maximumHealth;
 
@@ -17,6 +18,13 @@ public class PlayerManager : MonoBehaviour {
 
     [Tooltip("Power of player jump.")][SerializeField]
     private float jumpStrength;
+
+    [Space(10)]
+
+    [Header("Logic Settings")]
+    [Tooltip("Size of Raycast to use during 'ground check' for jumping, etc.")]
+    [SerializeField]
+    private float distanceOfGroundCheck = 1.0f;
 
     /// <summary>Reference to player's Rigidbody2D component.</summary>
     private Rigidbody2D rb;
@@ -34,8 +42,12 @@ public class PlayerManager : MonoBehaviour {
     private float currentEnergy;
     /// <summary> Reference to singleton instance of PlayerManager class.</summary>
 	private static PlayerManager singleton;
-
-
+    ///<summary>Reference to current gravity scale.</summary>
+    private float currentGravityScale;
+    ///<summary>Reference to walking gravity scale.</summary>
+    private float walkingGravityScale;
+    /// <summary>Flag for player jumping behavior. </summary>
+    private bool tryingToJump = false;
 
 
 
@@ -104,7 +116,67 @@ public class PlayerManager : MonoBehaviour {
             currentEnergy = value;
         }
     }
-    
+
+    /// <summary>Accessor for object's Rigidbody2D reference.</summary>
+    public Rigidbody2D RB
+    {
+        get
+        {
+            return rb;
+        }
+
+        private set
+        {
+            rb = value;
+        }
+    }
+
+    /// <summary>Accessor for object's "current" gravity scale.</summary>
+    public float CurrentGravityScale
+    {
+        get
+        {
+            return currentGravityScale;
+        }
+
+        private set
+        {
+            currentGravityScale = value;
+        }
+    }
+
+    /// <summary>Accessor for object's "walking" gravity scale.</summary>
+    public float WalkingGravityScale
+    {
+        get
+        {
+            return walkingGravityScale;
+        }
+
+        private set
+        {
+            walkingGravityScale = value;
+        }
+    }
+
+    /// <summary>Accessor to determine player jump state.</summary>
+    public bool TryingToJump
+    {
+        get
+        {
+            return tryingToJump;
+        }
+
+        private set
+        {
+            tryingToJump = value;
+        }
+    }
+
+
+
+
+
     /// <summary>Applies pickup boost to player, and sets duration.</summary>
     /// <param name="modsFromPickUp"></param>
     public void ApplyEnergyBoost(PickUpBoost PickUp)
@@ -117,7 +189,7 @@ public class PlayerManager : MonoBehaviour {
         Time.timeScale = boostFromPickUp.TimeScalar;
 
         //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
-        rb.gravityScale /= boostFromPickUp.GravityReductionDivisor;
+        CurrentGravityScale = RB.gravityScale /= boostFromPickUp.GravityReductionDivisor;       //Need to store CurrentGravity as well so we can freely manipulate gravity during ladder climbing without interfering with the boost mechanic.
         movementSpeed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
         climbSpeed *= boostFromPickUp.ClimbSpeedMultiplier * compensatorForTimeScale;
         jumpStrength *= boostFromPickUp.JumpStrengthMultiplier;
@@ -139,7 +211,9 @@ public class PlayerManager : MonoBehaviour {
         Time.timeScale = 1.0f;
 
         //Remove all boosts from the pick-up, based off the stored boost info and the compensator.
-        rb.gravityScale *= boostFromPickUp.GravityReductionDivisor;
+        CurrentGravityScale = WalkingGravityScale;                                //REVIEW: This may cause issues when running out of Slothbux on ladders?
+        if (RB.gravityScale != 0.0f)                                              //Check later to see if this cures the issue.      
+            RB.gravityScale = WalkingGravityScale;
         movementSpeed /= boostFromPickUp.MovementSpeedMultiplier / compensatorForTimeScale;
         climbSpeed /= boostFromPickUp.ClimbSpeedMultiplier / compensatorForTimeScale;
         jumpStrength /= boostFromPickUp.JumpStrengthMultiplier;
@@ -163,23 +237,19 @@ public class PlayerManager : MonoBehaviour {
 
 
     /// <summary>Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.</summary>
-    private void Awake() {
-        //Establish singleton
-		if (singleton == null) {
-			singleton = this;
-		} else if (singleton != this) {
-			Destroy (gameObject);
-		}
+    private void Awake()
+    {
+        InitializeSingleton();
+        SetPlayerComponentReferences();
+        InitializePlayerStats();
+    }
 
-        //Set current health w/ error check
-		CurrentHealth = MaximumHealth;
-        if (CurrentHealth == 0)
-            print("Player's maximum health has not been set!");
-        CurrentEnergy = 0;
-
+    /// <summary>Set references to necessary components on player object.</summary>
+    private void SetPlayerComponentReferences()
+    {
         //Get Rigidbody2D w/ error check
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
+        RB = GetComponent<Rigidbody2D>();
+        if (RB == null)
             print("Can't find player's Rigidbody2D component!");
 
         //Get Animator w/ error check
@@ -193,9 +263,34 @@ public class PlayerManager : MonoBehaviour {
             print("Can't find player's SpriteRenderer component!");
     }
 
+    /// <summary>Initialize all values needed for proper player function.</summary>
+    private void InitializePlayerStats()
+    {
+        //Set current health w/ error check
+        CurrentHealth = MaximumHealth;
+        if (CurrentHealth == 0)
+            print("Player's maximum health has not been set!");
+        CurrentEnergy = 0;
+        WalkingGravityScale = RB.gravityScale;
+        CurrentGravityScale = WalkingGravityScale;
+    }
+
+    /// <summary>Initialize the Singleton object.</summary>
+    private void InitializeSingleton()
+    {
+        //Establish singleton
+        if (singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     /// <summary>Performs movements and animations.</summary>
-	private void FixedUpdate () {
-        //TODO: Add falling functionality
+    private void FixedUpdate () {
         //PRONTO: Get animations to test these features!
 
         //Applies movement based on input, makes sprite face direction of movement, and sends animator data to use movement animation.
@@ -205,7 +300,7 @@ public class PlayerManager : MonoBehaviour {
         if (playerMovement < 0.0f && sprite.flipX == true)
             sprite.flipX = false;
         animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
-        rb.velocity = new Vector2(playerMovement * movementSpeed, rb.velocity.y);
+        RB.velocity = new Vector2(playerMovement * movementSpeed, RB.velocity.y);
 
         //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
         //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
@@ -221,24 +316,26 @@ public class PlayerManager : MonoBehaviour {
             {
                 animator.SetFloat("playerClimbSpeed", 0.0f);
             }
-            rb.velocity = new Vector2(rb.velocity.x, climbSpeed * playerClimbSpeed);  
+            RB.velocity = new Vector2(RB.velocity.x, climbSpeed * playerClimbSpeed);  
         } 
 
-        //BUGGED: Can jump multiple times in a row, while in air.  Need to prevent this.
-        //TODO: Tie in jumping w/ falling, etc.
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(TryingToJump)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
-            animator.SetTrigger("jumped");
-            animator.ResetTrigger("jumped");
+            TryingToJump = false;
+            if (IsPlayerOnGround())
+                RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
         }
 	}
 
     /// <summary>Per-frame update information. </summary>
 	private void Update()
     {
+        //PRONTO: Update current "health" mechanic to reflect that it's actually energy, and is lost over time!
+        //TODO: Rename all the energy methods to reflect that they actually affect "Slothbux boost"
         DrainEnergy();
         HUDManager.Singleton.ResizeEnergyBar();
+        if (Input.GetKeyDown(KeyCode.Space))
+            TryingToJump = true;
     } 
 
     /// <summary>Detects if player entered "Ladder" trigger, and let them climb.</summary>
@@ -248,6 +345,7 @@ public class PlayerManager : MonoBehaviour {
         if (collision.gameObject.CompareTag("Ladder"))
         {
             inFrontOfLadder = true;
+            RB.gravityScale = 0.0f;
         }
     }
 
@@ -258,6 +356,7 @@ public class PlayerManager : MonoBehaviour {
         if (collision.gameObject.CompareTag("Ladder"))
         {
             inFrontOfLadder = false;
+            RB.gravityScale = CurrentGravityScale;
             animator.SetFloat("playerClimbSpeed", 0.0f);
         }
     }
@@ -273,5 +372,22 @@ public class PlayerManager : MonoBehaviour {
                 RemoveEnergyBoost();
             }
         }
+    }
+
+    private bool IsPlayerOnGround()
+    {
+        
+        if (Physics2D.Raycast(transform.position, Vector2.down, distanceOfGroundCheck, ~(1 << 8)))
+            return true;
+        else
+            return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.blue;
+        Handles.DrawLine(transform.position, new Vector3(transform.position.x, -distanceOfGroundCheck, transform.position.z));
+        Handles.color = Color.white;
+        Handles.Label(new Vector3(transform.position.x, -(distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
     }
 }
