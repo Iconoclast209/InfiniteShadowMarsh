@@ -202,8 +202,13 @@ public class HUDManager : MonoBehaviour
     {
         Image img = Instantiate<Image>(itemsCollectedImage);
         img.rectTransform.SetParent(HUDCanvas.transform, false);
-        Text txt = Instantiate<Text>(itemsCollectedText);
-        txt.rectTransform.SetParent(HUDCanvas.transform, false);
+        itemsCollectedText = Instantiate<Text>(itemsCollectedText);
+        itemsCollectedText.rectTransform.SetParent(HUDCanvas.transform, false);
+    }
+
+    public void UpdateItemsCollectedHUD()
+    {
+        itemsCollectedText.text = LevelManager.Singleton.CollectablesCollected + " / " + LevelManager.Singleton.NumOfCollectables;
     }
 
     /// <summary>Calculate percentage of health remaining.</summary>

@@ -1999,40 +1999,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: energyBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 212823635935388186, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193639891633376, guid: 547f0f35e318640428da96075ebee053, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 61268742981983134, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 61268742981983134, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 2.4280152
-      objectReference: {fileID: 0}
-    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: distanceOfGroundCheck
-      value: 0.7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 547f0f35e318640428da96075ebee053, type: 2}
   m_IsPrefabParent: 0

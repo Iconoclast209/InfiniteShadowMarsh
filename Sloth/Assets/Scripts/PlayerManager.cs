@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Reference to player's Sprite Renderer component.</summary>
     private SpriteRenderer sprite;
     /// <summary>Any boosts from a pick-up will be stored here.</summary>
-    private PickUpBoost boostFromPickUp;
+    private BoostPickUp boostFromPickUp;
     /// <summary>Flag - Is Player In Front of object with Ladder Tag?</summary>
     private bool inFrontOfLadder = false;
     /// <summary>Player's current health.</summary>
@@ -179,10 +179,10 @@ public class PlayerManager : MonoBehaviour {
 
     /// <summary>Applies pickup boost to player, and sets duration.</summary>
     /// <param name="modsFromPickUp"></param>
-    public void ApplyEnergyBoost(PickUpBoost PickUp)
+    public void ApplyPickUpBoost(BoostPickUp pickUp)
     {
         //Save pick-up data to the player's boost info.
-        boostFromPickUp = PickUp;
+        boostFromPickUp = pickUp;
 
         //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
         float compensatorForTimeScale = 1.0f / boostFromPickUp.TimeScalar;
@@ -201,7 +201,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     /// <summary>Removes pickup boost modifications to player.</summary>
-	public void RemoveEnergyBoost()
+	public void RemovePickUpBoost()
     {
         //Set energy to 0, in case less than.
         currentEnergy = 0;
@@ -369,7 +369,7 @@ public class PlayerManager : MonoBehaviour {
             currentEnergy -= Time.deltaTime;
             if (currentEnergy <= 0.0f)
             {
-                RemoveEnergyBoost();
+                RemovePickUpBoost();
             }
         }
     }
@@ -386,8 +386,8 @@ public class PlayerManager : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Handles.color = Color.blue;
-        Handles.DrawLine(transform.position, new Vector3(transform.position.x, -distanceOfGroundCheck, transform.position.z));
-        Handles.color = Color.white;
-        Handles.Label(new Vector3(transform.position.x, -(distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
+        Handles.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - distanceOfGroundCheck, transform.position.z));
+        Handles.Label(new Vector3(transform.position.x + 0.1f, -(distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
+
     }
 }

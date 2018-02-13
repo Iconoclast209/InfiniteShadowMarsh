@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 61268742981983134}
   - component: {fileID: 95341945987132140}
   - component: {fileID: 114236720381372480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1193639891633376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.64, y: 3.67, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4710778525471220}
@@ -155,7 +155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.813192, y: 5.724861}
+  m_Size: {x: 2.4280152, y: 5.724861}
   m_EdgeRadius: 0
 --- !u!81 &81506648936526942
 AudioListener:
@@ -197,7 +197,7 @@ MonoBehaviour:
   movementSpeed: 3
   climbSpeed: 3
   jumpStrength: 5
-  energyBar: {fileID: 0}
+  distanceOfGroundCheck: 0.7
 --- !u!124 &124712823576098830
 Behaviour:
   m_ObjectHideFlags: 1
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: a0cb07e86dde6ad44ac52048bba0b1ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.33, y: 6.37}

@@ -309,6 +309,7 @@
     <Compile Include="Assets\Scripts\Hint.cs" />
     <Compile Include="Assets\Scripts\HUDManager.cs" />
     <Compile Include="Assets\Scripts\Key.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\PickUpManager.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
@@ -316,8 +317,11 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Action.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\BiteAction.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\BiteDecision.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\BoostPickUp.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\CollectiblePickUp.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Decision.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PatrolAction.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\PickUp.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\State.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Transition.cs" />
     <Compile Include="Assets\Scripts\SplashScreen.cs" />
