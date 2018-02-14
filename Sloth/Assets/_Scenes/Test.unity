@@ -2277,6 +2277,7 @@ Prefab:
   m_IsPrefabParent: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> parent of d05f6be... Unity Jam UI finished!
@@ -2348,6 +2349,8 @@ Prefab:
   m_ParentPrefab: {fileID: 100100000, guid: 547f0f35e318640428da96075ebee053, type: 2}
   m_IsPrefabParent: 0
 >>>>>>> parent of d05f6be... Unity Jam UI finished!
+=======
+>>>>>>> parent of 896638c... Merge branch 'master' of https://github.com/Iconoclast209/InfiniteShadowMarsh
 --- !u!1 &597312314
 GameObject:
   m_ObjectHideFlags: 0
