@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
 public class PlayerManager : MonoBehaviour {
     [Header("Player Stats")]
-	[Tooltip("Maximum Health")][SerializeField]
+
+    [Tooltip("Maximum Health")][SerializeField]
+    private int totalLives;
+
+    [Tooltip("Maximum Health")][SerializeField]
     private int maximumHealth;
 
     [Tooltip("Maximum Energy")][SerializeField]
@@ -19,36 +25,50 @@ public class PlayerManager : MonoBehaviour {
     [Tooltip("Power of player jump.")][SerializeField]
     private float jumpStrength;
 
-    [Space(10)]
-
+    [Space(10.0f)]
     [Header("Logic Settings")]
+
     [Tooltip("Size of Raycast to use during 'ground check' for jumping, etc.")]
     [SerializeField]
     private float distanceOfGroundCheck = 1.0f;
 
     /// <summary>Reference to player's Rigidbody2D component.</summary>
     private Rigidbody2D rb;
+   
     /// <summary>Reference to players animator.</summary>
     private Animator animator;
+
     /// <summary>Reference to player's Sprite Renderer component.</summary>
     private SpriteRenderer sprite;
+    
     /// <summary>Any boosts from a pick-up will be stored here.</summary>
     private BoostPickUp boostFromPickUp;
+    
     /// <summary>Flag - Is Player In Front of object with Ladder Tag?</summary>
     private bool inFrontOfLadder = false;
+    
     /// <summary>Player's current health.</summary>
     private int currentHealth;
+    
     /// <summary>Player's current energy</summary>
     private float currentEnergy;
+
+    /// <summary>Players remaining lives.</summary>
+    private int remainingLives;
+
     /// <summary> Reference to singleton instance of PlayerManager class.</summary>
 	private static PlayerManager singleton;
+    
     ///<summary>Reference to current gravity scale.</summary>
     private float currentGravityScale;
+    
     ///<summary>Reference to walking gravity scale.</summary>
     private float walkingGravityScale;
+    
     /// <summary>Flag for player jumping behavior. </summary>
     private bool tryingToJump = false;
 
+    private Vector3 spawnPoint;
 
 
     /// <summary>Get PlayerManager singelton.</summary>
@@ -173,6 +193,47 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    /// <summary>Accessor to player's total lives.</summary>
+    public int TotalLives
+    {
+        get
+        {
+            return totalLives;
+        }
+
+        private set
+        {
+            totalLives = value;
+        }
+    }
+
+    /// <summary>Accessor to player's remaining lives.</summary>
+    public int RemainingLives
+    {
+        get
+        {
+            return remainingLives;
+        }
+
+        private set
+        {
+            remainingLives = value;
+        }
+    }
+
+    public Vector3 SpawnPoint
+    {
+        get
+        {
+            return spawnPoint;
+        }
+
+        private set
+        {
+            spawnPoint = value;
+        }
+    }
+
 
 
 
@@ -228,13 +289,29 @@ public class PlayerManager : MonoBehaviour {
         if (CurrentHealth <= 0)
         {
             //TODO: Add player died functionality
-            Destroy(gameObject);
+            PlayerDies();
         }
     }
 
+    // TODO: Fix this.  It's very sloppy execution.
+    /// <summary>When player dies, remove a life and restart.  If no lives left, end game!</summary>
+    private void PlayerDies()
+    {
+        if (RemainingLives > 0)
+        {
+            RemainingLives--;
 
-
-
+            HUDManager.Singleton.UpdateLivesLeftHUD();
+            CurrentHealth = MaximumHealth;
+            HUDManager.Singleton.ResizeHealthBar();
+            gameObject.transform.position = SpawnPoint;
+        }
+        else
+        {
+            LevelManager.Singleton.GameOverWrapper();
+            Destroy(this.gameObject);
+        }
+    }
 
     /// <summary>Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.</summary>
     private void Awake()
@@ -267,12 +344,14 @@ public class PlayerManager : MonoBehaviour {
     private void InitializePlayerStats()
     {
         //Set current health w/ error check
+        RemainingLives = TotalLives;
         CurrentHealth = MaximumHealth;
         if (CurrentHealth == 0)
             print("Player's maximum health has not been set!");
         CurrentEnergy = 0;
         WalkingGravityScale = RB.gravityScale;
         CurrentGravityScale = WalkingGravityScale;
+        SpawnPoint = gameObject.transform.position;
     }
 
     /// <summary>Initialize the Singleton object.</summary>
@@ -374,6 +453,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    /// <summary>Perform a ray-cast to determine if player is on the ground.</summary>
     private bool IsPlayerOnGround()
     {
         
@@ -383,11 +463,12 @@ public class PlayerManager : MonoBehaviour {
             return false;
     }
 
+    /// <summary>Draw "level-editor" gizmo settings in editor scene view.</summary>
     private void OnDrawGizmos()
     {
         Handles.color = Color.blue;
         Handles.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - distanceOfGroundCheck, transform.position.z));
-        Handles.Label(new Vector3(transform.position.x + 0.1f, -(distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
+        Handles.Label(new Vector3(transform.position.x + 0.1f, transform.position.y - (distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
 
     }
 }

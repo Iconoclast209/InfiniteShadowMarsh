@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>Class that gives a hint to the player when passing through object's trigger collider</summary>
@@ -11,15 +10,11 @@ public class Hint : MonoBehaviour
     [Tooltip("Number of times to present message. 0 = infinite!")][SerializeField]
     private int timesToDisplay;
 
-
-
-
-
     /// <summary>Early set-up.  Internal.</summary>
-	private void Awake()
+    private void Awake()
     {
         if (textToDisplay == null)
-            print("No himt text set in the Hint script!");
+            print("No hint text set in the Hint script!");
     }
 
     /// <summary>Function called when this object is involved in an OnTriggerEnter2D event.</summary>
@@ -27,8 +22,10 @@ public class Hint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //If triggered by player, display entry-door warning text.
-        if (collision.gameObject.CompareTag("Player")) { }
-        UIManager.Singleton.CreateMessage(textToDisplay);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            UIManager.Singleton.CreateMessage(textToDisplay);
+        }
     }
 
     /// <summary>Function called when this object is involved in an OnTriggerExit2D event.</summary>

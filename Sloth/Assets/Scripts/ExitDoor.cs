@@ -49,7 +49,7 @@ public class ExitDoor : MonoBehaviour
         //If triggered by player when locked, display exit-door warning text.
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (LevelManager.Singleton.CollectablesCollected < LevelManager.Singleton.NumOfCollectables)
+            if (LevelManager.Singleton.CollectiblesCollected < LevelManager.Singleton.NumOfCollectibles)
                 UIManager.Singleton.CreateMessage(textToDisplayWhenLocked);
             else
                 UIManager.Singleton.CreateMessage(textToDisplayWhenUnlocked);
