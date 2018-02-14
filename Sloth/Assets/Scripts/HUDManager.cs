@@ -15,22 +15,22 @@ public class HUDManager : MonoBehaviour
     /// <summary>Constant defined as 100.</summary>
     private const int HUNDRED_PERCENT = 100;
 
-    [Tooltip("This is the image component used for displaying lives remaining.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")] [SerializeField]
+    [Tooltip("This is the image component used for displaying lives remaining.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")][SerializeField]
     private Image livesRemainingImage;
 
-    [Tooltip("This is the image component used for displaying lives lost.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")] [SerializeField]
+    [Tooltip("This is the image component used for displaying lives lost.\n\nIn designer, place the prefab Image in the desired spawn location for the left-most image.")][SerializeField]
     private Image livesLostImage;
 
-    [Tooltip("This is the image component used for displaying the life bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")] [SerializeField]
+    [Tooltip("This is the image component used for displaying the life bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image healthBarImage;
 
-    [Tooltip("This is the image component used for displaying the energy bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")] [SerializeField]
+    [Tooltip("This is the image component used for displaying the energy bar.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image energyBarImage;
 
-    [Tooltip("This is the image component used for displaying the 'Items Collected' icon.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")] [SerializeField]
+    [Tooltip("This is the image component used for displaying the 'Items Collected' icon.\n\nIn designer, place the prefab Image in the desired spawn location for the image.")][SerializeField]
     private Image itemsCollectedImage;
 
-    [Tooltip("This is the text component used for displaying items collected.\n\nIn designer, place the prefab Text in the desired spawn location.")] [SerializeField]
+    [Tooltip("This is the text component used for displaying items collected.\n\nIn designer, place the prefab Text in the desired spawn location.")][SerializeField]
     private Text itemsCollectedText;
 
     /// <summary>Transform component for this object's parent -- should be set to the health bar UI object</summary>
@@ -66,8 +66,9 @@ public class HUDManager : MonoBehaviour
     ///<summary>Reference to screen canvas.</summary>
     private Canvas HUDCanvas;
 
-    /// <summary>References to Life HUD Heart images</summary>
-    private Image[] lifeHUDHearts;
+    //TODO: Replace this with value from player manager to make lives controlled by player, not UI.
+    ///<summary>TEMP</summary>
+    private int totalLives = 3;
 
 
 
@@ -83,23 +84,6 @@ public class HUDManager : MonoBehaviour
             return singleton;
         }
     }
-    /// <summary>Accessor for Life HUD Heart Image references</summary>
-    public Image[] LifeHUDHearts
-    {
-        get
-        {
-            return lifeHUDHearts;
-        }
-
-        set
-        {
-            lifeHUDHearts = value;
-        }
-    }
-
-
-
-
 
     /// <summary>Calculate perentage of health remaining and use that to resize the health bar HUD</summary>
     public void ResizeHealthBar()
@@ -115,32 +99,9 @@ public class HUDManager : MonoBehaviour
         ResizeEnergyBarToPercentage();
     }
 
-    /// <summary>Update the "Items Collected" HUD based on the values supplied by Player Manager</summary>
-    public void UpdateItemsCollectedHUD()
-    {
-        itemsCollectedText.text = LevelManager.Singleton.CollectiblesCollected + " / " + LevelManager.Singleton.NumOfCollectibles;
-    }
 
-    /// <summary>Update the "Lives Left" HUD based on the values supplied by Player Manager</summary>
-    public void UpdateLivesLeftHUD()
-    {
-        //Loop through each life of Player Manager.
-        for (int x = 0; x < PlayerManager.Singleton.TotalLives; x++)
-        {
-            //First destroy the currently referenced HUD game objects
-            Destroy(LifeHUDHearts[x].gameObject, 0.0f);
 
-            //Determine which life this is -- a remaining life, or lost life
-            if (x < PlayerManager.Singleton.RemainingLives)
-                LifeHUDHearts[x] = Instantiate<Image>(livesRemainingImage);
-            else
-                LifeHUDHearts[x] = Instantiate<Image>(livesLostImage);
 
-            // Set location and attach to canvas.
-            LifeHUDHearts[x].rectTransform.anchoredPosition = new Vector2(LifeHUDHearts[x].rectTransform.sizeDelta.x * x, 0.0f);
-            LifeHUDHearts[x].rectTransform.SetParent(HUDCanvas.transform, false);
-        }
-    }
 
     /// <summary>Early set-up.  Internal.</summary>
     private void Awake()
@@ -148,21 +109,20 @@ public class HUDManager : MonoBehaviour
         InitializeSingleton();
         CheckSerializedFieldsForValues();
         GetReferenceToCanvas();
+        CreateLifeHUD();
         CreateHealthHUD();
         SetupHealthHUD();
         CreateEnergyHUD();
         SetupEnergyHUD();
         CreateItemsCollectedHUD();
+
     }
     
     /// <summary>Late Set-up.  External</summary>
     private void Start()
-    {
-        // This must all be done in Start to ensure that Player Manager has instantiated.
-        CreateLifeHUD(); 
+    {        
         InitializeHealthHUD();
         InitializeEnergyHUD();
-
     }
 
     ///<summary>Initialize HUDManager singleton</summary>
@@ -199,12 +159,11 @@ public class HUDManager : MonoBehaviour
     ///<summary>Create HUD element that tracks player lives.</summary>
     private void CreateLifeHUD()
     {
-        Array.Resize<Image>(ref lifeHUDHearts, PlayerManager.Singleton.TotalLives);
-        for (int x = 0; x < PlayerManager.Singleton.TotalLives; x++)
+        for (int x = 0; x < totalLives; x++)
         {
-            LifeHUDHearts[x] = Instantiate<Image>(livesRemainingImage);
-            LifeHUDHearts[x].rectTransform.anchoredPosition = new Vector2(LifeHUDHearts[x].rectTransform.sizeDelta.x * x, 0.0f);
-            LifeHUDHearts[x].rectTransform.SetParent(HUDCanvas.transform, false);
+            Image img = Instantiate<Image>(livesRemainingImage);
+            img.rectTransform.anchoredPosition = new Vector2(img.rectTransform.sizeDelta.x * x, 0.0f);
+            img.rectTransform.SetParent(HUDCanvas.transform, false);
         }
     }
 
@@ -247,7 +206,12 @@ public class HUDManager : MonoBehaviour
         itemsCollectedText.rectTransform.SetParent(HUDCanvas.transform, false);
     }
 
-        /// <summary>Calculate percentage of health remaining.</summary>
+    public void UpdateItemsCollectedHUD()
+    {
+        itemsCollectedText.text = LevelManager.Singleton.CollectablesCollected + " / " + LevelManager.Singleton.NumOfCollectables;
+    }
+
+    /// <summary>Calculate percentage of health remaining.</summary>
     private void CalculateHealthPercentage()
     {
         playersCurrentHealth = PlayerManager.Singleton.CurrentHealth;

@@ -12,14 +12,14 @@ public class CollectiblePickUp : PickUp {
     ///Informs level manager that this item has been picked-up.
     private void CollectThisPIckUp()
     {
-        LevelManager.Singleton.CollectiblesCollected++;
+        LevelManager.Singleton.CollectablesCollected++;
         HUDManager.Singleton.UpdateItemsCollectedHUD();
     }
 
     ///Informs level manager of the existence of this pick-up.
     public override void SetUp()
     {
-        LevelManager.Singleton.NumOfCollectibles++;
+        LevelManager.Singleton.NumOfCollectables++;
         HUDManager.Singleton.UpdateItemsCollectedHUD();
         base.SetUp();
     }

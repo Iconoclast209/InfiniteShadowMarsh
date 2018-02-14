@@ -92,11 +92,8 @@ public class UIManager : MonoBehaviour
     /// <summary>Gets reference to each scene's canvas.<para>Delegate method.</para></summary>
     private void SetupMessageBox(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (inGameMessageBox != null)
-        {
-            inGameMessageBox = Instantiate<Text>(inGameMessageBox);
-            inGameMessageBox.rectTransform.SetParent(sceneCanvas.transform, false);
-            inGameMessageBox.text = "";
-        }
+        inGameMessageBox = Instantiate<Text>(inGameMessageBox);
+        inGameMessageBox.rectTransform.SetParent(sceneCanvas.transform, false);
+        inGameMessageBox.text = "";
     }
 }
