@@ -51,3 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3ddb8274727ee47aa3d5e67fb4463b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camAcceleration: 0.05
