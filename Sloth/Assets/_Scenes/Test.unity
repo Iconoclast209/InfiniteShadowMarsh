@@ -713,16 +713,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: healthDrain
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
-        type: 2}
-      propertyPath: maximumHealth
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 547f0f35e318640428da96075ebee053, type: 2}
   m_IsPrefabParent: 0
@@ -3451,7 +3441,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4550386500954832, guid: 6e54840cfd50e354489ec7140b6463c4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4550386500954832, guid: 6e54840cfd50e354489ec7140b6463c4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3477,17 +3467,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114334907196029298, guid: 6e54840cfd50e354489ec7140b6463c4,
-        type: 2}
-      propertyPath: pickUpBoost.energyFromBoost
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114334907196029298, guid: 6e54840cfd50e354489ec7140b6463c4,
-        type: 2}
-      propertyPath: pickUp
-      value: 
-      objectReference: {fileID: 11400000, guid: 17485b6ca63626e4982cafd3f3e9ba17,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e54840cfd50e354489ec7140b6463c4, type: 2}
   m_IsPrefabParent: 0
