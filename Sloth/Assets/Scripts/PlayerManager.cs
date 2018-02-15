@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
 public class PlayerManager : MonoBehaviour {
@@ -12,6 +13,9 @@ public class PlayerManager : MonoBehaviour {
 
     [Tooltip("Maximum Health")][SerializeField]
     private int maximumHealth;
+
+    [Tooltip("Health Drain per seconds")][SerializeField]
+    private float healthDrain;
 
     [Tooltip("Maximum Energy")][SerializeField]
     private int maximumEnergy;
@@ -48,7 +52,7 @@ public class PlayerManager : MonoBehaviour {
     private bool inFrontOfLadder = false;
     
     /// <summary>Player's current health.</summary>
-    private int currentHealth;
+    private float currentHealth;
     
     /// <summary>Player's current energy</summary>
     private float currentEnergy;
@@ -68,6 +72,7 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Flag for player jumping behavior. </summary>
     private bool tryingToJump = false;
 
+    /// <summary>Reference to the starting point for the level.</summary>
     private Vector3 spawnPoint;
 
 
@@ -110,7 +115,7 @@ public class PlayerManager : MonoBehaviour {
     }
     
     /// <summary>Get player's current health.</summary>
-    public int CurrentHealth
+    public float CurrentHealth
     {
         get
         {
@@ -221,6 +226,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    /// <summary>Accessor of the spawn point used by the player this level.</summary>
     public Vector3 SpawnPoint
     {
         get
@@ -288,7 +294,6 @@ public class PlayerManager : MonoBehaviour {
         HUDManager.Singleton.ResizeHealthBar();
         if (CurrentHealth <= 0)
         {
-            //TODO: Add player died functionality
             PlayerDies();
         }
     }
@@ -300,17 +305,24 @@ public class PlayerManager : MonoBehaviour {
         if (RemainingLives > 0)
         {
             RemainingLives--;
-
-            HUDManager.Singleton.UpdateLivesLeftHUD();
-            CurrentHealth = MaximumHealth;
-            HUDManager.Singleton.ResizeHealthBar();
-            gameObject.transform.position = SpawnPoint;
+            RespawnPlayer();
         }
         else
         {
             LevelManager.Singleton.GameOverWrapper();
             Destroy(this.gameObject);
         }
+    }
+
+    /// <summary>Respawn player at start point with max health.</summary>
+    private void RespawnPlayer()
+    {
+        HUDManager.Singleton.UpdateLivesLeftHUD();
+        CurrentHealth = MaximumHealth;
+        HUDManager.Singleton.ResizeHealthBar();
+        CurrentEnergy = 0;
+        HUDManager.Singleton.ResizeEnergyBar();
+        gameObject.transform.position = SpawnPoint;
     }
 
     /// <summary>Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.</summary>
@@ -409,13 +421,23 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Per-frame update information. </summary>
 	private void Update()
     {
-        //PRONTO: Update current "health" mechanic to reflect that it's actually energy, and is lost over time!
-        //TODO: Rename all the energy methods to reflect that they actually affect "Slothbux boost"
+        DrainHealth();
+        HUDManager.Singleton.ResizeHealthBar();
         DrainEnergy();
         HUDManager.Singleton.ResizeEnergyBar();
         if (Input.GetKeyDown(KeyCode.Space))
             TryingToJump = true;
-    } 
+    }
+
+    /// <summary>Drain health over time. If 0, player dies.</summary>
+    private void DrainHealth()
+    {
+        CurrentHealth -= Time.deltaTime * healthDrain;
+        if (CurrentHealth <= 0.0f)
+        {
+            PlayerDies();
+        }
+    }
 
     /// <summary>Detects if player entered "Ladder" trigger, and let them climb.</summary>
     /// <param name="collision">object collided with.</param>

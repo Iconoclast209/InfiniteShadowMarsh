@@ -29,16 +29,25 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - BG_Gear1
+  - BG_Gear2
+  - BG_Gear3
+  - BG_Gear4
   - 
   - 
   - 
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3014973851
+    locked: 0
+  - name: MidGround
+    uniqueID: 2180089765
+    locked: 0
+  - name: ForeGround
+    uniqueID: 150130771
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

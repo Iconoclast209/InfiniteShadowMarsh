@@ -300,6 +300,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Button_Credits.cs" />
+    <Compile Include="Assets\Button_MainMenu.cs" />
+    <Compile Include="Assets\Button_Quit.cs" />
+    <Compile Include="Assets\Button_StartGame.cs" />
     <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\DestroyByDecay.cs" />

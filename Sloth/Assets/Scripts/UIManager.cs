@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [Tooltip("Reference to the Text prefab to use to display in-game messages.")][SerializeField]
-    private Text inGameMessageBox;
+    private Text inGameMessageBoxToSpawn;
+
+    /// <summary>Reference to the spawned instance of inGameMessageBoxToSpawn</summary>
+    private Text spawnedMessageBox;
 
     /// <summary>Singleton reference to UIManager object</summary>
     static private UIManager singleton;
@@ -20,7 +24,7 @@ public class UIManager : MonoBehaviour
 
 
 
-    /// <summary>Access singleton reference to UIManager object;</summary>
+    /// <summary>Accessor to singleton reference to UIManager object;</summary>
     static public UIManager Singleton
     {
         get
@@ -30,12 +34,56 @@ public class UIManager : MonoBehaviour
             return singleton;
         }
     }
+  
+    /// <summary>Accessor to the message box prefab we should spawn.</summary>
+    public Text InGameMessageBoxToSpawn
+    {
+        get
+        {
+            return inGameMessageBoxToSpawn;
+        }
+
+        private set
+        {
+            inGameMessageBoxToSpawn = value;
+        }
+    }
+    
+    /// <summary>Accessor to the spawned message box.</summary>
+    public Text SpawnedMessageBox
+    {
+        get
+        {
+            return spawnedMessageBox;
+        }
+
+        private set
+        {
+            spawnedMessageBox = value;
+        }
+    }
+
+
+
+
 
     /// <summary>Start a new game.</summary>
     public void StartNewGame()
     {
         //TODO: Add any necessary DataManager references.
         SceneManager.LoadScene("Test", LoadSceneMode.Single);
+    }
+
+    /// <summary>Load "Credits" scene.</summary>
+    public void ShowCredits()
+    {
+        SceneManager.LoadScene("Credits", LoadSceneMode.Single);
+    }
+
+    /// <summary>Load "Main Menu" scene.</summary>
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     /// <summary>Exit the game in player; quit test in Editor.</summary>
@@ -51,13 +99,18 @@ public class UIManager : MonoBehaviour
     /// <summary>Creates a text message on-screne using inGameMessageBox</summary>
     public void CreateMessage(string messageToDisplay)
     {
-        inGameMessageBox.text = messageToDisplay;
+        //Redundancy check to make sure a spawned message box exists!
+        if (SpawnedMessageBox == null)
+        {
+            SetupMessageBox();
+        }
+            SpawnedMessageBox.text = messageToDisplay;
     }
 
     /// <summary>Removes any on-screen message created by CreateMessage.</summary>
     public void RemoveMessage()
     {
-        inGameMessageBox.text = "";
+        SpawnedMessageBox.text = "";
     }
 
 
@@ -66,6 +119,13 @@ public class UIManager : MonoBehaviour
 
     /// <summary>Early set-up.  Internal.  Establish singleton.</summary>
     private void Awake()
+    {
+        InitializeSingletonPattern();
+        SceneManager.sceneLoaded += FindSceneCanvas;
+    }
+
+    /// <summary>Initialize the Unity Singleton Pattern.</summary>
+    private void InitializeSingletonPattern()
     {
         if (singleton == null)
         {
@@ -76,9 +136,6 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        SceneManager.sceneLoaded += FindSceneCanvas;
-        SceneManager.sceneLoaded += SetupMessageBox;
     }
 
     /// <summary>Gets reference to each scene's canvas.<para>Delegate method.</para></summary>
@@ -90,13 +147,10 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>Gets reference to each scene's canvas.<para>Delegate method.</para></summary>
-    private void SetupMessageBox(Scene scene, LoadSceneMode loadSceneMode)
+    private void SetupMessageBox()
     {
-        if (inGameMessageBox != null)
-        {
-            inGameMessageBox = Instantiate<Text>(inGameMessageBox);
-            inGameMessageBox.rectTransform.SetParent(sceneCanvas.transform, false);
-            inGameMessageBox.text = "";
-        }
+            SpawnedMessageBox = Instantiate<Text>(InGameMessageBoxToSpawn);
+            SpawnedMessageBox.rectTransform.SetParent(sceneCanvas.transform, false);
+            SpawnedMessageBox.text = "";
     }
 }

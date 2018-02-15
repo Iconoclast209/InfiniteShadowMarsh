@@ -195,7 +195,6 @@ public class HUDManager : MonoBehaviour
             print(gameObject.name + " cannot locate Canvas object in scene.");
     }
 
-    //PRONTO: Add functionality that utilizes Life HUD
     ///<summary>Create HUD element that tracks player lives.</summary>
     private void CreateLifeHUD()
     {
@@ -237,7 +236,6 @@ public class HUDManager : MonoBehaviour
         energyBarStartingWidth = energyBarRect.sizeDelta.x;
     }
 
-    //PRONTO: Add functionality that utilizes Items Collected.
     /// <summary>Create HUD element that tracks items collected throughout level.</summary>
     private void CreateItemsCollectedHUD()
     {
@@ -250,7 +248,7 @@ public class HUDManager : MonoBehaviour
         /// <summary>Calculate percentage of health remaining.</summary>
     private void CalculateHealthPercentage()
     {
-        playersCurrentHealth = PlayerManager.Singleton.CurrentHealth;
+        playersCurrentHealth = (int)PlayerManager.Singleton.CurrentHealth;
         playersCurrentHealthPercentage = (playersCurrentHealth * HUNDRED_PERCENT / playersMaximumHealth);
     }
 
