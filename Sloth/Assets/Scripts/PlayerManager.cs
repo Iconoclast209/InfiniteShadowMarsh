@@ -416,7 +416,7 @@ public class PlayerManager : MonoBehaviour {
             Jump();
         }
 
-        if ((IsPlayerOnGround() == false) && (RB.velocity.y <= 0.0f) && (IsFalling == false))
+        if ((IsPlayerOnGround() == false) && (RB.velocity.y < 0.0f) && (IsFalling == false))
         {
             IsFalling = true;
             animator.SetBool("isFalling", true);
