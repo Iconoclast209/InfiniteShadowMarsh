@@ -412,11 +412,19 @@ public class PlayerManager : MonoBehaviour {
 
         if(TryingToJump)
         {
-            TryingToJump = false;
-            if (IsPlayerOnGround())
-                RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
+            Jump();                
         }
 	}
+
+    private void Jump()
+    {
+        TryingToJump = false;
+        if (IsPlayerOnGround())
+        {
+            RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
+            animator.SetTrigger("jumped");
+        }
+    }
 
     /// <summary>Per-frame update information. </summary>
 	private void Update()
