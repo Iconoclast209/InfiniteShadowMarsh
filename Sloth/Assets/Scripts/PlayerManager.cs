@@ -72,6 +72,8 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Flag for player jumping behavior. </summary>
     private bool tryingToJump = false;
 
+    private bool isFalling = false;
+
     /// <summary>Reference to the starting point for the level.</summary>
     private Vector3 spawnPoint;
 
@@ -240,6 +242,19 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    public bool IsFalling
+    {
+        get
+        {
+            return isFalling;
+        }
+
+        private set
+        {
+            isFalling = value;
+        }
+    }
+
 
 
 
@@ -381,10 +396,54 @@ public class PlayerManager : MonoBehaviour {
     }
 
     /// <summary>Performs movements and animations.</summary>
-    private void FixedUpdate () {
+    private void FixedUpdate()
+    {
         //PRONTO: Get animations to test these features!
 
         //Applies movement based on input, makes sprite face direction of movement, and sends animator data to use movement animation.
+        WalkingMovement();
+
+        //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
+        //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
+        //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
+        if (inFrontOfLadder)
+        {
+            ClimbingMovement();
+        }
+
+        if (TryingToJump)
+        {
+            Jump();
+        }
+
+        if ((IsPlayerOnGround() == false) && (RB.velocity.y <= 0.0f) && (IsFalling == false))
+        {
+            IsFalling = true;
+            animator.SetBool("isFalling", true);
+        }
+        if ((IsPlayerOnGround() == true) && (IsFalling == true))
+        {
+            IsFalling = false;
+            animator.SetBool("isFalling", false);
+        }
+    }
+
+    private void ClimbingMovement()
+    {
+        float playerClimbSpeed = Input.GetAxis("Vertical");
+        if (playerClimbSpeed > 0.0f)
+        {
+            animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
+        }
+        else
+        {
+            animator.SetFloat("playerClimbSpeed", 0.0f);
+        }
+        RB.velocity = new Vector2(RB.velocity.x, climbSpeed * playerClimbSpeed);
+    }
+
+    private void WalkingMovement()
+    {
         float playerMovement = Input.GetAxis("Horizontal");
         if (playerMovement > 0.0f && sprite.flipX == false)
             sprite.flipX = true;
@@ -392,31 +451,17 @@ public class PlayerManager : MonoBehaviour {
             sprite.flipX = false;
         animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
         RB.velocity = new Vector2(playerMovement * movementSpeed, RB.velocity.y);
+    }
 
-        //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
-        //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
-        //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
-        if (inFrontOfLadder)
+    private void Jump()
+    {
+        TryingToJump = false;
+        if (IsPlayerOnGround())
         {
-            float playerClimbSpeed = Input.GetAxis("Vertical");
-            if (playerClimbSpeed > 0.0f)
-            {
-                animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
-            }
-            else
-            {
-                animator.SetFloat("playerClimbSpeed", 0.0f);
-            }
-            RB.velocity = new Vector2(RB.velocity.x, climbSpeed * playerClimbSpeed);  
-        } 
-
-        if(TryingToJump)
-        {
-            TryingToJump = false;
-            if (IsPlayerOnGround())
-                RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
+            RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
+            animator.SetTrigger("jumped");
         }
-	}
+    }
 
     /// <summary>Per-frame update information. </summary>
 	private void Update()
@@ -425,6 +470,7 @@ public class PlayerManager : MonoBehaviour {
         HUDManager.Singleton.ResizeHealthBar();
         DrainEnergy();
         HUDManager.Singleton.ResizeEnergyBar();
+
         if (Input.GetKeyDown(KeyCode.Space))
             TryingToJump = true;
     }
