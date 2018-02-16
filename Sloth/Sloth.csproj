@@ -310,6 +310,8 @@
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\EntryDoor.cs" />
     <Compile Include="Assets\Scripts\ExitDoor.cs" />
+    <Compile Include="Assets\Scripts\Gear.cs" />
+    <Compile Include="Assets\Scripts\GearTrain.cs" />
     <Compile Include="Assets\Scripts\Hint.cs" />
     <Compile Include="Assets\Scripts\HUDManager.cs" />
     <Compile Include="Assets\Scripts\Key.cs" />
