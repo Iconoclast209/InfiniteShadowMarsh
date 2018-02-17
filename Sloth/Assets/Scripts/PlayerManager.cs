@@ -280,6 +280,9 @@ public class PlayerManager : MonoBehaviour {
         currentEnergy += boostFromPickUp.EnergyFromBoost;
         if (currentEnergy > MaximumEnergy)
             currentEnergy = MaximumEnergy;
+
+        // TEST
+        animator.speed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
     }
 
     /// <summary>Removes pickup boost modifications to player.</summary>
@@ -299,6 +302,9 @@ public class PlayerManager : MonoBehaviour {
         movementSpeed /= boostFromPickUp.MovementSpeedMultiplier / compensatorForTimeScale;
         climbSpeed /= boostFromPickUp.ClimbSpeedMultiplier / compensatorForTimeScale;
         jumpStrength /= boostFromPickUp.JumpStrengthMultiplier;
+
+        // TEST
+        animator.speed /= boostFromPickUp.MovementSpeedMultiplier / compensatorForTimeScale;
     }
 
     /// <summary>Applies damage to player.  </summary>
@@ -415,12 +421,12 @@ public class PlayerManager : MonoBehaviour {
         {
             Jump();
         }
-
         if ((IsPlayerOnGround() == false) && (RB.velocity.y < 0.0f) && (IsFalling == false))
         {
             IsFalling = true;
             animator.SetBool("isFalling", true);
         }
+
         if ((IsPlayerOnGround() == true) && (IsFalling == true))
         {
             IsFalling = false;

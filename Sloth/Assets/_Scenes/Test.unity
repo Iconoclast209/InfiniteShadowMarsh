@@ -713,6 +713,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 50337763278906056, guid: 547f0f35e318640428da96075ebee053,
+        type: 2}
+      propertyPath: m_GravityScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114236720381372480, guid: 547f0f35e318640428da96075ebee053,
+        type: 2}
+      propertyPath: distanceOfGroundCheck
+      value: 1.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 547f0f35e318640428da96075ebee053, type: 2}
   m_IsPrefabParent: 0
@@ -3512,7 +3522,7 @@ Prefab:
     - target: {fileID: 114982216242503942, guid: 189e65230fd4fde43ae8ae3475b4f8e7,
         type: 2}
       propertyPath: camAcceleration
-      value: 0.125
+      value: 0.092
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 189e65230fd4fde43ae8ae3475b4f8e7, type: 2}
