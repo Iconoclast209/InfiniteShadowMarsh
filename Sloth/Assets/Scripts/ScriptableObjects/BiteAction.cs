@@ -12,6 +12,7 @@ public class BiteAction : Action
 
     private static void TryToBitePlayer(EnemyManager enemy)
     {
+        enemy.Animator.SetBool("isWalking", false);
         if (Time.realtimeSinceStartup >= (enemy.LastAttackTime + enemy.BiteDelay))
         {
             enemy.RB.velocity = new Vector2(0.0f, 1.5f);
@@ -19,7 +20,11 @@ public class BiteAction : Action
             enemy.LastAttackTime = Time.realtimeSinceStartup;
             int LayerToHit = 1 << 8;
             if (Physics2D.OverlapCircle(enemy.transform.position, enemy.BiteRadius, LayerToHit) != null)
+            {
+                enemy.Animator.SetTrigger("bitesPlayer");
+                
                 PlayerManager.Singleton.DamagePlayer(enemy.BiteDamage);
+            }
         }
     }
 }

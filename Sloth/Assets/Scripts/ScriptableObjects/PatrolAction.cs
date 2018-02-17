@@ -12,6 +12,7 @@ public class PatrolAction : Action
 
     private void Patrol(EnemyManager enemy)
     {
+        enemy.Animator.SetBool("isWalking", true);
         if (enemy.IsMovingLeft)
             if (enemy.transform.position.x > enemy.StartingPosition - enemy.PatrolRadius)
                 enemy.RB.velocity = new Vector2(Mathf.Lerp(enemy.RB.velocity.x, -enemy.MovementSpeed, 0.5f), 0f);

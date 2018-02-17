@@ -74,6 +74,7 @@ public class EnemyManager : MonoBehaviour
 
     private bool isEnemyAlive = true;
 
+    private SpriteRenderer spriteRenderer;
 
     ///<summary>Is enemy moving left?</summary><return>Returns true if yes.</return>
     public bool IsMovingLeft
@@ -220,6 +221,19 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public SpriteRenderer SpriteRenderer
+    {
+        get
+        {
+            return spriteRenderer;
+        }
+
+        private set
+        {
+            spriteRenderer = value;
+        }
+    }
+
 
 
 
@@ -262,6 +276,7 @@ public class EnemyManager : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         BC = GetComponent<BoxCollider2D>();
         Animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         
         if (RB == null)
             print("Spider does not have a Rigidbody2D component.");
@@ -269,6 +284,8 @@ public class EnemyManager : MonoBehaviour
             print("Spider does not have a BoxCollider2D component.");
         if (Animator == null)
             print("Spider does not have an Animator component.");
+        if (SpriteRenderer == null)
+            print("Spider does not have a SpriteRenderer component.");
     }
 
     /// <summary>Kill enemy on collision with enemy</summary>
@@ -287,8 +304,14 @@ public class EnemyManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(IsEnemyAlive == true)
+        if (IsEnemyAlive == true)
+        {
             currentState.UpdateState(this);
+            if (startMovingLeft == false && RB.velocity.x > 0)
+                SpriteRenderer.flipX = true;
+            else if (startMovingLeft == true && RB.velocity.x < 0)
+                SpriteRenderer.flipX = false;     
+        }
     }
 
 

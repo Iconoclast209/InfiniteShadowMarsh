@@ -72,6 +72,7 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Flag for player jumping behavior. </summary>
     private bool tryingToJump = false;
 
+    /// <summary>Is player falling?</summary>
     private bool isFalling = false;
 
     /// <summary>Reference to the starting point for the level.</summary>
@@ -242,6 +243,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    /// <summary>Accessor to determine if player is falling.</summary>
     public bool IsFalling
     {
         get
@@ -252,6 +254,19 @@ public class PlayerManager : MonoBehaviour {
         private set
         {
             isFalling = value;
+        }
+    }
+
+    public bool InFrontOfLadder
+    {
+        get
+        {
+            return inFrontOfLadder;
+        }
+
+        private set
+        {
+            inFrontOfLadder = value;
         }
     }
 
@@ -404,17 +419,22 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Performs movements and animations.</summary>
     private void FixedUpdate()
     {
-        //PRONTO: Get animations to test these features!
-
         //Applies movement based on input, makes sprite face direction of movement, and sends animator data to use movement animation.
         WalkingMovement();
 
         //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
         //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
         //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
-        if (inFrontOfLadder)
+        if (InFrontOfLadder)
         {
-            ClimbingMovement();
+            if (InFrontOfLadder)
+            {
+                ClimbingMovement();
+            }
+            else
+            {
+                RB.velocity = new Vector2(RB.velocity.x, 0.0f);
+            }
         }
 
         if (TryingToJump)
@@ -437,13 +457,14 @@ public class PlayerManager : MonoBehaviour {
     private void ClimbingMovement()
     {
         float playerClimbSpeed = Input.GetAxis("Vertical");
-        if (playerClimbSpeed > 0.0f)
+        if (playerClimbSpeed != 0.0f)
         {
             animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
         }
         else
         {
             animator.SetFloat("playerClimbSpeed", 0.0f);
+            RB.velocity = new Vector2(RB.velocity.x, 0.0f);
         }
         RB.velocity = new Vector2(RB.velocity.x, climbSpeed * playerClimbSpeed);
     }
@@ -497,18 +518,27 @@ public class PlayerManager : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            inFrontOfLadder = true;
             RB.gravityScale = 0.0f;
+            
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            if (collision.OverlapPoint(RB.position))
+                InFrontOfLadder = true;
+            else
+                InFrontOfLadder = false;
+        }
+    }
     /// <summary>Detects if player left "Ladder" trigger, and prevent climbing.</summary>
     /// <param name="collision">object collided with.</param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            inFrontOfLadder = false;
             RB.gravityScale = CurrentGravityScale;
             animator.SetFloat("playerClimbSpeed", 0.0f);
         }
