@@ -259,6 +259,7 @@ public class EnemyManager : MonoBehaviour
     {
 
         IsEnemyAlive = false;
+        // TODO : Stop dead enemy from moving anymore. 
         Animator.SetTrigger("triggerDeath");
         StartCoroutine(DieAfterSeconds(2.0f));
     }
