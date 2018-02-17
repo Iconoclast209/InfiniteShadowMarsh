@@ -70,9 +70,9 @@ public class EnemyManager : MonoBehaviour
     private float lastAttackTime;
 
     /// <summary>Reference to enemy's animator.</summary>
-    private Animator anim;
+    private Animator animator;
 
-
+    private bool isEnemyAlive = true;
 
 
     ///<summary>Is enemy moving left?</summary><return>Returns true if yes.</return>
@@ -181,6 +181,45 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public BoxCollider2D BC
+    {
+        get
+        {
+            return bc;
+        }
+
+        private set
+        {
+            bc = value;
+        }
+    }
+
+    public Animator Animator
+    {
+        get
+        {
+            return animator;
+        }
+
+        private set
+        {
+            animator = value;
+        }
+    }
+
+    public bool IsEnemyAlive
+    {
+        get
+        {
+            return isEnemyAlive;
+        }
+
+        private set
+        {
+            isEnemyAlive = value;
+        }
+    }
+
 
 
 
@@ -205,11 +244,9 @@ public class EnemyManager : MonoBehaviour
     private void KillEnemy()
     {
 
-            bc.enabled = false;
-            anim.SetTrigger("triggerDeath");
-            //RB.velocity = new Vector2(0.0f, 5.0f);
-            //RB.angularVelocity = 50.0f;
-            StartCoroutine(DieAfterSeconds(2.0f));
+        IsEnemyAlive = false;
+        Animator.SetTrigger("triggerDeath");
+        StartCoroutine(DieAfterSeconds(2.0f));
     }
 
     /// <summary>Early set-up.  Internal.</summary>
@@ -223,18 +260,21 @@ public class EnemyManager : MonoBehaviour
         currentHealth = startingHealth;
         StartingPosition = transform.position.x;
         RB = GetComponent<Rigidbody2D>();
-        bc = GetComponent<BoxCollider2D>();
-
+        BC = GetComponent<BoxCollider2D>();
+        Animator = GetComponent<Animator>();
+        
         if (RB == null)
             print("Spider does not have a Rigidbody2D component.");
-        if (bc == null)
+        if (BC == null)
             print("Spider does not have a BoxCollider2D component.");
+        if (Animator == null)
+            print("Spider does not have an Animator component.");
     }
 
     /// <summary>Kill enemy on collision with enemy</summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && (IsEnemyAlive == true))
             KillEnemy();
     }
 
@@ -247,7 +287,8 @@ public class EnemyManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentState.UpdateState(this);
+        if(IsEnemyAlive == true)
+            currentState.UpdateState(this);
     }
 
 

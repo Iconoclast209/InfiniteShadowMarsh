@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212011727469423334}
   - component: {fileID: 50040435815678834}
   - component: {fileID: 61504427180791406}
-  - component: {fileID: 114720008988151568}
   - component: {fileID: 95325806555163420}
+  - component: {fileID: 114720008988151568}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1386180670553558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.29, y: -3.83, z: 0}
+  m_LocalPosition: {x: 2.35, y: -4.39, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 25
   movementSpeed: 3
-  patrolRadius: 3.39
+  patrolRadius: 5.99
   startMovingLeft: 1
   webRadius: 0
   webDelay: 4
