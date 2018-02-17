@@ -69,6 +69,8 @@ public class EnemyManager : MonoBehaviour
     /// <summary>Reference to time (in seconds) of enemy's previous attack.</summary>
     private float lastAttackTime;
 
+    /// <summary>Reference to enemy's animator.</summary>
+    private Animator anim;
 
 
 
@@ -204,18 +206,19 @@ public class EnemyManager : MonoBehaviour
     {
 
             bc.enabled = false;
-            RB.velocity = new Vector2(0.0f, 5.0f);
-            RB.angularVelocity = 50.0f;
+            anim.SetTrigger("triggerDeath");
+            //RB.velocity = new Vector2(0.0f, 5.0f);
+            //RB.angularVelocity = 50.0f;
             StartCoroutine(DieAfterSeconds(2.0f));
     }
 
     /// <summary>Early set-up.  Internal.</summary>
     private void Awake()
     {
-        ValidateVeriables();
+        ValidateVariables();
     }
 
-    private void ValidateVeriables()
+    private void ValidateVariables()
     {
         currentHealth = startingHealth;
         StartingPosition = transform.position.x;
