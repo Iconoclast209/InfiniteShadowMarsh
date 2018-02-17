@@ -460,6 +460,7 @@ public class PlayerManager : MonoBehaviour {
         if (playerClimbSpeed != 0.0f)
         {
             animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
+            // TODO:  Discuss control scheme.  Climbing Up and Climbing Down are two different animations.  Perhaps we want to use positive and negative values to control? (Anthony)
         }
         else
         {
