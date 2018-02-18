@@ -262,6 +262,7 @@ public class EnemyManager : MonoBehaviour
     {
 
         IsEnemyAlive = false;
+        gameObject.layer = LayerMask.NameToLayer("DeadEnemies");
         Animator.SetTrigger("triggerDeath");
         AudioManager.Singleton.EnemyDeath();
         StartCoroutine(DieAfterSeconds(2.0f));
