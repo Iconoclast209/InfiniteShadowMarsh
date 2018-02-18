@@ -532,9 +532,15 @@ public class PlayerManager : MonoBehaviour {
         if (collision.gameObject.CompareTag("Ladder"))
         {
             if (collision.OverlapPoint(RB.position))
+            {
                 InFrontOfLadder = true;
+                print("In front of ladder");
+            }
             else
+            {
                 InFrontOfLadder = false;
+                print("Not in front of ladder");
+            }
         }
     }
     /// <summary>Detects if player left "Ladder" trigger, and prevent climbing.</summary>
