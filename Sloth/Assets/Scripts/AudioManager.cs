@@ -488,15 +488,10 @@ public class AudioManager : MonoBehaviour {
             source.Play(); // Play Clip
 
             yield return new WaitForSeconds(bgmClips[bgmClip].length);  // Wait until clip is finished playing...
-            Destroy(source);                                           //...then destroy it!
-
+                                									   //...then destroy it!
             bgmClip = bgmClip + 1; // Choose 2nd Clip
 
-            source = gameObject.AddComponent<AudioSource>(); // Add Audio Couse
-
             source.clip = bgmClips[bgmClip]; // Load Second Clip
-
-            source.outputAudioMixerGroup = BgmOutput; //Set Output
 
             source.loop = true; //Set loop on
 
