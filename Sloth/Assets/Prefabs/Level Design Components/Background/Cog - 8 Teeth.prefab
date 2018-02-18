@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212466220467592560}
   - component: {fileID: 50210054642367392}
   - component: {fileID: 114293421608582868}
-  - component: {fileID: 114222227507699076}
   m_Layer: 0
   m_Name: Cog - 8 Teeth
   m_TagString: Untagged
@@ -63,18 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
---- !u!114 &114222227507699076
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1226117376986762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232a9d292ae8834479de289e7a6ca13a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teethOnGear: 0
 --- !u!114 &114293421608582868
 MonoBehaviour:
   m_ObjectHideFlags: 1

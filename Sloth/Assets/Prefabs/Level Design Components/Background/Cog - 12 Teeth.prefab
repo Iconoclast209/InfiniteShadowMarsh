@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212302214355295332}
   - component: {fileID: 50246084354963120}
   - component: {fileID: 114321169313709346}
-  - component: {fileID: 114849633772235642}
   m_Layer: 0
   m_Name: Cog - 12 Teeth
   m_TagString: Untagged
@@ -77,18 +76,6 @@ MonoBehaviour:
   rotationSpeed: 0
   clockwiseRotation: 0
   rotationEnabled: 1
---- !u!114 &114849633772235642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1085437999384044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232a9d292ae8834479de289e7a6ca13a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teethOnGear: 0
 --- !u!212 &212302214355295332
 SpriteRenderer:
   m_ObjectHideFlags: 1

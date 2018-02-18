@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// BUGGED: Gear class needs re-worked.  Do not use!
 [System.Serializable]
 public class Gear : MonoBehaviour {
     [Tooltip("Number of teeth on this gear")][SerializeField]

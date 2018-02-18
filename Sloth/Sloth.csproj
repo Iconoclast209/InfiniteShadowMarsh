@@ -300,11 +300,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Button_Credits.cs" />
-    <Compile Include="Assets\Button_MainMenu.cs" />
-    <Compile Include="Assets\Button_Quit.cs" />
-    <Compile Include="Assets\Button_StartGame.cs" />
     <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
+    <Compile Include="Assets\Scripts\Button_Credits.cs" />
+    <Compile Include="Assets\Scripts\Button_MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Button_Quit.cs" />
+    <Compile Include="Assets\Scripts\Button_StartGame.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\DestroyByDecay.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
@@ -318,6 +318,7 @@
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\PickUpManager.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerTransitioner.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\RotatorEnabler.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Action.cs" />
