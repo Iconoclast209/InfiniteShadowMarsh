@@ -257,6 +257,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+     /// <summary>Accessor to determine if player is in front of a ladder</summary>
     public bool InFrontOfLadder
     {
         get
@@ -327,6 +328,7 @@ public class PlayerManager : MonoBehaviour {
 	public void DamagePlayer(int amountOfDamage)
     {
         CurrentHealth -= amountOfDamage;
+        AudioManager.Singleton.PlayerHurt();
         HUDManager.Singleton.ResizeHealthBar();
         if (CurrentHealth <= 0)
         {
@@ -488,6 +490,7 @@ public class PlayerManager : MonoBehaviour {
         {
             RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
             animator.SetTrigger("jumped");
+            AudioManager.Singleton.PlayerJump();
         }
     }
 

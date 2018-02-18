@@ -14,6 +14,7 @@ public class CollectiblePickUp : PickUp {
     {
         LevelManager.Singleton.CollectiblesCollected++;
         HUDManager.Singleton.UpdateItemsCollectedHUD();
+        AudioManager.Singleton.KeyPickUp();
     }
 
     ///Informs level manager of the existence of this pick-up.

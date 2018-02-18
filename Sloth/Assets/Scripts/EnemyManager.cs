@@ -76,6 +76,10 @@ public class EnemyManager : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+
+
+
+
     ///<summary>Is enemy moving left?</summary><return>Returns true if yes.</return>
     public bool IsMovingLeft
     {
@@ -238,7 +242,6 @@ public class EnemyManager : MonoBehaviour
 
 
 
-
     /// <summary>Damage enemy.  Kills enemy when appropriate.</summary>
     /// <param name="amountOfDamage">Amount of damage</param>
     public void DamageEnemy(int amountOfDamage)
@@ -259,9 +262,10 @@ public class EnemyManager : MonoBehaviour
     {
 
         IsEnemyAlive = false;
-        // TODO : Stop dead enemy from moving anymore. 
         Animator.SetTrigger("triggerDeath");
+        AudioManager.Singleton.EnemyDeath();
         StartCoroutine(DieAfterSeconds(2.0f));
+
     }
 
     /// <summary>Early set-up.  Internal.</summary>
@@ -308,10 +312,13 @@ public class EnemyManager : MonoBehaviour
         if (IsEnemyAlive == true)
         {
             currentState.UpdateState(this);
-            if (startMovingLeft == false && RB.velocity.x > 0)
-                SpriteRenderer.flipX = true;
-            else if (startMovingLeft == true && RB.velocity.x < 0)
-                SpriteRenderer.flipX = false;     
+            if (RB.velocity.x != 0)
+            {
+                if (startMovingLeft == false && RB.velocity.x > 0)
+                    SpriteRenderer.flipX = true;
+                else if (startMovingLeft == true && RB.velocity.x < 0)
+                    SpriteRenderer.flipX = false;
+            }
         }
     }
 

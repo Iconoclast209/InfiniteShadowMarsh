@@ -18,6 +18,15 @@ public class AudioManager : MonoBehaviour {
 	/// </summary>
 
 	static private AudioManager singleton;
+    static public AudioManager Singleton
+    {
+        get
+        {
+            if (singleton == null)
+                singleton = FindObjectOfType<AudioManager>();
+            return singleton;
+        }
+    }
 
 	public AudioClip[] playerJumpClips; //These arrays are for player audio clips
 	public AudioClip[] playerLandClips;
@@ -102,24 +111,12 @@ public class AudioManager : MonoBehaviour {
 
 
 
-	private void PerformSingletonPattern()
-	{
-		if (singleton == null)
-			singleton = this;
-		else if (singleton != this)
-			Destroy(gameObject);
-	}
 
+    /// <summary>
+    /// These functions call Player SFX
+    /// </summary>
 
-
-
-	/// <summary>
-	/// These functions call Player SFX
-	/// </summary>
-
-
-
-	public void PlayerJump (){
+    public void PlayerJump (){
 
 		// Randomise
 		int randomClip = Random.Range (0, playerJumpClips.Length);
@@ -215,7 +212,6 @@ public class AudioManager : MonoBehaviour {
 
 	}
 
-
 	public void PlayerPickUp (){
 
 		// Randomise
@@ -250,201 +246,198 @@ public class AudioManager : MonoBehaviour {
 
 
 
-
-
 /// <summary>
 /// These Functions call Enemy SFX
 /// </summary>
 
 	public void EnemyJump (){
 
-		// Randomise
-		int randomClip = Random.Range (0, enemyJumpClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = enemyJumpClips[randomClip];
+        if (enemyJumpClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, enemyJumpClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = enemyJumpClips[randomClip];
 
-		//Set Output
-		source.outputAudioMixerGroup = EnemyJumpOutput;
+            //Set Output
+            source.outputAudioMixerGroup = EnemyJumpOutput;
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Play Clip
-		source.Play ();
+            //Play Clip
+            source.Play();
 
-		//Destroy AudioSourc when finished
-		Destroy(source, enemyJumpClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, enemyJumpClips[randomClip].length);
+        }
 	}
-
-
-
-
+    
 	public void EnemyLand (){
 
-		// Randomise
-		int randomClip = Random.Range (0, enemyLandClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = enemyLandClips[randomClip];
+        if (enemyLandClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, enemyLandClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = enemyLandClips[randomClip];
 
-		//Set Output
-		source.outputAudioMixerGroup = EnemyLandOutput;
+            //Set Output
+            source.outputAudioMixerGroup = EnemyLandOutput;
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Play Clip
-		source.Play ();
+            //Play Clip
+            source.Play();
 
-		//Destroy AudioSourc when finished
-		Destroy(source, enemyLandClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, enemyLandClips[randomClip].length);
+        }
 	}
 
+   	public void EnemyAttack (){
+        if (enemyAttackClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, enemyAttackClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = enemyAttackClips[randomClip];
 
+            //Set Output
+            source.outputAudioMixerGroup = EnemyAttackOutput;
 
-	public void EnemyAttack (){
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		// Randomise
-		int randomClip = Random.Range (0, enemyAttackClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = enemyAttackClips[randomClip];
+            //Play Clip
+            source.Play();
 
-		//Set Output
-		source.outputAudioMixerGroup = EnemyAttackOutput;
-
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
-
-		//Play Clip
-		source.Play ();
-
-		//Destroy AudioSourc when finished
-		Destroy(source, enemyAttackClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, enemyAttackClips[randomClip].length);
+        }
 	}
-
 
 	public void EnemyDeath (){
+        if (enemyDeathClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, enemyDeathClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = enemyDeathClips[randomClip];
 
-		// Randomise
-		int randomClip = Random.Range (0, enemyDeathClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = enemyDeathClips[randomClip];
+            //Set Output
+            source.outputAudioMixerGroup = EnemyDeathOutput;
 
-		//Set Output
-		source.outputAudioMixerGroup = EnemyDeathOutput;
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Play Clip
+            source.Play();
 
-		//Play Clip
-		source.Play ();
-
-		//Destroy AudioSourc when finished
-		Destroy(source, enemyDeathClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, enemyDeathClips[randomClip].length);
+        }
 	}
 
 	public void EnemyWalk (){
+        if (enemyWalkClips.Length > 0)
+        {
 
+        }
 	}
+
 
 
 
 
 	//These functions are for item SFX
-
-
-
 	public void KeyPickUp (){
+        if (itemKeyPickUpClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, itemKeyPickUpClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = itemKeyPickUpClips[randomClip];
 
-		// Randomise
-		int randomClip = Random.Range (0, itemKeyPickUpClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = itemKeyPickUpClips[randomClip];
+            //Set Output
+            source.outputAudioMixerGroup = ItemKeyPickUpOutput;
 
-		//Set Output
-		source.outputAudioMixerGroup = ItemKeyPickUpOutput;
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Play Clip
+            source.Play();
 
-		//Play Clip
-		source.Play ();
-
-		//Destroy AudioSourc when finished
-		Destroy(source, itemKeyPickUpClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, itemKeyPickUpClips[randomClip].length);
+        }
 	}
-
 
 	public void KeyDrop (){
+        if (itemKeyDropClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, itemKeyDropClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = itemKeyDropClips[randomClip];
 
-		// Randomise
-		int randomClip = Random.Range (0, itemKeyDropClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = itemKeyDropClips[randomClip];
+            //Set Output
+            source.outputAudioMixerGroup = ItemKeyDropOutput;
 
-		//Set Output
-		source.outputAudioMixerGroup = ItemKeyDropOutput;
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Play Clip
+            source.Play();
 
-		//Play Clip
-		source.Play ();
-
-		//Destroy AudioSourc when finished
-		Destroy(source, itemKeyDropClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, itemKeyDropClips[randomClip].length);
+        }
 	}
+
+
+
 
 
 	/// <summary>
 	/// These functions are for environment sounds
 	/// </summary>
 
-
 	public void OpenDoor (){
-		// Randomise
-		int randomClip = Random.Range (0, doorOpenClips.Length);
-		//Create an Audio Source
-		AudioSource source = gameObject.AddComponent<AudioSource>();
-		//Load clip into Audio Sourse
-		source.clip = doorOpenClips[randomClip];
+        if (doorOpenClips.Length > 0)
+        {
+            // Randomise
+            int randomClip = Random.Range(0, doorOpenClips.Length);
+            //Create an Audio Source
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            //Load clip into Audio Sourse
+            source.clip = doorOpenClips[randomClip];
 
-		//Set Output
-		source.outputAudioMixerGroup = DoorOpenOutput;
+            //Set Output
+            source.outputAudioMixerGroup = DoorOpenOutput;
 
-		//Set Pitch Randomisation
-		source.pitch = Random.Range (minPitchLand, maxPitchLand);
+            //Set Pitch Randomisation
+            source.pitch = Random.Range(minPitchLand, maxPitchLand);
 
-		//Play Clip
-		source.Play ();
+            //Play Clip
+            source.Play();
 
-		//Destroy AudioSourc when finished
-		Destroy(source, doorOpenClips[randomClip].length);
-
-
+            //Destroy AudioSourc when finished
+            Destroy(source, doorOpenClips[randomClip].length);
+        }
 	}
 
 	//public void GearStart(){
@@ -477,8 +470,8 @@ public class AudioManager : MonoBehaviour {
 	//	}
 	//	}
 
-
-	public void BgmStart(){
+    //TODO: Fix Intro Functionality
+	public IEnumerator BgmStart(){
 
 		int bgmClip = 0; //Choose First Clip
 			
@@ -489,12 +482,13 @@ public class AudioManager : MonoBehaviour {
 		source.outputAudioMixerGroup = BgmOutput; //Choose Output
 
 		source.Play (); // Play Clip
-
-		Destroy (source, bgmClips [bgmClip].length); //Destroy object when clip is finished
+        
+        yield return new WaitForSeconds(bgmClips[bgmClip].length);  // Wait until clip is finished playing...
+		Destroy (source);                                           //...then destroy it!
 
 		bgmClip = bgmClip + 1; // Choose 2nd Clip
 
-		gameObject.AddComponent<AudioSource>(); // Add Audio Couse
+		source = gameObject.AddComponent<AudioSource>(); // Add Audio Couse
 
 		source.clip = bgmClips[bgmClip]; // Load Second Clip
 
@@ -503,11 +497,6 @@ public class AudioManager : MonoBehaviour {
 		source.loop = true; //Set loop on
 			
 		source.Play (); // Play looped audio
-
-
-
-
-
 	}
 
 	public void BgmStop(){
@@ -536,13 +525,7 @@ public class AudioManager : MonoBehaviour {
 
 
 }
-
-
-
-
-
-
-
+    
 	public void MenuStartGame(){
 
 		int randomClip = Random.Range (0, menuStartClips.Length);
@@ -563,5 +546,16 @@ public class AudioManager : MonoBehaviour {
 
 	}
 
+    private void PerformSingletonPattern()
+    {
+        if (singleton == null)
+            singleton = this;
+        else if (singleton != this)
+            Destroy(gameObject);
+    }
 
+    private void Awake()
+    {
+        PerformSingletonPattern();
+    }
 }
