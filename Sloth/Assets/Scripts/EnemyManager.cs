@@ -61,7 +61,7 @@ public class EnemyManager : MonoBehaviour
     private Rigidbody2D rb;
     
     /// <summary>Reference to enemy's BoxCollider2D component.</summary>
-    private BoxCollider2D bc;
+    private CapsuleCollider2D cc;
     
     /// <summary>Reference to enemy's starting position.</summary>
     private float startingPosition;  
@@ -182,16 +182,16 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public BoxCollider2D BC
+    public CapsuleCollider2D CC
     {
         get
         {
-            return bc;
+            return cc;
         }
 
         private set
         {
-            bc = value;
+            cc = value;
         }
     }
 
@@ -275,13 +275,13 @@ public class EnemyManager : MonoBehaviour
         currentHealth = startingHealth;
         StartingPosition = transform.position.x;
         RB = GetComponent<Rigidbody2D>();
-        BC = GetComponent<BoxCollider2D>();
+        CC = GetComponent<CapsuleCollider2D>();
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         
         if (RB == null)
             print("Spider does not have a Rigidbody2D component.");
-        if (BC == null)
+        if (CC == null)
             print("Spider does not have a BoxCollider2D component.");
         if (Animator == null)
             print("Spider does not have an Animator component.");
