@@ -891,7 +891,7 @@ SpriteRenderer:
   m_Size: {x: 0.48, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1001 &581560981
 Prefab:
@@ -2553,7 +2553,7 @@ SpriteRenderer:
   m_Size: {x: 0.48, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1 &1345608367
 GameObject:
@@ -3377,6 +3377,155 @@ Transform:
   m_PrefabParentObject: {fileID: 4232503332736440, guid: a04d9451df4903c40bfdd785e301ba5a,
     type: 2}
   m_PrefabInternal: {fileID: 1478504641}
+--- !u!1 &1911950842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1911950844}
+  - component: {fileID: 1911950843}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1911950843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911950842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66d40da199924091a141d10340ee225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerJumpClips:
+  - {fileID: 8300000, guid: 89e356fc8ed534d258e2677db8344799, type: 3}
+  - {fileID: 8300000, guid: 4678f2de409704832a76fea0e0379ebb, type: 3}
+  - {fileID: 8300000, guid: e0bbb6833251243a8a3300dfbd1584c6, type: 3}
+  - {fileID: 8300000, guid: 4081f5ce988964556939f7ffb933cfbf, type: 3}
+  - {fileID: 8300000, guid: eb043837914f54aac849728a360945e6, type: 3}
+  - {fileID: 8300000, guid: 5862ffb4b6a894aa2b5d951b841bf365, type: 3}
+  - {fileID: 8300000, guid: 90c259055d50247479e8a45b12d475dc, type: 3}
+  - {fileID: 8300000, guid: 1bce38448488943ce9179e6fa7e2e8bf, type: 3}
+  - {fileID: 8300000, guid: cf71b40de6e8e46ba99eab1cfc9a862f, type: 3}
+  - {fileID: 8300000, guid: 7ab9a353cae4041afbd3db10a9aeaadb, type: 3}
+  - {fileID: 8300000, guid: 2797a9f72ab0945f9bf50062b8e5ea02, type: 3}
+  - {fileID: 8300000, guid: bd40081d9d5504a5ea1cd84a275d8181, type: 3}
+  playerLandClips: []
+  playerAttackClips: []
+  playerHurtClips: []
+  playerPickUpClips:
+  - {fileID: 8300000, guid: 376b5fa8398f24efcaae3a2d8a40e649, type: 3}
+  - {fileID: 8300000, guid: 097ca0b0976b84454997dc8e57a1e8dd, type: 3}
+  - {fileID: 8300000, guid: 20251575f759e431d93189dad413abe2, type: 3}
+  - {fileID: 8300000, guid: 8266e0ca9cfae411dafeaf7843df8ffb, type: 3}
+  - {fileID: 8300000, guid: 0959acaf63dee44b79060c8967aa666a, type: 3}
+  - {fileID: 8300000, guid: cfd35c9e49e04497b869c72ee75157f9, type: 3}
+  playerVictoryClips: []
+  playerClimbClips:
+  - {fileID: 8300000, guid: 0447116ef3c164887abccf2275e2b4fd, type: 3}
+  - {fileID: 8300000, guid: 169a5cf6148864e2ebbfeb2d07af0160, type: 3}
+  - {fileID: 8300000, guid: 0478fbbfc070d49458e48bf0187633e0, type: 3}
+  - {fileID: 8300000, guid: f16648bc7e6444c8e80eb8610e0ceaf8, type: 3}
+  - {fileID: 8300000, guid: 9c49a6b12939e473db8274dc18a873fb, type: 3}
+  - {fileID: 8300000, guid: 456b2b364b74d445a994b04888b17c21, type: 3}
+  - {fileID: 8300000, guid: 86c1bfff6fd514cde83c8de4395c2f40, type: 3}
+  - {fileID: 8300000, guid: 2de75c189e1154571bcca8358badca5d, type: 3}
+  - {fileID: 8300000, guid: f97d8f835b1a8456785c7f4ad5ac8859, type: 3}
+  - {fileID: 8300000, guid: 7579924c9315c42238e8c03fb81dbb7d, type: 3}
+  playerDeathClips:
+  - {fileID: 8300000, guid: 00dd35181f36c4716998421ae7b2bc56, type: 3}
+  playerWalkClips:
+  - {fileID: 8300000, guid: 5aff22c03b3334f1ab01c2af76dbf063, type: 3}
+  enemyJumpClips: []
+  enemyLandClips: []
+  enemyAttackClips: []
+  enemyDeathClips: []
+  enemyWalkClips: []
+  itemKeyPickUpClips:
+  - {fileID: 8300000, guid: b164979f0ada54451af1a52f18ee002f, type: 3}
+  itemKeyDropClips: []
+  itemSlothBuckPickUpClips:
+  - {fileID: 8300000, guid: 9c2824b68c86c413aa197cdc0dbc83be, type: 3}
+  - {fileID: 8300000, guid: fc423d32a64ba48c88e5c636b97e31ff, type: 3}
+  gearSpinClips:
+  - {fileID: 8300000, guid: ae079729041244d18af2e04c5714f1b9, type: 3}
+  doorOpenClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: 1295829c1a1374c35b12da75c86c550f, type: 3}
+  - {fileID: 8300000, guid: 4b45d5a19a721434ebc6f21fdb03ec48, type: 3}
+  - {fileID: 8300000, guid: 2c36912d04bd5461f9fd9ee9400439dd, type: 3}
+  menuSelectClips:
+  - {fileID: 8300000, guid: 4981563c26d384fa1a160f5866f63250, type: 3}
+  menuStartClips:
+  - {fileID: 8300000, guid: 38b95a3ce1873437495ac41ce4fc14eb, type: 3}
+  PlayerJumpOutput: {fileID: 243312413437609540, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerLandOutput: {fileID: 243811654533915288, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerAttackOutput: {fileID: 243330904048932180, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerHurtOutput: {fileID: 243291521223944584, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerPickUpOutput: {fileID: 243075731955035822, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerVictoryOutput: {fileID: 243006325028490604, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerClimbOutput: {fileID: 243398579818216170, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerDeathOutput: {fileID: 243295040438989286, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  PlayerWalkOutput: {fileID: 243408932210330314, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  EnemyJumpOutput: {fileID: 243646403067879440, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  EnemyLandOutput: {fileID: 243968232172253102, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  EnemyAttackOutput: {fileID: 243992574747211314, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  EnemyDeathOutput: {fileID: 243181779837140658, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  EnemyWalkOutput: {fileID: 243507861988557378, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  ItemKeyPickUpOutput: {fileID: 243511386755620596, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  ItemKeyDropOutput: {fileID: 243312564568246972, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  ItemSlothBucksPickUpOutput: {fileID: 243369382334901882, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  GearSpinOutput: {fileID: 243161920772160028, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  DoorOpenOutput: {fileID: 243003657441744166, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  BgmOutput: {fileID: 243495708598971508, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  MenuSelectOutput: {fileID: 243795677155399100, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  MenuStartOutput: {fileID: 243709008789002892, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  minPitchJump: 0.95
+  maxPitchJump: 1.05
+  minPitchLand: 0.95
+  maxPitchLand: 1.05
+--- !u!4 &1911950844
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911950842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1925388818
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,7 +3568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1a6761e2f0bc348820f7d0f4fe447e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotatorToEnable: {fileID: 683801854}
+  rotatorsToEnable: []
 --- !u!61 &1925388821
 BoxCollider2D:
   m_ObjectHideFlags: 0
