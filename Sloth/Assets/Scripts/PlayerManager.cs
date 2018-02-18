@@ -461,7 +461,8 @@ public class PlayerManager : MonoBehaviour {
         float playerClimbSpeed = Input.GetAxis("Vertical");
         if (playerClimbSpeed != 0.0f)
         {
-            animator.SetFloat("playerClimbSpeed", playerClimbSpeed);
+            animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
+            // TODO:  Discuss control scheme.  Climbing Up and Climbing Down are two different animations.  Perhaps we want to use positive and negative values to control? (Anthony)
         }
         else
         {
@@ -531,15 +532,9 @@ public class PlayerManager : MonoBehaviour {
         if (collision.gameObject.CompareTag("Ladder"))
         {
             if (collision.OverlapPoint(RB.position))
-            {
                 InFrontOfLadder = true;
-                print("In front of ladder");
-            }
             else
-            {
                 InFrontOfLadder = false;
-                print("Not in front of ladder");
-            }
         }
     }
     /// <summary>Detects if player left "Ladder" trigger, and prevent climbing.</summary>
