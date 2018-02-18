@@ -114,5 +114,6 @@ public class BoostPickUp : PickUp {
     public override void Action()
     {
         PlayerManager.Singleton.ApplyPickUpBoost(this);
+        AudioManager.Singleton.PlayerPickUp();
     }
 }
