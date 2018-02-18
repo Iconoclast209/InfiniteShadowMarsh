@@ -6,15 +6,28 @@ using UnityEngine;
 public class RotatorEnabler : MonoBehaviour
 {
     [Tooltip("Rotator to enable.")][SerializeField]
-    private Rotator rotatorToEnable;
+    private Rotator[] rotatorsToEnable;
+
+    public Rotator[] RotatorsToEnable
+    {
+        get
+        {
+            return rotatorsToEnable;
+        }
+
+        private set
+        {
+            rotatorsToEnable = value;
+        }
+    }
 
 
 
 
 
-	/// <summary>Early set-up.  Internal.</summary>
-	private void Awake () {
-        if (rotatorToEnable == null)
+    /// <summary>Early set-up.  Internal.</summary>
+    private void Awake () {
+        if (RotatorsToEnable == null)
             print(gameObject.name + " does not have a rotatorToEnable set on the RotatorEnabler script!");
 	}
 
@@ -23,7 +36,10 @@ public class RotatorEnabler : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            rotatorToEnable.EnableRotation();
+            foreach (Rotator rotatorToEnable in RotatorsToEnable)
+            {
+                rotatorToEnable.EnableRotation();
+            }
             Destroy(gameObject);
         }
     }

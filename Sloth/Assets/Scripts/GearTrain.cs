@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// BUGGED:  Gear-Train class needs re-worked.  Do not use!
 public class GearTrain : MonoBehaviour {
 
     [Tooltip("Gear train to set")]

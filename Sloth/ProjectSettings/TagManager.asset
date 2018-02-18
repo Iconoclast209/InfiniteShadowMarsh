@@ -15,6 +15,7 @@ TagManager:
   - 
   - 
   - Player
+  - InteractiveGear
   - 
   - 
   - 
@@ -29,10 +30,9 @@ TagManager:
   - 
   - 
   - 
-  - BG_Gear1
-  - BG_Gear2
-  - BG_Gear3
-  - BG_Gear4
+  - 
+  - 
+  - 
   - 
   - 
   - 

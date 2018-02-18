@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -119,6 +120,12 @@ public class LevelManager : MonoBehaviour {
     private void Start()
     {
         LevelCamera = Camera.main;
+        StartBGM();
+    }
+
+    private void StartBGM()
+    {
+        StartCoroutine(AudioManager.Singleton.BgmStart());
     }
 
     /// <summary>Per-frame functionality</summary>

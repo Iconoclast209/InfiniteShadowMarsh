@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212725087290024468}
   - component: {fileID: 50426894141109714}
   - component: {fileID: 114465617902972240}
-  - component: {fileID: 114346629562066674}
   m_Layer: 0
   m_Name: Cog - 16 Teeth (2)
   m_TagString: Untagged
@@ -63,18 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
---- !u!114 &114346629562066674
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194759186810342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232a9d292ae8834479de289e7a6ca13a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teethOnGear: 0
 --- !u!114 &114465617902972240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,8 +107,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1279993445
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d71c26387962fd54a845b7047f9048f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-using System.Collections;
-using UnityEngine.SceneManagement;
-using System;
+#endif
+
 
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
 public class PlayerManager : MonoBehaviour {
@@ -257,6 +257,7 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+     /// <summary>Accessor to determine if player is in front of a ladder</summary>
     public bool InFrontOfLadder
     {
         get
@@ -327,6 +328,7 @@ public class PlayerManager : MonoBehaviour {
 	public void DamagePlayer(int amountOfDamage)
     {
         CurrentHealth -= amountOfDamage;
+        AudioManager.Singleton.PlayerHurt();
         HUDManager.Singleton.ResizeHealthBar();
         if (CurrentHealth <= 0)
         {
@@ -460,6 +462,7 @@ public class PlayerManager : MonoBehaviour {
         if (playerClimbSpeed != 0.0f)
         {
             animator.SetFloat("playerClimbSpeed", Mathf.Abs(playerClimbSpeed));
+            // TODO:  Discuss control scheme.  Climbing Up and Climbing Down are two different animations.  Perhaps we want to use positive and negative values to control? (Anthony)
         }
         else
         {
@@ -487,6 +490,7 @@ public class PlayerManager : MonoBehaviour {
         {
             RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
             animator.SetTrigger("jumped");
+            AudioManager.Singleton.PlayerJump();
         }
     }
 
@@ -567,6 +571,7 @@ public class PlayerManager : MonoBehaviour {
             return false;
     }
 
+#if UNITY_EDITOR 
     /// <summary>Draw "level-editor" gizmo settings in editor scene view.</summary>
     private void OnDrawGizmos()
     {
@@ -575,4 +580,5 @@ public class PlayerManager : MonoBehaviour {
         Handles.Label(new Vector3(transform.position.x + 0.1f, transform.position.y - (distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
 
     }
+#endif
 }
