@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
     public void StartNewGame()
     {
         //TODO: Add any necessary DataManager references.
-        SceneManager.LoadScene("Test", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level01", LoadSceneMode.Single);
     }
 
     /// <summary>Load "Credits" scene.</summary>
