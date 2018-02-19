@@ -609,6 +609,13 @@ public void MenuLoop(){
 			Destroy (source, menuLoopClips [randomClip].length);
 		}
 
+	private void Awake()
+	{
+		bool IsPlayerWalkingSFX = false;
+
+		PerformSingletonPattern();
+
+	}
 
 		private void PerformSingletonPattern()
 		{
@@ -616,14 +623,10 @@ public void MenuLoop(){
 				singleton = this;
 			else if (singleton != this)
 				Destroy(gameObject);
-		}
+		DontDestroyOnLoad(gameObject);
+		}	
 
-		private void Awake()
-		{
-		bool IsPlayerWalkingSFX = false;
-
-			PerformSingletonPattern();
-		}
+		
 
 	static private AudioManager singleton;
 	static public AudioManager Singleton
@@ -631,8 +634,9 @@ public void MenuLoop(){
 		get
 		{
 			if (singleton == null)
-				singleton = FindObjectOfType<AudioManager> ();
+				singleton = FindObjectOfType<AudioManager> ();	
 		return singleton;
+	
 		}
 	}
 
