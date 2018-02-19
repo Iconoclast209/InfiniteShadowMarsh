@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4857795518451394}
   - component: {fileID: 212823635935388186}
   - component: {fileID: 50337763278906056}
-  - component: {fileID: 61268742981983134}
   - component: {fileID: 95341945987132140}
   - component: {fileID: 114236720381372480}
+  - component: {fileID: 70050675964334026}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -64,8 +64,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61268742981983134
-BoxCollider2D:
+--- !u!70 &70050675964334026
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -76,19 +76,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.39}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.94, y: 8.29}
-    newSize: {x: 4.33, y: 6.37}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.15, y: 7.42}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: -0.48632324}
+  m_Size: {x: 2.9123025, y: 7.3173532}
+  m_Direction: 0
 --- !u!95 &95341945987132140
 Animator:
   serializedVersion: 3
@@ -121,9 +111,10 @@ MonoBehaviour:
   maximumHealth: 100
   healthDrain: 1
   maximumEnergy: 30
-  movementSpeed: 2
-  climbSpeed: 3
+  movementSpeed: 1
+  climbSpeed: 1
   jumpStrength: 5
+  attackRadius: 0.83
   distanceOfGroundCheck: 0.88
 --- !u!212 &212823635935388186
 SpriteRenderer:

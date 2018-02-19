@@ -611,7 +611,7 @@ public void MenuLoop(){
 
 	private void Awake()
 	{
-		bool IsPlayerWalkingSFX = false;
+		IsPlayerWalkingSFX = false;
 
 		PerformSingletonPattern();
 

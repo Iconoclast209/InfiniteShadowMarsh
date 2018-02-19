@@ -246,11 +246,7 @@ public class EnemyManager : MonoBehaviour
     /// <param name="amountOfDamage">Amount of damage</param>
     public void DamageEnemy(int amountOfDamage)
     {
-        currentHealth -= amountOfDamage;
-        if (currentHealth <= 0)
-        {
             KillEnemy();
-        }
     }
 
 
@@ -292,13 +288,6 @@ public class EnemyManager : MonoBehaviour
             print("Spider does not have an Animator component.");
         if (SpriteRenderer == null)
             print("Spider does not have a SpriteRenderer component.");
-    }
-
-    /// <summary>Kill enemy on collision with enemy</summary>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && (IsEnemyAlive == true))
-            KillEnemy();
     }
 
     /// <summary>Destroys enemy object after seconds.</summary>

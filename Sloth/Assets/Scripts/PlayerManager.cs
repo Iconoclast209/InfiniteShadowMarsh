@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -28,6 +29,15 @@ public class PlayerManager : MonoBehaviour {
 
     [Tooltip("Power of player jump.")][SerializeField]
     private float jumpStrength;
+
+    [Tooltip("Attack radius--Generally should be larger than enemy bite-radius.")]
+    [SerializeField]
+    [Range(0.0f, 2.0f)]
+    private float attackRadius = 1.5f;
+
+    [Tooltip("Attack delay in seconds--Generally should be larger than enemy bite-delay.")]
+    [SerializeField]
+    private float attackDelay = 1.0f;
 
     [Space(10.0f)]
     [Header("Logic Settings")]
@@ -75,8 +85,14 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Is player falling?</summary>
     private bool isFalling = false;
 
+    /// <summary>Is player attacking?</summary>
+    private bool isAttacking = false;
+
     /// <summary>Reference to the starting point for the level.</summary>
     private Vector3 spawnPoint;
+
+    /// <summary>Reference to the time in seconds when player last attacked</summary>
+    private float lastAttackTime;
 
 
     /// <summary>Get PlayerManager singelton.</summary>
@@ -271,6 +287,58 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+    public bool IsAttacking
+    {
+        get
+        {
+            return isAttacking;
+        }
+
+        private set
+        {
+            isAttacking = value;
+        }
+    }
+
+    public float AttackRadius
+    {
+        get
+        {
+            return attackRadius;
+        }
+
+        private set
+        {
+            attackRadius = value;
+        }
+    }
+
+    public float AttackDelay
+    {
+        get
+        {
+            return attackDelay;
+        }
+
+        private set
+        {
+            attackDelay = value;
+        }
+    }
+
+    public float LastAttackTime
+    {
+        get
+        {
+            return lastAttackTime;
+        }
+
+        private set
+        {
+            lastAttackTime = value;
+        }
+    }
+
 
 
 
@@ -460,6 +528,32 @@ public class PlayerManager : MonoBehaviour {
             IsFalling = false;
             animator.SetBool("isFalling", false);
         }
+
+        if ((RB.velocity.y == 0f) && IsAttacking == true)
+        {
+            Attack();
+        }
+        else
+        {
+            IsAttacking = false;
+        }
+    }
+
+    private void Attack()
+    {
+        IsAttacking = false;
+        animator.SetTrigger("attacked");
+        if (Time.realtimeSinceStartup >= (LastAttackTime + AttackDelay))
+        {
+            LastAttackTime = Time.realtimeSinceStartup;
+            int LayerToHit = 1 << 11;
+            Collider2D target = new Collider2D();
+            if ((target = Physics2D.OverlapCircle(gameObject.transform.position, AttackRadius, LayerToHit)) != null)
+            {
+                AudioManager.Singleton.PlayerAttack();
+                target.gameObject.GetComponent<EnemyManager>().DamageEnemy(0);
+            }
+        }
     }
 
     private void ClimbingMovement()
@@ -515,6 +609,9 @@ public class PlayerManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space))
             TryingToJump = true;
+
+        if (Input.GetKeyDown(KeyCode.E))
+            IsAttacking = true;
     }
 
     /// <summary>Drain health over time. If 0, player dies.</summary>
@@ -595,7 +692,8 @@ public class PlayerManager : MonoBehaviour {
         Handles.color = Color.blue;
         Handles.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - distanceOfGroundCheck, transform.position.z));
         Handles.Label(new Vector3(transform.position.x + 0.1f, transform.position.y - (distanceOfGroundCheck / 2.0f), transform.position.z), new GUIContent("Distance of Ground-check Ray", "Distance of Ground-check Ray"));
-
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(gameObject.transform.position, AttackRadius);
     }
 #endif
 }
