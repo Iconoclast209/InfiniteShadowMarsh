@@ -13,7 +13,7 @@ public class PatrolAction : Action
     private void Patrol(EnemyManager enemy)
     {
         enemy.Animator.SetBool("isWalking", true);
-        AudioManager.Singleton.EnemyWalk();
+
         if (enemy.IsMovingLeft)
             if (enemy.transform.position.x > enemy.StartingPosition - enemy.PatrolRadius)
                 enemy.RB.velocity = new Vector2(Mathf.Lerp(enemy.RB.velocity.x, -enemy.MovementSpeed, 0.5f), 0f);
@@ -29,6 +29,7 @@ public class PatrolAction : Action
             {
                 enemy.IsMovingLeft = true;
                 enemy.RB.velocity = Vector2.zero;
+
             }
     }
 }

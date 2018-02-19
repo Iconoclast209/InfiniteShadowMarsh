@@ -17,17 +17,7 @@ public class AudioManager : MonoBehaviour {
 	/// Audio Inputs
 	/// </summary>
 
-	static private AudioManager singleton;
-    static public AudioManager Singleton
-    {
-        get
-        {
-			if (singleton == null)
-				singleton = FindObjectOfType<AudioManager> ();
-			
-            return singleton;
-        }
-    }
+
 
 	public AudioClip[] playerJumpClips; //These arrays are for player audio clips
 	public AudioClip[] playerLandClips;
@@ -111,8 +101,11 @@ public class AudioManager : MonoBehaviour {
 	public float minPitchLand = .95f;
 	public float maxPitchLand = 1.05f;
 
+	bool IsPlayerWalkingSFX = false;
+	private AudioSource PlayerWalkSource;
 
-
+	bool IsEnemyWalkingSFX = false;
+	private AudioSource EnemyWalkSource;
 
 
     /// <summary>
@@ -239,29 +232,30 @@ public class AudioManager : MonoBehaviour {
         }
 	}
 
-public void PlayerWalking()
-	{
-		//bool IsPlayerWalking;
-		int randomClip = Random.Range (0, playerWalkClips.Length);
+	public void PlayerWalking(bool IsPlayerWalking){
+		
+	
 
-		if (playerWalkClips.Length > 0) {
+		if (playerPickUpClips.Length > 0) {
+			if (IsPlayerWalkingSFX == false && IsPlayerWalking == true) {
+				int randomClip = Random.Range (0, playerWalkClips.Length);
+
+				PlayerWalkSource = gameObject.AddComponent <AudioSource> ();
+
+				PlayerWalkSource.clip = playerWalkClips [randomClip];
+
+				IsPlayerWalkingSFX = true;
+
+				PlayerWalkSource.loop = true;
 			
-			//if (IsPlayerWalking = true) { //Is the player walking?
-				//Create an Audio Source
-				AudioSource source = gameObject.AddComponent<AudioSource> ();
-				//Load clip into Audio Sourse
-				source.clip = playerWalkClips [randomClip];
-
-				//Set Output
-				source.outputAudioMixerGroup = EnemyJumpOutput;
-
-				//Set Pitch Randomisation
-				source.pitch = Random.Range (minPitchLand, maxPitchLand);
-
-				//Play Clip
-				source.Play ();
-
-			} 
+				PlayerWalkSource.Play();
+			}
+			else if (IsPlayerWalkingSFX == true && IsPlayerWalking == false) {
+	
+				Destroy (PlayerWalkSource);
+				IsPlayerWalkingSFX = false;
+				}
+			}
 		}
 
 
@@ -371,13 +365,32 @@ public void PlayerWalking()
         }
 	}
 
-	public void EnemyWalk (){
-        if (enemyWalkClips.Length > 0)
-        {
+	public void EnemyWalk(bool IsEnemyWalking){
 
-        }
+
+
+		if (enemyWalkClips.Length > 0) {
+		if (IsEnemyWalkingSFX == false && IsEnemyWalking == true) {
+				int randomClip = Random.Range (0, playerWalkClips.Length);
+
+			EnemyWalkSource = gameObject.AddComponent <AudioSource> ();
+
+			EnemyWalkSource.clip = playerWalkClips [randomClip];
+
+			IsEnemyWalkingSFX = true;
+
+			EnemyWalkSource.loop = true;
+
+			EnemyWalkSource.Play();
+		}
+			else if (IsEnemyWalkingSFX == true && IsEnemyWalking == false) {
+
+			Destroy (EnemyWalkSource);
+			IsEnemyWalkingSFX = false;
+			print ("Destroy");
+			}
+		}
 	}
-
 
 
 
@@ -607,6 +620,20 @@ public void MenuLoop(){
 
 		private void Awake()
 		{
+		bool IsPlayerWalkingSFX = false;
+
 			PerformSingletonPattern();
 		}
+
+	static private AudioManager singleton;
+	static public AudioManager Singleton
+	{
+		get
+		{
+			if (singleton == null)
+				singleton = FindObjectOfType<AudioManager> ();
+		return singleton;
+		}
+	}
+
 	}

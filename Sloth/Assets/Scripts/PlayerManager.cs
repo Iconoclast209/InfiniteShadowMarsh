@@ -486,6 +486,12 @@ public class PlayerManager : MonoBehaviour {
             sprite.flipX = false;
         animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
         RB.velocity = new Vector2(playerMovement * movementSpeed, RB.velocity.y);
+
+		if (playerMovement != 0.0f) 
+			AudioManager.Singleton.PlayerWalking (true);
+		if (playerMovement == 0.0f)
+			AudioManager.Singleton.PlayerWalking (false);
+
     }
 
     private void Jump()

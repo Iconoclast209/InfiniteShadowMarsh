@@ -4905,6 +4905,11 @@ Prefab:
       propertyPath: enemyAttackClips.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: 91e011bcc3a734a64a585dcfdb6f976d, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: playerWalkClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 958ee69b2b683448aaeae7a2c0dec103, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c146e58fe48dc9d4d965eb76e47109e6, type: 2}
   m_IsPrefabParent: 0
