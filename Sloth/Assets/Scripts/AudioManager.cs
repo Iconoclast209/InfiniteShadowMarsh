@@ -22,8 +22,8 @@ public class AudioManager : MonoBehaviour {
     {
         get
         {
-            if (singleton == null)
-                singleton = FindObjectOfType<AudioManager>();
+			if (singleton == null)
+				singleton = FindObjectOfType<AudioManager> ();
             return singleton;
         }
     }
@@ -59,6 +59,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioClip[] menuSelectClips;
 	public AudioClip[] menuStartClips;
+	public AudioClip[] menuLoopClips;
 
 
 	/// <summary>
@@ -97,6 +98,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioMixerGroup MenuSelectOutput;	
 	public AudioMixerGroup MenuStartOutput;	
+	public AudioMixerGroup MenuLoopOutput;	
 
 	/// <summary>
 	/// Variables
@@ -552,16 +554,40 @@ public class AudioManager : MonoBehaviour {
         }
 	}
 
-    private void PerformSingletonPattern()
-    {
-        if (singleton == null)
-            singleton = this;
-        else if (singleton != this)
-            Destroy(gameObject);
-    }
 
-    private void Awake()
-    {
-        PerformSingletonPattern();
-    }
-}
+
+
+public void MenuLoop(){
+
+		if (menuSelectClips.Length > 0) {
+		}
+			int randomClip = Random.Range (0, menuLoopClips.Length);
+			//Create an Audio Source
+			AudioSource source = gameObject.AddComponent<AudioSource> ();
+			//Load clip into Audio Sourse
+			source.clip = menuLoopClips [randomClip];
+
+			//Set Output
+			source.outputAudioMixerGroup = MenuLoopOutput;
+
+			//Play Clip
+			source.Play ();
+
+			//Destroy AudioSourc when finished
+			Destroy (source, menuLoopClips [randomClip].length);
+		}
+
+
+		private void PerformSingletonPattern()
+		{
+			if (singleton == null)
+				singleton = this;
+			else if (singleton != this)
+				Destroy(gameObject);
+		}
+
+		private void Awake()
+		{
+			PerformSingletonPattern();
+		}
+	}

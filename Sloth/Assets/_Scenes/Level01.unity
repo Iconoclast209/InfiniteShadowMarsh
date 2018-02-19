@@ -4823,6 +4823,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: doorOpenClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyWalkClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4231117340336630, guid: c146e58fe48dc9d4d965eb76e47109e6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4855,6 +4865,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyWalkClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f88861555e194e699f6c0e38cc4c418, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: doorOpenClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1821d738990ca47ddb292a208076006c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c146e58fe48dc9d4d965eb76e47109e6, type: 2}
   m_IsPrefabParent: 0
