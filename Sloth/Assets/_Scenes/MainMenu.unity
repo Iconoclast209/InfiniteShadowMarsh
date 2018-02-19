@@ -636,6 +636,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4981563c26d384fa1a160f5866f63250, type: 3}
   menuStartClips:
   - {fileID: 8300000, guid: 38b95a3ce1873437495ac41ce4fc14eb, type: 3}
+  menuLoopClips: []
   PlayerJumpOutput: {fileID: 243312413437609540, guid: 70c788f2db0c14161bde1bced07a3838,
     type: 2}
   PlayerLandOutput: {fileID: 243811654533915288, guid: 70c788f2db0c14161bde1bced07a3838,
@@ -679,6 +680,8 @@ MonoBehaviour:
   MenuSelectOutput: {fileID: 243795677155399100, guid: 70c788f2db0c14161bde1bced07a3838,
     type: 2}
   MenuStartOutput: {fileID: 243709008789002892, guid: 70c788f2db0c14161bde1bced07a3838,
+    type: 2}
+  MenuLoopOutput: {fileID: 243709008789002892, guid: 70c788f2db0c14161bde1bced07a3838,
     type: 2}
   minPitchJump: 0.95
   maxPitchJump: 1.05

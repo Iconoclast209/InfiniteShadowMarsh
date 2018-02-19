@@ -4833,6 +4833,16 @@ Prefab:
       propertyPath: enemyWalkClips.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyDeathClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyAttackClips.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4231117340336630, guid: c146e58fe48dc9d4d965eb76e47109e6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4875,6 +4885,26 @@ Prefab:
       propertyPath: doorOpenClips.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 1821d738990ca47ddb292a208076006c, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyDeathClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 210ee3aae5e264e62837ef8f48fdf114, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyAttackClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 003bc6e6bf8c945f8b8787f2d14f075c, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyAttackClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ba085f5de32948bcbcc12cd238cdc8f, type: 3}
+    - target: {fileID: 114471574328561348, guid: c146e58fe48dc9d4d965eb76e47109e6,
+        type: 2}
+      propertyPath: enemyAttackClips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 91e011bcc3a734a64a585dcfdb6f976d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c146e58fe48dc9d4d965eb76e47109e6, type: 2}
   m_IsPrefabParent: 0

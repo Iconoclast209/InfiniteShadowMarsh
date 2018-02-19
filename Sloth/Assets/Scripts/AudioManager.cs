@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour {
         {
 			if (singleton == null)
 				singleton = FindObjectOfType<AudioManager> ();
+			
             return singleton;
         }
     }
@@ -238,13 +239,31 @@ public class AudioManager : MonoBehaviour {
         }
 	}
 
-	public void PlayerWalking()
-    {
-        if (playerWalkClips.Length > 0)
-        {
+public void PlayerWalking()
+	{
+		//bool IsPlayerWalking;
+		int randomClip = Random.Range (0, playerWalkClips.Length);
 
-        }
-	}
+		if (playerWalkClips.Length > 0) {
+			
+			//if (IsPlayerWalking = true) { //Is the player walking?
+				//Create an Audio Source
+				AudioSource source = gameObject.AddComponent<AudioSource> ();
+				//Load clip into Audio Sourse
+				source.clip = playerWalkClips [randomClip];
+
+				//Set Output
+				source.outputAudioMixerGroup = EnemyJumpOutput;
+
+				//Set Pitch Randomisation
+				source.pitch = Random.Range (minPitchLand, maxPitchLand);
+
+				//Play Clip
+				source.Play ();
+
+			} 
+		}
+
 
 
 
@@ -287,7 +306,7 @@ public class AudioManager : MonoBehaviour {
             int randomClip = Random.Range(0, enemyLandClips.Length);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
-            //Load clip into Audio Sourse
+            //Load clip into Audio Source
             source.clip = enemyLandClips[randomClip];
 
             //Set Output
