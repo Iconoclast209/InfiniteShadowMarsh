@@ -292,12 +292,18 @@ public class PlayerManager : MonoBehaviour {
         climbSpeed *= boostFromPickUp.ClimbSpeedMultiplier * compensatorForTimeScale;
         jumpStrength *= boostFromPickUp.JumpStrengthMultiplier;
 
-        //Add boost energy to player up to maximum energy levels, and resize the energy bar accordingly.
-        currentEnergy += boostFromPickUp.EnergyFromBoost;
-        if (currentEnergy > MaximumEnergy)
-            currentEnergy = MaximumEnergy;
+        //Add boost energy to player up to maximum energy levels.
+        CurrentEnergy += boostFromPickUp.EnergyFromBoost;
+        if (CurrentEnergy > MaximumEnergy)
+            CurrentEnergy = MaximumEnergy;
 
-        // TEST
+        //Add health boost to player up to maximum health level, and resize the health bar accordingly.
+        CurrentHealth += boostFromPickUp.HealthFromBoost;
+        if (CurrentHealth > MaximumHealth)
+            CurrentHealth = MaximumHealth;
+        HUDManager.Singleton.ResizeHealthBar();
+        
+        //Adjust animation speed to compensate for the time scaling operations.
         animator.speed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
     }
 

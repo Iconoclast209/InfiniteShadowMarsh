@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88588002f2dbec941a0feca93a63f27e, type: 3}
   m_Name: Slothbux
   m_EditorClassIdentifier: 
+  healthFromBoost: 30
   energyFromBoost: 30
   gravityReductionDivisor: 2
   movementSpeedMultiplier: 1.5

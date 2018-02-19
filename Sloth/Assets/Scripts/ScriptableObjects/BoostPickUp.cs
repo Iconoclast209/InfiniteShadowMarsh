@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Pick-Ups/Boost Pick-Up")]
 public class BoostPickUp : PickUp {
 
+    [Tooltip("Health boost given.")]
+    [SerializeField]
+    private float healthFromBoost;
     [Tooltip("Energy boost given.")]
     [SerializeField]
     private float energyFromBoost;
@@ -107,9 +110,19 @@ public class BoostPickUp : PickUp {
         }
     }
 
+    ///<summary>Accessor for Health Boost value</summary>
+    public float HealthFromBoost
+    {
+        get
+        {
+            return healthFromBoost;
+        }
 
-
-
+        private set
+        {
+            healthFromBoost = value;
+        }
+    }
 
     public override void Action()
     {
