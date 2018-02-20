@@ -8321,6 +8321,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114720008988151568, guid: 680bb3882fa153f4ca8c2777b1ff25d6,
+        type: 2}
+      propertyPath: patrolRadius
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 680bb3882fa153f4ca8c2777b1ff25d6, type: 2}
   m_IsPrefabParent: 0
