@@ -3695,8 +3695,8 @@ Prefab:
     - target: {fileID: 114282987126272592, guid: a04d9451df4903c40bfdd785e301ba5a,
         type: 2}
       propertyPath: textToDisplay
-      value: Use A & D to move, W to climb, D to descend. Space performs a mighty
-        Sloth Pounce!
+      value: Use A & D to move, W to climb, S to descend. Space performs a mighty
+        Sloth Pounce! Use E to attack enemies!
       objectReference: {fileID: 0}
     - target: {fileID: 61453864672143708, guid: a04d9451df4903c40bfdd785e301ba5a,
         type: 2}
@@ -9798,7 +9798,7 @@ Prefab:
     - target: {fileID: 114282987126272592, guid: a04d9451df4903c40bfdd785e301ba5a,
         type: 2}
       propertyPath: textToDisplay
-      value: I love Slothbix, nothing beats an energy boost!
+      value: I love Slothbux, nothing beats an energy boost!
       objectReference: {fileID: 0}
     - target: {fileID: 1460291273866078, guid: a04d9451df4903c40bfdd785e301ba5a, type: 2}
       propertyPath: m_Name
