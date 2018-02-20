@@ -107,6 +107,8 @@ public class AudioManager : MonoBehaviour {
 	bool IsEnemyWalkingSFX = false;
 	private AudioSource EnemyWalkSource;
 
+    private AudioSource menuLoopSource;
+
 
     /// <summary>
     /// These functions call Player SFX
@@ -116,7 +118,7 @@ public class AudioManager : MonoBehaviour {
         if (playerJumpClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, playerJumpClips.Length);
+            int randomClip = Random.Range(0, playerJumpClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip jumpClipsse
@@ -140,7 +142,7 @@ public class AudioManager : MonoBehaviour {
         if (playerLandClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, enemyLandClips.Length);
+            int randomClip = Random.Range(0, enemyLandClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -164,7 +166,7 @@ public class AudioManager : MonoBehaviour {
         if (playerAttackClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, playerAttackClips.Length);
+            int randomClip = Random.Range(0, playerAttackClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -188,7 +190,7 @@ public class AudioManager : MonoBehaviour {
         if (playerHurtClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, playerHurtClips.Length);
+            int randomClip = Random.Range(0, playerHurtClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -212,7 +214,7 @@ public class AudioManager : MonoBehaviour {
         if (playerPickUpClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, playerPickUpClips.Length);
+            int randomClip = Random.Range(0, playerPickUpClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -238,7 +240,7 @@ public class AudioManager : MonoBehaviour {
 
 		if (playerPickUpClips.Length > 0) {
 			if (IsPlayerWalkingSFX == false && IsPlayerWalking == true) {
-				int randomClip = Random.Range (0, playerWalkClips.Length);
+				int randomClip = Random.Range (0, playerWalkClips.Length - 1);
 
 				PlayerWalkSource = gameObject.AddComponent <AudioSource> ();
 
@@ -272,7 +274,7 @@ public class AudioManager : MonoBehaviour {
         if (enemyJumpClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, enemyJumpClips.Length);
+            int randomClip = Random.Range(0, enemyJumpClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -297,7 +299,7 @@ public class AudioManager : MonoBehaviour {
         if (enemyLandClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, enemyLandClips.Length);
+            int randomClip = Random.Range(0, enemyLandClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Source
@@ -321,7 +323,7 @@ public class AudioManager : MonoBehaviour {
         if (enemyAttackClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, enemyAttackClips.Length);
+            int randomClip = Random.Range(0, enemyAttackClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -345,7 +347,7 @@ public class AudioManager : MonoBehaviour {
         if (enemyDeathClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, enemyDeathClips.Length);
+            int randomClip = Random.Range(0, enemyDeathClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -371,7 +373,7 @@ public class AudioManager : MonoBehaviour {
 
 		if (enemyWalkClips.Length > 0) {
 		if (IsEnemyWalkingSFX == false && IsEnemyWalking == true) {
-				int randomClip = Random.Range (0, playerWalkClips.Length);
+				int randomClip = Random.Range (0, playerWalkClips.Length - 1);
 
 			EnemyWalkSource = gameObject.AddComponent <AudioSource> ();
 
@@ -400,7 +402,7 @@ public class AudioManager : MonoBehaviour {
         if (itemKeyPickUpClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, itemKeyPickUpClips.Length);
+            int randomClip = Random.Range(0, itemKeyPickUpClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -424,7 +426,7 @@ public class AudioManager : MonoBehaviour {
         if (itemKeyDropClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, itemKeyDropClips.Length);
+            int randomClip = Random.Range(0, itemKeyDropClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -456,7 +458,7 @@ public class AudioManager : MonoBehaviour {
         if (doorOpenClips.Length > 0)
         {
             // Randomise
-            int randomClip = Random.Range(0, doorOpenClips.Length);
+            int randomClip = Random.Range(0, doorOpenClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -546,7 +548,7 @@ public class AudioManager : MonoBehaviour {
 
         if (menuSelectClips.Length > 0)
         {
-            int randomClip = Random.Range(0, menuSelectClips.Length);
+            int randomClip = Random.Range(0, menuSelectClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -566,10 +568,10 @@ public class AudioManager : MonoBehaviour {
         }
 }
     
-	public void MenuStartGame(){
+	public IEnumerator MenuStartGame(){
         if (menuStartClips.Length > 0)
         {
-            int randomClip = Random.Range(0, menuStartClips.Length);
+            int randomClip = Random.Range(0, menuStartClips.Length - 1);
             //Create an Audio Source
             AudioSource source = gameObject.AddComponent<AudioSource>();
             //Load clip into Audio Sourse
@@ -581,33 +583,44 @@ public class AudioManager : MonoBehaviour {
             //Play Clip
             source.Play();
 
+            yield return new WaitForSeconds(menuStartClips[randomClip].length);
+
             //Destroy AudioSourc when finished
-            Destroy(source, menuStartClips[randomClip].length);
+            Destroy(source);
+            UIManager.Singleton.LoadNewGame();
         }
 	}
 
 
 
 
-public void MenuLoop(){
+    public void MenuLoop(bool playLoop)
+    {
 
-		if (menuSelectClips.Length > 0) {
-		}
-			int randomClip = Random.Range (0, menuLoopClips.Length);
-			//Create an Audio Source
-			AudioSource source = gameObject.AddComponent<AudioSource> ();
-			//Load clip into Audio Sourse
-			source.clip = menuLoopClips [randomClip];
+        if (menuLoopClips.Length > 0)
+        {
+            if (playLoop)
+            {
+                int randomClip = Random.Range(0, menuLoopClips.Length - 1);
+                //Create an Audio Source
+                menuLoopSource = gameObject.AddComponent<AudioSource>();
+                //Load clip into Audio Sourse
+                menuLoopSource.clip = menuLoopClips[randomClip];
 
-			//Set Output
-			source.outputAudioMixerGroup = MenuLoopOutput;
-
-			//Play Clip
-			source.Play ();
-
-			//Destroy AudioSourc when finished
-			Destroy (source, menuLoopClips [randomClip].length);
-		}
+                //Set Output
+                menuLoopSource.outputAudioMixerGroup = MenuLoopOutput;
+                menuLoopSource.loop = true;
+                //Play Clip
+                menuLoopSource.Play();
+            }
+            else
+            {
+                menuLoopSource.Stop();
+                //Destroy AudioSourc when finished
+                Destroy(menuLoopSource);
+            }
+        }
+    }
 
 	private void Awake()
 	{

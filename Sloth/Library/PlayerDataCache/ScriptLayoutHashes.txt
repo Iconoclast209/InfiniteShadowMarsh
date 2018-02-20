@@ -2,7 +2,6 @@ WebGL
 SceneListBegin?
 Assets/_Scenes/Splash.unity
 Assets/_Scenes/MainMenu.unity
-Assets/_Scenes/Test.unity
 Assets/_Scenes/Credits.unity
 Assets/_Scenes/Level01.unity
 Assets/_Scenes/Demo.unity

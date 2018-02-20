@@ -71,24 +71,35 @@ public class UIManager : MonoBehaviour
     public void StartNewGame()
     {
         //TODO: Add any necessary DataManager references.
+        AudioManager.Singleton.MenuLoop(false);
+        StartCoroutine(AudioManager.Singleton.MenuStartGame());
+
+    }
+
+    public void LoadNewGame()
+    {
         SceneManager.LoadScene("Level01", LoadSceneMode.Single);
     }
+    
 
     /// <summary>Load "Credits" scene.</summary>
     public void ShowCredits()
     {
+        AudioManager.Singleton.MenuSelect();
         SceneManager.LoadScene("Credits", LoadSceneMode.Single);
     }
 
     /// <summary>Load "Main Menu" scene.</summary>
     public void LoadMainMenu()
     {
+        AudioManager.Singleton.MenuSelect();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     /// <summary>Exit the game in player; quit test in Editor.</summary>
     public void ExitGame()
     {
+        AudioManager.Singleton.MenuSelect();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -121,6 +132,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         InitializeSingletonPattern();
+        AudioManager.Singleton.MenuLoop(true);
         SceneManager.sceneLoaded += FindSceneCanvas;
     }
 
