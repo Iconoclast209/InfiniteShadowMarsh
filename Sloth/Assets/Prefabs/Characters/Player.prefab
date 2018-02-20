@@ -109,12 +109,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalLives: 3
   maximumHealth: 100
-  healthDrain: 1
+  healthDrain: 0.5
   maximumEnergy: 30
   movementSpeed: 1
   climbSpeed: 1
   jumpStrength: 5
   attackRadius: 0.83
+  attackDelay: 1
   distanceOfGroundCheck: 0.88
 --- !u!212 &212823635935388186
 SpriteRenderer:
