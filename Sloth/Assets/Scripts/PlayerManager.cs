@@ -347,18 +347,26 @@ public class PlayerManager : MonoBehaviour {
     /// <param name="modsFromPickUp"></param>
     public void ApplyPickUpBoost(BoostPickUp pickUp)
     {
-        //Save pick-up data to the player's boost info.
-        boostFromPickUp = pickUp;
 
-        //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
-        float compensatorForTimeScale = 1.0f / boostFromPickUp.TimeScalar;
-        Time.timeScale = boostFromPickUp.TimeScalar;
+        //Only boost stats if not already boosted.
+        if (CurrentEnergy == 0)
+        {
+            //Save pick-up data to the player's boost info.
+            boostFromPickUp = pickUp;
 
-        //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
-        CurrentGravityScale = RB.gravityScale /= boostFromPickUp.GravityReductionDivisor;       //Need to store CurrentGravity as well so we can freely manipulate gravity during ladder climbing without interfering with the boost mechanic.
-        movementSpeed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
-        climbSpeed *= boostFromPickUp.ClimbSpeedMultiplier * compensatorForTimeScale;
-        jumpStrength *= boostFromPickUp.JumpStrengthMultiplier;
+            //Calculate the compensation needed on certain player boosts to compensate for the time scalar. Then scale time.
+            float compensatorForTimeScale = 1.0f / boostFromPickUp.TimeScalar;
+            Time.timeScale = boostFromPickUp.TimeScalar;
+
+            //Apply all the boosts from the pick-up based off the stored boost info and the compensator.
+            CurrentGravityScale = RB.gravityScale /= boostFromPickUp.GravityReductionDivisor;       //Need to store CurrentGravity as well so we can freely manipulate gravity during ladder climbing without interfering with the boost mechanic.
+            movementSpeed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
+            climbSpeed *= boostFromPickUp.ClimbSpeedMultiplier * compensatorForTimeScale;
+            jumpStrength *= boostFromPickUp.JumpStrengthMultiplier;
+
+            //Adjust animation speed to compensate for the time scaling operations.
+            animator.speed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
+        }
 
         //Add boost energy to player up to maximum energy levels.
         CurrentEnergy += boostFromPickUp.EnergyFromBoost;
@@ -370,9 +378,6 @@ public class PlayerManager : MonoBehaviour {
         if (CurrentHealth > MaximumHealth)
             CurrentHealth = MaximumHealth;
         HUDManager.Singleton.ResizeHealthBar();
-        
-        //Adjust animation speed to compensate for the time scaling operations.
-        animator.speed *= boostFromPickUp.MovementSpeedMultiplier * compensatorForTimeScale;
     }
 
     /// <summary>Removes pickup boost modifications to player.</summary>
@@ -667,7 +672,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if (currentEnergy > 0.0f)
         {
-            currentEnergy -= Time.deltaTime;
+            currentEnergy -= (1.0f * Time.deltaTime);
             if (currentEnergy <= 0.0f)
             {
                 RemovePickUpBoost();

@@ -14,7 +14,7 @@ MonoBehaviour:
   healthFromBoost: 30
   energyFromBoost: 100
   gravityReductionDivisor: 1
-  movementSpeedMultiplier: 2
-  climbSpeedMultiplier: 2
-  jumpStrengthMultiplier: 1.5
+  movementSpeedMultiplier: 3
+  climbSpeedMultiplier: 3
+  jumpStrengthMultiplier: 2.5
   timeScalar: 1
