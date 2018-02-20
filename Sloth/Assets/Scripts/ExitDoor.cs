@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Only allows player to escape once an "unlocked" criteria is met.  Otherwise, display warning.
@@ -50,9 +51,15 @@ public class ExitDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (LevelManager.Singleton.CollectiblesCollected < LevelManager.Singleton.NumOfCollectibles)
+            {
                 UIManager.Singleton.CreateMessage(textToDisplayWhenLocked);
+            }
             else
+            {
                 UIManager.Singleton.CreateMessage(textToDisplayWhenUnlocked);
+                Invoke("LoadDemoScene", 3.0f);
+            }
+                
         }
     }
 
@@ -63,6 +70,12 @@ public class ExitDoor : MonoBehaviour
         //If triggered by player when locked, remove exit-door warning text.
         if (collision.gameObject.CompareTag("Player") && isLocked)
             UIManager.Singleton.RemoveMessage();
+    }
+
+    /// <summary>Function called when the player has successfully completed the level.  This will take the player to the Thanks for Playing screen.</summary>
+    private void LoadDemoScene()
+    {
+        SceneManager.LoadScene("Demo");
     }
 }
 
