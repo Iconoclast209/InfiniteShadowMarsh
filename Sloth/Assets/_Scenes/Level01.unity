@@ -315,6 +315,64 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1dc84e4f19073648b4cddeea15eb48d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &27697496
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -31.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.70660913
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7076041
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022440365500836, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_Name
+      value: Falling Pits of Ominous Doom (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 112.122
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -89.91901
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &33006701 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4062921229574616, guid: e81443e46be1e1b4ba89cfd864ae08b0,
@@ -1577,6 +1635,60 @@ Transform:
   m_PrefabParentObject: {fileID: 4093061755864804, guid: e51dc9fffa63fc74fa1f185485c2e85f,
     type: 2}
   m_PrefabInternal: {fileID: 1436180111}
+--- !u!1001 &334373989
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.9986763
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -68.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022440365500836, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_Name
+      value: Falling Pits of Ominous Doom (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 86.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.45
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &335501939
 Prefab:
   m_ObjectHideFlags: 0
@@ -2003,7 +2115,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 101.64921, y: 218.34}
+  m_Size: {x: 159.94818, y: 218.34}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2015,7 +2127,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413130871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.567362, y: -30.784437, z: 0.082031235}
+  m_LocalPosition: {x: 3.619, y: -30.784437, z: 0.082031235}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1155517040}
@@ -6313,6 +6425,64 @@ Transform:
   m_PrefabParentObject: {fileID: 4638119295016706, guid: 680bb3882fa153f4ca8c2777b1ff25d6,
     type: 2}
   m_PrefabInternal: {fileID: 1250495969}
+--- !u!1001 &1256046881
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 40.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -31.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.70660913
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7076041
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022440365500836, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_Name
+      value: Falling Pits of Ominous Doom (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 112.122
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -89.91901
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1257739373 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4484576740042780, guid: 4aa25329487f73b48a3acdb03b4a5856,
@@ -8876,6 +9046,60 @@ Transform:
   m_PrefabParentObject: {fileID: 4093061755864804, guid: e51dc9fffa63fc74fa1f185485c2e85f,
     type: 2}
   m_PrefabInternal: {fileID: 1539280752}
+--- !u!1001 &1808814006
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.9986763
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -21.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022440365500836, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_Name
+      value: Falling Pits of Ominous Doom (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 86.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338569546409416, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.45
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b8e3241e81be69b4b98ea9e116810782, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1810582047
 Prefab:
   m_ObjectHideFlags: 0
