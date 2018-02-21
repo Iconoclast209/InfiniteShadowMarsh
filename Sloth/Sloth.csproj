@@ -331,6 +331,7 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Decision.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PatrolAction.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\PickUp.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\SpawnMovingPickUp.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\State.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Transition.cs" />
     <Compile Include="Assets\Scripts\SplashScreen.cs" />

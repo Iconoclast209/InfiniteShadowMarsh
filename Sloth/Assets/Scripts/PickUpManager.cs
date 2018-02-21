@@ -6,7 +6,21 @@
 public class PickUpManager : MonoBehaviour
 {
     [Tooltip("Pick-Up Boost Information Structure")][SerializeField]
-    private PickUp pickUp;
+    private PickUp[] pickUps;
+
+    /// <summary>Accessor to pick-up objects.</summary>
+    public PickUp[] PickUps
+    {
+        get
+        {
+            return pickUps;
+        }
+
+        private set
+        {
+            pickUps = value;
+        }
+    }
 
 
 
@@ -15,7 +29,10 @@ public class PickUpManager : MonoBehaviour
     /// <summary>Set-up.  Calls pick-up's set-up functionality.</summary>
     private void Start()
     {
-        pickUp.SetUp();
+        foreach (PickUp pickUp in PickUps)
+        {
+            pickUp.SetUp();
+        }
     }
 
     /// <summary>If pickUp uses trigger collider, execute on trigger.</summary><param name="collision">Collider2D of other object.</param>
@@ -34,7 +51,10 @@ public class PickUpManager : MonoBehaviour
 
     /// <summary>Applies pick-up behavior.</summary>
 	private void ExecutePickUp() {
-        pickUp.Action();
+        foreach (PickUp pickUp in PickUps)
+        {
+            pickUp.Action();
+        }
         Destroy(gameObject);
 	}
 }

@@ -253,7 +253,7 @@ public class PlayerManager : MonoBehaviour {
             return spawnPoint;
         }
 
-        private set
+        set
         {
             spawnPoint = value;
         }
@@ -422,6 +422,7 @@ public class PlayerManager : MonoBehaviour {
         if (RemainingLives > 0)
         {
             RemainingLives--;
+            RemovePickUpBoost();
             RespawnPlayer();
         }
         else
