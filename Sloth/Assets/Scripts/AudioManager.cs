@@ -540,8 +540,12 @@ public class AudioManager : MonoBehaviour {
         }
 	}
 
-	public void BgmStop(){
-
+	public void DestroyAllAudioSources(){
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach(AudioSource audioSource in audioSources)
+        {
+            Destroy(audioSource);
+        }
 	}
 
 	public void MenuSelect(){

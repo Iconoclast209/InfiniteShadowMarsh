@@ -99,6 +99,8 @@ public class LevelManager : MonoBehaviour {
     {
         UIManager.Singleton.CreateMessage(text);
         yield return new WaitForSecondsRealtime(5.0f);
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        audioManager.DestroyAllAudioSources();
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
