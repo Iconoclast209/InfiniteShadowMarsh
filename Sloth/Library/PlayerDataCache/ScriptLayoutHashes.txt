@@ -1,4 +1,4 @@
-WebGL
+WindowsStandalone
 SceneListBegin?
 Assets/_Scenes/Splash.unity
 Assets/_Scenes/MainMenu.unity
@@ -21,7 +21,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 7cebc3ff8aa819bf33286bb45df8c2fd Assembly-CSharp.dll:.ExitDoor
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Button_Quit
 bbbb32c024fa5c203e387030213d41d2 Assembly-CSharp.dll:.RotatorEnabler
-ef4e5f1d3e7167ac3de07e2cb31b35e5 Assembly-CSharp.dll:.PickUpManager
+200c6a9533a24f316904288c04e44a4f Assembly-CSharp.dll:.PickUpManager
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -158,6 +158,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 a1b124c91f6c9b549043de9a3cca9252 Assembly-CSharp.dll:.HUDManager
 0ef28c628884c8f003f5c43392b2edd1 Assembly-CSharp.dll:.BackgroundScroller
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpawnMovingPickUp
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
