@@ -422,7 +422,10 @@ public class PlayerManager : MonoBehaviour {
         if (RemainingLives > 0)
         {
             RemainingLives--;
-            RemovePickUpBoost();
+            if (CurrentEnergy > 0)
+            {
+                RemovePickUpBoost();
+            }
             RespawnPlayer();
         }
         else
@@ -608,6 +611,7 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Per-frame update information. </summary>
 	private void Update()
     {
+        print(SpawnPoint);
         DrainHealth();
         HUDManager.Singleton.ResizeHealthBar();
         DrainEnergy();
