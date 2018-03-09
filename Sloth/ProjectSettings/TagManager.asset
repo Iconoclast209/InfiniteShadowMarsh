@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ladder
+  - Climbable Object
+  - Dead Enemies
+  - Live Enemies
+  - Interactive Object
+  - Walkable Ground
+  - Pick Up
   layers:
   - Default
   - TransparentFX
@@ -15,12 +21,12 @@ TagManager:
   - 
   - 
   - Player
-  - InteractiveGear
-  - DeadEnemies
-  - LiveEnemies
-  - 
-  - 
-  - 
+  - Interactive Object
+  - Dead Characters
+  - Live Characters
+  - Walkable Ground
+  - Climbable Object
+  - Pick Up
   - 
   - 
   - 

@@ -23,9 +23,8 @@ GameObject:
   - component: {fileID: 50040435815678834}
   - component: {fileID: 70002860305059646}
   - component: {fileID: 95325806555163420}
-  - component: {fileID: 114720008988151568}
   m_Layer: 11
-  m_Name: Spider
+  m_Name: Biter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,28 +95,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114720008988151568
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1386180670553558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed5d3b4cb513a74381237a1ba4b0b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 25
-  movementSpeed: 1
-  patrolRadius: 7.86
-  startMovingLeft: 0
-  webRadius: 0
-  webDelay: 4
-  biteRadius: 0.566
-  biteDelay: 2
-  biteDamage: 5
-  currentState: {fileID: 11400000, guid: fdef2cd9d7913da44a3d5e578c7d57e4, type: 2}
-  remainInState: {fileID: 0}
 --- !u!212 &212011727469423334
 SpriteRenderer:
   m_ObjectHideFlags: 1

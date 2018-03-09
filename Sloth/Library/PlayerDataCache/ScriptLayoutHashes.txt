@@ -1,4 +1,4 @@
-WindowsStandalone
+WebGL
 SceneListBegin?
 Assets/_Scenes/Splash.unity
 Assets/_Scenes/MainMenu.unity

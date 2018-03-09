@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4533869594035798}
   - component: {fileID: 212925318374008638}
   - component: {fileID: 61076038456991522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Support
-  m_TagString: Ladder
+  m_TagString: Walkable Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

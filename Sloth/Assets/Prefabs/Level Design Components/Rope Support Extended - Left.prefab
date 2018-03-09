@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4124635224598426}
   - component: {fileID: 212556083990983776}
   - component: {fileID: 61403939022403096}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Support Extended - Left
-  m_TagString: Ladder
+  m_TagString: Walkable Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,9 +37,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4698853118788820}
   - component: {fileID: 212522571214248098}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Support Beam
-  m_TagString: Ladder
+  m_TagString: Walkable Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,9 @@ GameObject:
   - component: {fileID: 4218672080339290}
   - component: {fileID: 212497198873459402}
   - component: {fileID: 61818092013665034}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rope
-  m_TagString: Ladder
+  m_TagString: Climbable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

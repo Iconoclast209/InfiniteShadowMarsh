@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4630705463961006}
   - component: {fileID: 212083298905691100}
   - component: {fileID: 61102626292766338}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RopeBridge
-  m_TagString: Untagged
+  m_TagString: Walkable Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

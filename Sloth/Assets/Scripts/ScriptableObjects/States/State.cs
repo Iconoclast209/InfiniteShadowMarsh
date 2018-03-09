@@ -13,19 +13,19 @@ public class State : ScriptableObject {
     [SerializeField]
     private Transition[] transitionsInState;
 
-    public void UpdateState(EnemyManager enemy)
+    public void UpdateState(Enemy enemy)
     {
         DoActions(enemy);
         CheckTransitions(enemy);
     }
 
-    private void DoActions(EnemyManager enemy)
+    private void DoActions(Enemy enemy)
     {
         foreach (Action action in actionsInState)
             action.Act(enemy);
     }
 
-    private void CheckTransitions(EnemyManager enemy)
+    private void CheckTransitions(Enemy enemy)
     {
         foreach(Transition transition in transitionsInState)
         {

@@ -6,7 +6,7 @@ using UnityEditor;
 
 
 /// <summary>Manager class for player behavior in response to player and game interaction.</summary>
-public class PlayerManager : MonoBehaviour {
+public class PlayerManager : MonoBehaviour, IDamageable {
     [Header("Player Stats")]
 
     [Tooltip("Maximum Health")][SerializeField]
@@ -58,9 +58,6 @@ public class PlayerManager : MonoBehaviour {
     /// <summary>Any boosts from a pick-up will be stored here.</summary>
     private BoostPickUp boostFromPickUp;
     
-    /// <summary>Flag - Is Player In Front of object with Ladder Tag?</summary>
-    private bool inFrontOfLadder = false;
-    
     /// <summary>Player's current health.</summary>
     private float currentHealth;
     
@@ -78,15 +75,6 @@ public class PlayerManager : MonoBehaviour {
     
     ///<summary>Reference to walking gravity scale.</summary>
     private float walkingGravityScale;
-    
-    /// <summary>Flag for player jumping behavior. </summary>
-    private bool tryingToJump = false;
-
-    /// <summary>Is player falling?</summary>
-    private bool isFalling = false;
-
-    /// <summary>Is player attacking?</summary>
-    private bool isAttacking = false;
 
     /// <summary>Reference to the starting point for the level.</summary>
     private Vector3 spawnPoint;
@@ -203,20 +191,6 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    /// <summary>Accessor to determine player jump state.</summary>
-    public bool TryingToJump
-    {
-        get
-        {
-            return tryingToJump;
-        }
-
-        private set
-        {
-            tryingToJump = value;
-        }
-    }
-
     /// <summary>Accessor to player's total lives.</summary>
     public int TotalLives
     {
@@ -259,47 +233,6 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    /// <summary>Accessor to determine if player is falling.</summary>
-    public bool IsFalling
-    {
-        get
-        {
-            return isFalling;
-        }
-
-        private set
-        {
-            isFalling = value;
-        }
-    }
-
-     /// <summary>Accessor to determine if player is in front of a ladder</summary>
-    public bool InFrontOfLadder
-    {
-        get
-        {
-            return inFrontOfLadder;
-        }
-
-        private set
-        {
-            inFrontOfLadder = value;
-        }
-    }
-
-    public bool IsAttacking
-    {
-        get
-        {
-            return isAttacking;
-        }
-
-        private set
-        {
-            isAttacking = value;
-        }
-    }
-
     public float AttackRadius
     {
         get
@@ -338,13 +271,89 @@ public class PlayerManager : MonoBehaviour {
             lastAttackTime = value;
         }
     }
+    
+    // Standard Monobehaviour methods--Not commented because standard methods should be understood if modifying code.
+    private void Awake()
+    {
+        InitializeSingleton();
+        SetPlayerComponentReferences();
+        InitializePlayerStats();
+    }
+    private void Start()
+    {
+        // Make horizontal movement available at all times when OnWalkStart is called
+        InputManager.OnWalkStart += UpdateHorizontalMovement;
 
+        // Make animator reset at all times when OnWalkStop is called
+        InputManager.OnWalkStop += UpdateWalkingAnimation;
+        InputManager.OnWalkStop += ResetAnimatorSpeed;
+        InputManager.OnClimbStop += UpdateClimbingAnimation;
+        InputManager.OnClimbStop += ResetAnimatorSpeed;
+    }
+    private void OnDestroy()
+    {
+        // Remove horizontal movement on object destruction.
+        InputManager.OnWalkStart -= UpdateHorizontalMovement;
 
-
-
+        // Remove animator resetting on object destruction.
+        InputManager.OnWalkStop -= UpdateWalkingAnimation;
+        InputManager.OnWalkStop -= ResetAnimatorSpeed;
+        InputManager.OnClimbStop -= UpdateClimbingAnimation;
+        InputManager.OnClimbStop -= ResetAnimatorSpeed;
+    }
+	private void Update()
+    {
+        //Update life & energy w/ HUD
+        DrainHealth();
+        HUDManager.Singleton.ResizeHealthBar();
+        DrainEnergy();
+        HUDManager.Singleton.ResizeEnergyBar();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //If player is entering a climbable object trigger, remove gravity and add climbing movement to event.
+        if (collision.gameObject.CompareTag("Climbable Object"))
+        {
+            RemoveGravityForce();
+            InputManager.OnClimbStart += UpdateVerticalMovement;
+            InputManager.OnClimbStart += UpdateClimbingAnimation;
+            InputManager.OnClimbStop += UpdateVerticalMovement;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //If player is exiting a climbable object trigger, apply gravity and remove climbing movement from event.
+        if (collision.gameObject.CompareTag("Climbable Object"))
+        {
+            ApplyGravityForce();
+            InputManager.OnClimbStart -= UpdateVerticalMovement;
+            InputManager.OnClimbStart -= UpdateClimbingAnimation;
+            InputManager.OnClimbStop -= UpdateVerticalMovement;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //If contacting the ground, allow jump and attack mechanics and allow walking animation
+        if (collision.gameObject.CompareTag("Walkable Ground"))         
+        {
+            InputManager.OnJump += Jump; 
+            InputManager.OnAttack += Attack;                            
+            InputManager.OnWalkStart += UpdateWalkingAnimation;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //If not on the ground, disallow jump and attack mechanics and walking animation
+        if (collision.gameObject.CompareTag("Walkable Ground"))         
+        {
+            InputManager.OnJump -= Jump;
+            InputManager.OnAttack -= Attack;
+            InputManager.OnWalkStart -= UpdateWalkingAnimation;
+        }
+    }
 
     /// <summary>Applies pickup boost to player, and sets duration.</summary>
-    /// <param name="modsFromPickUp"></param>
+    /// <param name="pickUp">Boost amounts from pick-up.</param>
     public void ApplyPickUpBoost(BoostPickUp pickUp)
     {
 
@@ -402,39 +411,6 @@ public class PlayerManager : MonoBehaviour {
         animator.speed /= boostFromPickUp.MovementSpeedMultiplier / compensatorForTimeScale;
     }
 
-    /// <summary>Applies damage to player.  </summary>
-    /// <param name="amountOfDamage">Amount of damage to give.</param>
-	public void DamagePlayer(int amountOfDamage)
-    {
-        CurrentHealth -= amountOfDamage;
-        AudioManager.Singleton.PlayerHurt();
-        HUDManager.Singleton.ResizeHealthBar();
-        if (CurrentHealth <= 0)
-        {
-            PlayerDies();
-        }
-    }
-
-    // TODO: Fix this.  It's very sloppy execution.
-    /// <summary>When player dies, remove a life and restart.  If no lives left, end game!</summary>
-    private void PlayerDies()
-    {
-        if (RemainingLives > 0)
-        {
-            RemainingLives--;
-            if (CurrentEnergy > 0)
-            {
-                RemovePickUpBoost();
-            }
-            RespawnPlayer();
-        }
-        else
-        {
-            LevelManager.Singleton.GameOverWrapper();
-            Destroy(this.gameObject);
-        }
-    }
-
     /// <summary>Respawn player at start point with max health.</summary>
     private void RespawnPlayer()
     {
@@ -444,14 +420,6 @@ public class PlayerManager : MonoBehaviour {
         CurrentEnergy = 0;
         HUDManager.Singleton.ResizeEnergyBar();
         gameObject.transform.position = SpawnPoint;
-    }
-
-    /// <summary>Early set-up. Establish singleton, initialize health and get Rigidbody2D reference.</summary>
-    private void Awake()
-    {
-        InitializeSingleton();
-        SetPlayerComponentReferences();
-        InitializePlayerStats();
     }
 
     /// <summary>Set references to necessary components on player object.</summary>
@@ -473,7 +441,7 @@ public class PlayerManager : MonoBehaviour {
             print("Can't find player's SpriteRenderer component!");
     }
 
-    /// <summary>Initialize all values needed for proper player function.</summary>
+    /// <summary>Set starting values needed for proper player function.</summary>
     private void InitializePlayerStats()
     {
         //Set current health w/ error check
@@ -487,7 +455,7 @@ public class PlayerManager : MonoBehaviour {
         SpawnPoint = gameObject.transform.position;
     }
 
-    /// <summary>Initialize the Singleton object.</summary>
+    /// <summary>Start up the Singleton object.</summary>
     private void InitializeSingleton()
     {
         //Establish singleton
@@ -501,56 +469,8 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    /// <summary>Performs movements and animations.</summary>
-    private void FixedUpdate()
-    {
-        //Applies movement based on input, makes sprite face direction of movement, and sends animator data to use movement animation.
-        WalkingMovement();
-
-        //BUGGED: Can climb up even when not properly aligned.  Consider a "vertical alignment" check.
-        //BUGGED: Tries to climb even at the top of the ladder.  Maybe add edge colliders?
-        //If in front of a ladder, gets vertical movement input and allows for climbing w/ animation.  If not climbing, fall and don't use climb animation.
-        if (InFrontOfLadder)
-        {
-            if (InFrontOfLadder)
-            {
-                ClimbingMovement();
-            }
-            else
-            {
-                RB.velocity = new Vector2(RB.velocity.x, 0.0f);
-            }
-        }
-
-        if (TryingToJump)
-        {
-            Jump();
-        }
-        if ((IsPlayerOnGround() == false) && (RB.velocity.y < 0.0f) && (IsFalling == false))
-        {
-            IsFalling = true;
-            animator.SetBool("isFalling", true);
-        }
-
-        if ((IsPlayerOnGround() == true) && (IsFalling == true))
-        {
-            IsFalling = false;
-            animator.SetBool("isFalling", false);
-        }
-
-        if ((RB.velocity.y == 0f) && IsAttacking == true)
-        {
-            Attack();
-        }
-        else
-        {
-            IsAttacking = false;
-        }
-    }
-
     private void Attack()
     {
-        IsAttacking = false;
         animator.SetTrigger("attacked");
         if (Time.realtimeSinceStartup >= (LastAttackTime + AttackDelay))
         {
@@ -560,68 +480,61 @@ public class PlayerManager : MonoBehaviour {
             if ((target = Physics2D.OverlapCircle(gameObject.transform.position, AttackRadius, LayerToHit)) != null)
             {
                 AudioManager.Singleton.PlayerAttack();
-                target.gameObject.GetComponent<EnemyManager>().DamageEnemy(0);
+                target.gameObject.GetComponent<Enemy>().ReceiveDamage(0);
             }
         }
     }
 
-    private void ClimbingMovement()
+    private void UpdateVerticalMovement()
     {
         float playerClimbSpeed = Input.GetAxis("Vertical");
-        if (playerClimbSpeed != 0.0f)
-        {
-            animator.SetFloat("playerClimbSpeed", playerClimbSpeed);
-        }
-        else
-        {
-            animator.SetFloat("playerClimbSpeed", 0.0f);
-            RB.velocity = new Vector2(RB.velocity.x, 0.0f);
-        }
+        UpdateClimbingAnimation();
         RB.velocity = new Vector2(RB.velocity.x, climbSpeed * playerClimbSpeed);
     }
 
-    private void WalkingMovement()
+    private void UpdateClimbingAnimation()
+    {
+        float playerClimbSpeed = Input.GetAxis("Vertical");
+        animator.SetFloat("playerClimbSpeed", playerClimbSpeed);
+        animator.speed = Mathf.Abs(playerClimbSpeed);
+    }
+
+    private void UpdateHorizontalMovement()
     {
         float playerMovement = Input.GetAxis("Horizontal");
+        SetSpriteToFaceDirectionOfMovement(playerMovement);
+        RB.velocity = new Vector2(playerMovement * movementSpeed, RB.velocity.y);
+
+        if (playerMovement != 0.0f)
+            AudioManager.Singleton.PlayerWalking(true);
+        if (playerMovement == 0.0f)
+            AudioManager.Singleton.PlayerWalking(false);
+    }
+
+    private void UpdateWalkingAnimation()
+    {
+        animator.SetFloat("playerSpeed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        animator.speed = Mathf.Abs(Input.GetAxis("Horizontal"));
+    }
+
+    private void ResetAnimatorSpeed()
+    {
+        animator.speed = 1.0f;
+    }
+
+    private void SetSpriteToFaceDirectionOfMovement(float playerMovement)
+    {
         if (playerMovement > 0.0f && sprite.flipX == false)
             sprite.flipX = true;
         if (playerMovement < 0.0f && sprite.flipX == true)
             sprite.flipX = false;
-        animator.SetFloat("playerSpeed", Mathf.Abs(playerMovement));
-        RB.velocity = new Vector2(playerMovement * movementSpeed, RB.velocity.y);
-
-		if (playerMovement != 0.0f) 
-			AudioManager.Singleton.PlayerWalking (true);
-		if (playerMovement == 0.0f)
-			AudioManager.Singleton.PlayerWalking (false);
-
     }
 
     private void Jump()
     {
-        TryingToJump = false;
-        if (IsPlayerOnGround())
-        {
-            RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
-            animator.SetTrigger("jumped");
-            AudioManager.Singleton.PlayerJump();
-        }
-    }
-
-    /// <summary>Per-frame update information. </summary>
-	private void Update()
-    {
-        print(SpawnPoint);
-        DrainHealth();
-        HUDManager.Singleton.ResizeHealthBar();
-        DrainEnergy();
-        HUDManager.Singleton.ResizeEnergyBar();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            TryingToJump = true;
-
-        if (Input.GetKeyDown(KeyCode.E))
-            IsAttacking = true;
+        RB.velocity = new Vector2(RB.velocity.x, jumpStrength);
+        animator.SetTrigger("jumped");
+        AudioManager.Singleton.PlayerJump();
     }
 
     /// <summary>Drain health over time. If 0, player dies.</summary>
@@ -630,48 +543,10 @@ public class PlayerManager : MonoBehaviour {
         CurrentHealth -= Time.deltaTime * healthDrain;
         if (CurrentHealth <= 0.0f)
         {
-            PlayerDies();
+            Death();
         }
     }
 
-    /// <summary>Detects if player entered "Ladder" trigger, and let them climb.</summary>
-    /// <param name="collision">object collided with.</param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ladder"))
-        {
-            RB.gravityScale = 0.0f;
-            
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ladder"))
-        {
-            if (collision.OverlapPoint(RB.position))
-            {
-                InFrontOfLadder = true;
-                print("In front of ladder");
-            }
-            else
-            {
-                InFrontOfLadder = false;
-                print("Not in front of ladder");
-            }
-        }
-    }
-    /// <summary>Detects if player left "Ladder" trigger, and prevent climbing.</summary>
-    /// <param name="collision">object collided with.</param>
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ladder"))
-        {
-            RB.gravityScale = CurrentGravityScale;
-            animator.SetFloat("playerClimbSpeed", 0.0f);
-        }
-    }
-    
     /// <summary>If player is boosted, reduce counter, removing boost when appropriate.</summary>
     private void DrainEnergy()
     {
@@ -695,6 +570,15 @@ public class PlayerManager : MonoBehaviour {
             return false;
     }
 
+    private void RemoveGravityForce()
+    {
+        RB.gravityScale = 0.0f;
+    }
+    private void ApplyGravityForce()
+    {
+        RB.gravityScale = WalkingGravityScale;
+    }
+
 #if UNITY_EDITOR 
     /// <summary>Draw "level-editor" gizmo settings in editor scene view.</summary>
     private void OnDrawGizmos()
@@ -706,4 +590,33 @@ public class PlayerManager : MonoBehaviour {
         Gizmos.DrawWireSphere(gameObject.transform.position, AttackRadius);
     }
 #endif
+    public void ReceiveDamage(int damageToTake)
+    {
+        CurrentHealth -= damageToTake;
+        AudioManager.Singleton.PlayerHurt();
+        HUDManager.Singleton.ResizeHealthBar();
+        if (CurrentHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        if (RemainingLives > 0)
+        {
+            RemainingLives--;
+            if (CurrentEnergy > 0)
+            {
+                RemovePickUpBoost();
+            }
+            RespawnPlayer();
+        }
+        else
+        {
+            LevelManager.Singleton.GameOverWrapper();
+            Destroy(this.gameObject);
+        }
+    }
+
 }

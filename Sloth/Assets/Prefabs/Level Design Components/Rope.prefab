@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4927946237700714}
   - component: {fileID: 212329582044568614}
   - component: {fileID: 61272399864382798}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rope
-  m_TagString: Ladder
+  m_TagString: Climbable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
