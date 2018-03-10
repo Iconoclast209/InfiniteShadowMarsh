@@ -58,7 +58,7 @@ public class PlayerTransitioner : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerManager.Singleton.gameObject.transform.position = Receiver.TransitionToLocation;
+            Player.Singleton.gameObject.transform.position = Receiver.TransitionToLocation;
         }
     }
 

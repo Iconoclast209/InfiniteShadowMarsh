@@ -133,9 +133,9 @@ public class LevelManager : MonoBehaviour {
     /// <summary>Per-frame functionality</summary>
     private void Update()
     {
-        if (PlayerManager.Singleton != null)
+        if (Player.Singleton != null)
         {
-            Vector3 cameraViewTarget = new Vector3(PlayerManager.Singleton.RB.position.x, PlayerManager.Singleton.RB.position.y, LevelCamera.transform.position.z);
+            Vector3 cameraViewTarget = new Vector3(Player.Singleton.RB.position.x, Player.Singleton.RB.position.y, LevelCamera.transform.position.z);
             LevelCamera.transform.position = Vector3.Lerp(LevelCamera.transform.position, cameraViewTarget, CamAcceleration);
         }
 

@@ -7,7 +7,7 @@ public class BoostPickUp : PickUp {
 
     [Tooltip("Health boost given.")]
     [SerializeField]
-    private float healthFromBoost;
+    private int healthFromBoost;
     [Tooltip("Energy boost given.")]
     [SerializeField]
     private float energyFromBoost;
@@ -111,7 +111,7 @@ public class BoostPickUp : PickUp {
     }
 
     ///<summary>Accessor for Health Boost value</summary>
-    public float HealthFromBoost
+    public int HealthFromBoost
     {
         get
         {
@@ -126,7 +126,7 @@ public class BoostPickUp : PickUp {
 
     public override void Action()
     {
-        PlayerManager.Singleton.ApplyPickUpBoost(this);
+        Player.Singleton.ApplyPickUpBoost(this);
         AudioManager.Singleton.PlayerPickUp();
     }
 }

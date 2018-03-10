@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 /// <summary><para>Base class for all combative enemies.  All enemies should have this attached!</para>
 /// <para>Inherit from this class and add behaviours.</para>
@@ -21,7 +21,7 @@ public abstract class Enemy : CombativeCharacter
     /// <summary>Reference to enemy's sprite renderer.</summary>
     private SpriteRenderer spriteRenderer;
     /// <summary>Reference to time (in seconds) of enemy's previous attack.</summary>
-    private float lastAttackTime;
+    protected float lastAttackTime;
 
 
 
@@ -93,12 +93,15 @@ public abstract class Enemy : CombativeCharacter
     }
 
 
-
-
-
     /// <summary>Early set-up.  Internal.</summary>
-    private void Awake()
+   public override void Awake()
     {
+        // TODO: Add name HUD display on enemies
+        //GameObject demoText = new GameObject("Enemy Name");
+        //Text textComp = demoText.AddComponent<Text>();
+        //textComp.text = "DEMO!";
+        //demoText.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
+        base.Awake();
         ValidateVariables();
     }
     /// <summary>Frame-independent update. Handles AI state updates for enemy.</summary>
@@ -112,6 +115,7 @@ public abstract class Enemy : CombativeCharacter
     /// <summary>Validates all base enemy variable settings.</summary>
     private void ValidateVariables()
     {
+
         RB = GetComponent<Rigidbody2D>();
         CC = GetComponent<CapsuleCollider2D>();
         Animator = GetComponent<Animator>();
@@ -161,6 +165,4 @@ public abstract class Enemy : CombativeCharacter
         AudioManager.Singleton.EnemyDeath();
         StartCoroutine(DieAfterSeconds(2.0f));
     }
-    /// <summary>Editor-specific behaviour for enemy.</summary>
-    virtual public void OnDrawGizmos() { }
 }

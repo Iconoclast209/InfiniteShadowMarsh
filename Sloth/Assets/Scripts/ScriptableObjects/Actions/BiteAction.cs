@@ -27,7 +27,7 @@ public class BiteAction : Action
                 {
                     enemy.Animator.SetTrigger("bitesPlayer");
                     AudioManager.Singleton.EnemyAttack();
-                    PlayerManager.Singleton.ReceiveDamage((int)enemyBiter.ScaledBiteDamage);
+                    Player.Singleton.ReceiveDamage((int)enemyBiter.ScaledBiteDamage);
                 }
             }
         }

@@ -8,7 +8,7 @@ public class SpawnMovingPickUp : PickUp
 
     public override void Action()
     {
-        PlayerManager.Singleton.SpawnPoint = PlayerManager.Singleton.RB.transform.position;
+        Player.Singleton.SpawnPoint = Player.Singleton.RB.transform.position;
     }
 
 }

@@ -9,7 +9,7 @@ public class KillOnContact : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //SLOPPY:  Does the job for now.  Take the hard code number out.
-            PlayerManager.Singleton.Death();
+            Player.Singleton.Death();
         }
     }
 }

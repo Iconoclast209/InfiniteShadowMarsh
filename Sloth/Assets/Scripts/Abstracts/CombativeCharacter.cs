@@ -5,13 +5,13 @@ public abstract class CombativeCharacter : BaseCharacter, IDamageable, IDamaging
 {
     [Space(10)][Header("Basic Combat Stats")]
     [Tooltip("Starting health.")][SerializeField]
-    private int startingHealth;
+    protected int startingHealth;
     [Tooltip("Base damage dealt. Attacks can be scaled individually.")][SerializeField]
-    private int baseDamage;
+    protected int baseDamage;
     /// <summary>Current health value.</summary>
-    private int currentHealth;
+    protected int currentHealth;
     /// <summary>Is Character alive?</summary>
-    private bool isAlive = true;
+    protected bool isAlive = true;
 
 
 
@@ -75,7 +75,7 @@ public abstract class CombativeCharacter : BaseCharacter, IDamageable, IDamaging
 
 
     /// <summary>Initialize current health.</summary>
-    private void Awake()
+    public virtual void Awake()
     {
         CurrentHealth = StartingHealth;
     }
@@ -91,12 +91,14 @@ public abstract class CombativeCharacter : BaseCharacter, IDamageable, IDamaging
     ///<summary>Overrideable function for dying.  Removes alive status and sets character on dead character layer.</summary>
     public virtual void Death()
     {
-        IsAlive = false;
-        gameObject.layer = LayerMask.NameToLayer("Dead Characters");
+        if (IsAlive)
+        {
+            IsAlive = false;
+            gameObject.layer = LayerMask.NameToLayer("Dead Characters");
+        }
     }
     public virtual void GiveDamage(int damageToGive, GameObject target)
     {
-
     }
     public virtual void Kill(GameObject target)
     {

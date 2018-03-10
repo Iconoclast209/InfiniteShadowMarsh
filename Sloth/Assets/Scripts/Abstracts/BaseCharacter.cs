@@ -5,10 +5,17 @@ public abstract class BaseCharacter : MonoBehaviour {
     [Space(10)]
     [Header("Base Character Stats")]
     [Tooltip("Character's name.")][SerializeField]
-    string characterName;
+    protected string characterName;
     [Tooltip("Character's description.")][SerializeField]
-    string characterDescription;
+    protected string characterDescription;
+    [Tooltip("Movement speed.")][SerializeField]
+    protected float movementSpeed;
     
+
+
+
+
+    /// <summary>Accessor for characterName</summary>
     public string CharacterName
     {
         get
@@ -21,4 +28,37 @@ public abstract class BaseCharacter : MonoBehaviour {
             characterName = value;
         }
     }
+    /// <summary>Accessor for characterDescription</summary>
+    public string CharacterDescription
+    {
+        get
+        {
+            return characterDescription;
+        }
+
+        set
+        {
+            characterDescription = value;
+        }
+    }
+    /// <summary>Accessor for movementSpeed</summary>
+    public float MovementSpeed
+    {
+        get
+        {
+            return movementSpeed;
+        }
+
+        set
+        {
+            movementSpeed = value;
+        }
+    }
+
+
+
+
+
+    /// <summary>Editor-specific behaviour for character.</summary>
+    virtual public void OnDrawGizmos() { }
 }

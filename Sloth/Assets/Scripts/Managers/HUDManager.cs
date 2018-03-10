@@ -125,13 +125,13 @@ public class HUDManager : MonoBehaviour
     public void UpdateLivesLeftHUD()
     {
         //Loop through each life of Player Manager.
-        for (int x = 0; x < PlayerManager.Singleton.TotalLives; x++)
+        for (int x = 0; x < Player.Singleton.TotalLives; x++)
         {
             //First destroy the currently referenced HUD game objects
             Destroy(LifeHUDHearts[x].gameObject, 0.0f);
 
             //Determine which life this is -- a remaining life, or lost life
-            if (x < PlayerManager.Singleton.RemainingLives)
+            if (x < Player.Singleton.RemainingLives)
                 LifeHUDHearts[x] = Instantiate<Image>(livesRemainingImage);
             else
                 LifeHUDHearts[x] = Instantiate<Image>(livesLostImage);
@@ -198,8 +198,8 @@ public class HUDManager : MonoBehaviour
     ///<summary>Create HUD element that tracks player lives.</summary>
     private void CreateLifeHUD()
     {
-        Array.Resize<Image>(ref lifeHUDHearts, PlayerManager.Singleton.TotalLives);
-        for (int x = 0; x < PlayerManager.Singleton.TotalLives; x++)
+        Array.Resize<Image>(ref lifeHUDHearts, Player.Singleton.TotalLives);
+        for (int x = 0; x < Player.Singleton.TotalLives; x++)
         {
             LifeHUDHearts[x] = Instantiate<Image>(livesRemainingImage);
             LifeHUDHearts[x].rectTransform.anchoredPosition = new Vector2(LifeHUDHearts[x].rectTransform.sizeDelta.x * x, 0.0f);
@@ -248,7 +248,7 @@ public class HUDManager : MonoBehaviour
         /// <summary>Calculate percentage of health remaining.</summary>
     private void CalculateHealthPercentage()
     {
-        playersCurrentHealth = (int)PlayerManager.Singleton.CurrentHealth;
+        playersCurrentHealth = (int)Player.Singleton.CurrentHealth;
         playersCurrentHealthPercentage = (playersCurrentHealth * HUNDRED_PERCENT / playersMaximumHealth);
     }
 
@@ -261,7 +261,7 @@ public class HUDManager : MonoBehaviour
     /// <summary>Calculate percentage of energy remaining.</summary>
     private void CalculateEnergyPercentage()
     {
-        playersCurrentEnergy = (int)PlayerManager.Singleton.CurrentEnergy;
+        playersCurrentEnergy = (int)Player.Singleton.CurrentEnergy;
         if (playersCurrentEnergy > 0)
             currentEnergyPercentage = (playersCurrentEnergy * HUNDRED_PERCENT / playersMaximumEnergy);
         else
@@ -277,14 +277,14 @@ public class HUDManager : MonoBehaviour
     /// <summary>Initialize health HUD settings using Player Manager.</summary>
     private void InitializeHealthHUD()
     {
-        playersMaximumHealth = PlayerManager.Singleton.MaximumHealth;
+        playersMaximumHealth = Player.Singleton.StartingHealth;
         ResizeHealthBar();
     }
 
     /// <summary>Initialize energy HUD settings using Player Manager</summary>
     private void InitializeEnergyHUD()
     {
-        playersMaximumEnergy = PlayerManager.Singleton.MaximumEnergy;
+        playersMaximumEnergy = Player.Singleton.MaximumEnergy;
         ResizeEnergyBar();
     }
 }

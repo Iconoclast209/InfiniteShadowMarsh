@@ -2,6 +2,7 @@
 
 public interface IDamaging
 {
+    int BaseDamage { get; set; }
     ///<summary>Issue damage to target.</summary>
     ///<param name="damageToGive">Amount of damage to givet to target.</param>
     ///<param name="target">Target which should receive damage.</param>

@@ -18,11 +18,13 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4638119295016706}
+  - component: {fileID: 224856530931772298}
   - component: {fileID: 212011727469423334}
   - component: {fileID: 50040435815678834}
   - component: {fileID: 70002860305059646}
   - component: {fileID: 95325806555163420}
+  - component: {fileID: 114587836902559298}
+  - component: {fileID: 222689650578193466}
   m_Layer: 11
   m_Name: Biter
   m_TagString: Untagged
@@ -30,19 +32,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4638119295016706
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1386180670553558}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.01, y: -9.683, z: 0}
-  m_LocalScale: {x: 0.26861212, y: 0.22945228, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50040435815678834
 Rigidbody2D:
   serializedVersion: 4
@@ -95,6 +84,27 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114587836902559298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1386180670553558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cab5380177cb48459b9ce347ccdbc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Biter
+  characterDescription: This little guy is waiting to bite something!
+  movementSpeed: 0
+  startingHealth: 10
+  baseDamage: 5
+  currentState: {fileID: 11400000, guid: d04fb5203c177724f8cb20edad8f2394, type: 2}
+  remainInState: {fileID: 0}
+  biteRadius: 0.65
+  biteDelay: 2
+  biteScalar: 1
 --- !u!212 &212011727469423334
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -139,3 +149,27 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!222 &222689650578193466
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1386180670553558}
+--- !u!224 &224856530931772298
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1386180670553558}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.26861212, y: 0.22945228, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 10.01, y: -9.683}
+  m_SizeDelta: {x: 4.04, y: 2.23}
+  m_Pivot: {x: 0.5, y: 0.5}
