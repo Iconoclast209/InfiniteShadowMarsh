@@ -22,6 +22,8 @@ public class Player : CombativeCharacter {
     private float attackRadius = 1.5f;
     [Tooltip("Attack delay in seconds--Generally should be larger than enemy bite-delay.")][SerializeField]
     private float attackDelay = 1.0f;
+    [Tooltip("Interaction delay in seconds.")][SerializeField]
+    private float interactionDelay = 1.0f;
     [Space(10.0f)][Header("Logic Settings")]
     [Tooltip("Size of Raycast to use during 'ground check' for jumping, etc.")][SerializeField]
     private float distanceOfGroundCheck = 1.0f;
@@ -47,6 +49,8 @@ public class Player : CombativeCharacter {
     private Vector3 spawnPoint;
     /// <summary>Reference to the time in seconds when player last attacked</summary>
     private float lastAttackTime;
+    private float lastInteractionTime;
+
 
 
 
@@ -201,7 +205,29 @@ public class Player : CombativeCharacter {
             lastAttackTime = value;
         }
     }
-    
+    public float LastInteractionTime
+    {
+        get
+        {
+            return lastInteractionTime;
+        }
+        private set
+        {
+            lastInteractionTime = value;
+        }
+    }
+    public float InteractionDelay
+    {
+        get
+        {
+            return interactionDelay;
+        }
+        private set
+        {
+            interactionDelay = value;
+        }
+    }
+
 
 
 
@@ -271,10 +297,14 @@ public class Player : CombativeCharacter {
         if (collision.gameObject.CompareTag("Walkable Ground"))         
         {
             InputManager.OnJump += Jump; 
-            InputManager.OnAttack += Attack;                            
+            InputManager.OnAttack += Attack;
+            InputManager.OnInteract += Interact;
             InputManager.OnWalkStart += UpdateWalkingAnimation;
         }
     }
+
+
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         //If not on the ground, disallow jump and attack mechanics and walking animation
@@ -396,6 +426,21 @@ public class Player : CombativeCharacter {
         else if (singleton != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Interact()
+    {
+        if (Time.realtimeSinceStartup >= (LastInteractionTime + InteractionDelay))
+        {
+            LastInteractionTime = Time.realtimeSinceStartup;
+            int LayerToHit = 1 << 9;
+            Collider2D target = new Collider2D();
+            if ((target = Physics2D.OverlapCircle(gameObject.transform.position, AttackRadius, LayerToHit)) != null)
+            {
+                if (target.GetComponent<IInteractable>() != null)
+                    target.GetComponent<IInteractable>().OnInteraction();
+            }
         }
     }
     /// <summary>Primary attack function.</summary>

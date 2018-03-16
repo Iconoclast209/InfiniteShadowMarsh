@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour {
 
     private bool tryingToJump = false;
     private bool tryingToAttack = false;
+    private bool tryingToInteract = false;
 
     public bool TryingToJump
     {
@@ -30,7 +31,6 @@ public class InputManager : MonoBehaviour {
             tryingToJump = value;
         }
     }
-
     public bool TryingToAttack
     {
         get
@@ -41,6 +41,18 @@ public class InputManager : MonoBehaviour {
         set
         {
             tryingToAttack = value;
+        }
+    }
+    public bool TryingToInteract
+    {
+        get
+        {
+            return tryingToInteract;
+        }
+
+        set
+        {
+            tryingToInteract = value;
         }
     }
 
@@ -72,6 +84,11 @@ public class InputManager : MonoBehaviour {
             TryingToAttack = false;
             OnAttack();
         }
+        if (TryingToInteract && (OnInteract != null))
+        {
+            TryingToInteract = false;
+            OnInteract();
+        }
     }
     private void Update()
     {
@@ -80,5 +97,8 @@ public class InputManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.E))
             TryingToAttack = true;
+
+        if (Input.GetKeyDown(KeyCode.F))
+            TryingToInteract = true;
     }
 }

@@ -321,7 +321,6 @@
     <Compile Include="Assets\Scripts\Gear.cs" />
     <Compile Include="Assets\Scripts\GearTrain.cs" />
     <Compile Include="Assets\Scripts\Hint.cs" />
-    <Compile Include="Assets\Scripts\InteractableObject.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICanBite.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICanPatrol.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
@@ -347,8 +346,6 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Actions\PatrolAction.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Decision\BiteDecision.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Decision\Decision.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectBehavior\LeverBehavior.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectBehavior\ObjectBehavior.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Pick-Ups\BoostPickUp.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Pick-Ups\CollectiblePickUp.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Pick-Ups\PickUp.cs" />
